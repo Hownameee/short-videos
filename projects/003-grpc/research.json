@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "claims": [
+    {
+      "id": "grpc-framework",
+      "text": "gRPC is an open-source high-performance RPC framework initiated by Google and hosted by the CNCF.",
+      "sourceIds": [
+        "grpc-intro"
+      ]
+    },
+    {
+      "id": "protobuf-binary",
+      "text": "Protocol Buffers define strict schemas and serialize messages into compact binary payloads, bypassing JSON string parsing and field redundancy.",
+      "sourceIds": [
+        "protobuf-overview",
+        "grpc-intro"
+      ]
+    },
+    {
+      "id": "http2-multiplexing",
+      "text": "gRPC uses HTTP/2 transport to multiplex concurrent streams across a single persistent TCP connection, preventing HTTP/1.1 head-of-line blocking.",
+      "sourceIds": [
+        "grpc-core",
+        "rfc7540"
+      ]
+    },
+    {
+      "id": "streaming-patterns",
+      "text": "gRPC supports unary request-response alongside server, client, and bidirectional streaming over the same multiplexed connection.",
+      "sourceIds": [
+        "grpc-core"
+      ]
+    },
+    {
+      "id": "east-west-tradeoff",
+      "text": "gRPC delivers high throughput and type safety for internal backend microservices, while REST remains standard for public browser-facing endpoints.",
+      "sourceIds": [
+        "grpc-intro",
+        "grpc-core"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "grpc-intro",
+      "title": "Introduction to gRPC",
+      "publisher": "gRPC Authors / CNCF",
+      "url": "https://grpc.io/docs/what-is-grpc/introduction/",
+      "accessedAt": "2026-10-05"
+    },
+    {
+      "id": "grpc-core",
+      "title": "Core Concepts & Architecture",
+      "publisher": "gRPC Authors / CNCF",
+      "url": "https://grpc.io/docs/what-is-grpc/core-concepts/",
+      "accessedAt": "2026-10-05"
+    },
+    {
+      "id": "protobuf-overview",
+      "title": "Protocol Buffers Documentation",
+      "publisher": "Google Open Source",
+      "url": "https://protobuf.dev/overview/",
+      "accessedAt": "2026-10-05"
+    },
+    {
+      "id": "rfc7540",
+      "title": "RFC 7540: HTTP/2",
+      "publisher": "IETF",
+      "url": "https://datatracker.ietf.org/doc/html/rfc7540",
+      "accessedAt": "2026-10-05"
+    }
+  ]
+}

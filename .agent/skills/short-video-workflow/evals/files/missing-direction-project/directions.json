@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "researchVersion": "sha256:research-v1",
+  "directions": [
+    {
+      "id": "pain-use-case",
+      "title": "Works on my machine",
+      "tensionHook": "Bốn developer vẫn có thể tạo ra bốn môi trường khác nhau.",
+      "promise": "Show when consistent environments repay the setup cost",
+      "payoff": "A decision rule for adopting Docker",
+      "durationRangeSec": {"min": 50, "max": 65}
+    },
+    {
+      "id": "contrarian-cost",
+      "title": "Docker has a cost too",
+      "tensionHook": "Docker không tự động làm team nhỏ nhanh hơn.",
+      "promise": "Compare operational cost with repeatability benefits",
+      "payoff": "A threshold for when not to adopt it",
+      "durationRangeSec": {"min": 45, "max": 60}
+    }
+  ],
+  "recommendedDirectionId": "pain-use-case"
+}
+

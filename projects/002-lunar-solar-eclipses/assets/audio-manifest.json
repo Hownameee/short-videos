@@ -1,0 +1,36 @@
+{
+  "generator": "make_soundtrack.py",
+  "license": "project-generated",
+  "file": "assets/music/orbital-ambient.wav",
+  "durationSec": 54.13333333333333,
+  "sampleRate": 48000,
+  "channels": 2,
+  "bpm": 86,
+  "description": "Original curiosity pulse, evolving pads, reveal swells and warm resolution",
+  "mix": {
+    "volume": 0.13,
+    "speechDuckGain": 0.6,
+    "fadeInSec": 0.18,
+    "fadeOutSec": 1.1,
+    "speechActiveVoiceRmsDbfs": -25.569504297354918,
+    "speechActiveMusicRmsDbfs": -39.56950429735492,
+    "musicPeakDbfs": -4.958372977325606,
+    "preNormalizationMixPeakDbfs": -3.791908109446003
+  },
+  "cues": [
+    {
+      "id": "corona-reveal",
+      "atSec": 15.700000000000001
+    },
+    {
+      "id": "copper-moon",
+      "atSec": 32.86666666666667
+    },
+    {
+      "id": "resolved-recap",
+      "atSec": 43.6
+    }
+  ],
+  "sha256": "c597ec6cd6be15933fbc95ebbe95224fa8d128e39bf12f30c74eda3693d1d53a",
+  "generatorSha256": "32249593864be1fa30b7145cd2464bd2f47a5fff7a0be88786c71c75990a1314"
+}

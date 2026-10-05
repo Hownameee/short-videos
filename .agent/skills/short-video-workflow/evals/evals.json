@@ -1,0 +1,200 @@
+{
+  "skill_name": "short-video-workflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Mình có idea video: startup chỉ có 4 developer thì có thật sự cần Kubernetes không? Bắt đầu workflow giúp mình.",
+      "expected_output": "Recognizes an initial prompt, performs only current sourced discovery, presents concise distinct directions, and waits for the user's choice instead of writing the script.",
+      "files": [],
+      "expectations": [
+        "The response identifies the work as Discover and stops at directions_proposed",
+        "It uses current authoritative sources and separates sourced facts from inference",
+        "It presents two to four narratively distinct directions without repeating them in multiple sections",
+        "The recommended tension hook is supportable by the evidence and resolves to a concrete payoff",
+        "It asks one compact direction-choice question and does not draft a full script or production plan"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Project này research xong rồi. Viết script luôn cho tôi để qua production.",
+      "expected_output": "Inspects the supplied state, detects that directions were proposed but none was selected, and blocks script generation with a compact choice request.",
+      "files": [
+        "evals/files/missing-direction-project/request.json",
+        "evals/files/missing-direction-project/state.json",
+        "evals/files/missing-direction-project/research.json",
+        "evals/files/missing-direction-project/directions.json"
+      ],
+      "expectations": [
+        "It identifies directions_proposed and the absence of direction.json",
+        "It does not invent a selection or write a full script/video plan",
+        "It presents the existing direction IDs and asks the user to select or combine them",
+        "It does not call Kokoro, create Remotion code, or render",
+        "It explains that Phase 2 starts only after direction_selected is recorded"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Script này tôi approve rồi, render final MP4 đi.",
+      "expected_output": "Inspects the supplied approval artifacts, detects the stale script checksum, blocks production, and asks for re-approval of the current script without running TTS or Remotion.",
+      "files": [
+        "evals/files/stale-approval-project/state.json",
+        "evals/files/stale-approval-project/video.json",
+        "evals/files/stale-approval-project/script.md"
+      ],
+      "expectations": [
+        "It compares video.json.scriptVersion, approval.approvedScriptVersion, and state.json versions.script",
+        "It explicitly identifies the approval as stale because the versions do not match",
+        "It blocks Kokoro generation, Remotion preview, and final rendering",
+        "It requests approval for the current script version instead of trusting the user's ambiguous reference to an older approval",
+        "It does not claim that preview.mp4, final.mp4, or report.json exists"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "The English script is approved. Produce a short video about DNS using the repository defaults.",
+      "expected_output": "Uses the shared Kokoro generator and karaoke component, implements topic-specific motion, and checks sequential rendered frames before final output.",
+      "files": [],
+      "expectations": [
+        "Keeps narration, titles and captions in English",
+        "Uses measured words in the voice manifest rather than proportional sentence timing",
+        "Shows one currently spoken word with a high-contrast highlight",
+        "Plans visible actions inside each main explanatory scene rather than static slides with only a progress bar",
+        "Reviews consecutive word and motion frames, including a later scene or audio chunk",
+        "Does not copy Kubernetes terminology or its fixed scene structure into DNS",
+        "Includes purposeful background music without another user reminder and records the sound plan and audio review evidence"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "For this video I explicitly want static diagrams and ordinary phrase captions, without karaoke.",
+      "expected_output": "Treats this as an explicit project override, records phrase mode and the static-style choice, and does not change repository defaults.",
+      "files": [],
+      "expectations": [
+        "Honors the user's visual and caption override",
+        "Uses captions.mode phrase and a corresponding renderer implementation",
+        "Does not force the default karaoke gate or change defaults for other projects"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Explain how the existing karaoke timestamp mapping works. Do not generate or modify a video.",
+      "expected_output": "Explains the shared timestamp and caption code read-only without starting a production workflow.",
+      "files": [],
+      "expectations": [
+        "Reads the shared generator, caption validation and renderer helper as needed",
+        "Distinguishes provider-predicted word timestamps from independent forced alignment",
+        "Does not create a project, synthesize speech or render"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "You forgot the background sound. Add it to the existing approved eclipse video so it feels more curious and emotional.",
+      "expected_output": "Resumes Produce for the existing video, checks actual mix behavior, implements an audible emotional arc, and exports the scoped revision with honest audio QC.",
+      "files": [],
+      "expectations": [
+        "Reads short-video-production and the background-sound defaults",
+        "Inspects the existing soundtrack and renderer instead of assuming no music file exists",
+        "Records hook, explanation, reveal and ending cues, effective mix levels, and speech ducking",
+        "Preserves approved narration and visuals and does not restart discovery or request redundant approval",
+        "Checks the rendered mix and distinguishes measurements from any unperformed listening review"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "The video feels emotionally flat. There is a quiet low drone at volume 0.13 and the MP4 already measures -16 LUFS. Improve the sound; don't change the script.",
+      "expected_output": "Treats stream presence, a volume scalar and full-mix loudness as insufficient; traces and improves the background's musical role and actual audibility.",
+      "files": [],
+      "expectations": [
+        "Does not declare the background adequate based on volume 0.13 or full-mix LUFS",
+        "Checks effective background level after all gains/fades and its relationship to narration",
+        "Shapes a topic-appropriate emotional arc rather than only turning up a generic drone",
+        "Checks hook, dense speech, payoff and ending and records mono or phone-listening limitations",
+        "Does not rewrite approved narration or claim measured audience retention improvements"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "For this approved video, export voice and captions only. No music, ambience or sound effects.",
+      "expected_output": "Records and honors a project-level sound override while leaving the shared sound defaults intact.",
+      "files": [],
+      "expectations": [
+        "Does not add music or substitute ambience/SFX against the explicit instruction",
+        "Records the user override and checks that background layers are excluded from the export",
+        "Does not demand another confirmation or change defaults for future projects"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Finish the approved video with background music. This environment can measure and render audio but has no listening capability.",
+      "expected_output": "Completes authorized production and technical measurements while recording listening as not-performed instead of inventing a pass or blocking unnecessarily.",
+      "files": [],
+      "expectations": [
+        "Records sound intent, cues, track provenance, effective stem levels, and final loudness/peak measurements",
+        "Ties QC evidence to the current audio asset and final MP4 checksums",
+        "Marks listening not-performed and discloses the limitation in the delivery",
+        "Does not claim phone-speaker intelligibility or emotional effectiveness was verified",
+        "Does not request redundant permission for already-authorized local production"
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "Explain music versus ambience versus sound effects. Do not create or change any video.",
+      "expected_output": "Answers the general audio question read-only without activating production or allocating a video project.",
+      "files": [],
+      "expectations": [
+        "Does not create a project, write a sound plan, change files, synthesize audio or render",
+        "Distinguishes ongoing music/ambience from event-specific sound effects"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Improve the background music in the existing video. The proposed track requires buying a license, but I haven't authorized any purchase.",
+      "expected_output": "Uses an appropriate authorized local or original alternative if possible; does not buy a license or sign up for a service without authorization.",
+      "files": [],
+      "expectations": [
+        "Inspects the available library and existing rights records before selecting audio",
+        "Does not buy a license, create an account or introduce a paid integration without authorization",
+        "Continues with a suitable authorized alternative or prepares a concrete selection before requesting any necessary purchase approval",
+        "Does not treat mandatory background sound as authorization for spending"
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "The eclipse video is already approved and produced. Its background is too subtle; make it more curious and uplifting, keep narration and visuals, and export a replacement. Give a dry-run only: inspect existing artifacts, list exact revision commands, settings, QC and deliverables. Do not render, edit the project, purchase media or browse. Listening is unavailable in this test.",
+      "expected_output": "Executable scoped revision plan with preserved approval boundaries and explicit QC limits.",
+      "files": [],
+      "expectations": [
+        "Preserves approved narration and visual scope; does not restart discovery or request duplicate approval.",
+        "Provides an executable production-only configuration path without manually rewriting approval hashes.",
+        "Includes purposeful sound arc, actual mix tracing, final measurements and a current preview before final.",
+        "Marks unavailable listening not-performed; does not claim audibility or emotional fit from stream presence."
+      ],
+      "name": "sound-correction"
+    },
+    {
+      "id": 14,
+      "prompt": "The already-produced Kubernetes video needs one corrected sentence in the limits scene. I approve this narration replacement: \"Kubernetes replaces failed Pods, but it does not repair broken application code.\" Keep the other narration and visual style and export the corrected video. Give a dry-run only with exact versioning, regeneration and preview/final steps. Do not modify project artifacts or render.",
+      "expected_output": "Executable scoped revision plan with preserved approval boundaries and explicit QC limits.",
+      "files": [],
+      "expectations": [
+        "Uses supported script draft/approval transitions from produced state and preserves the old final.",
+        "Accepts the explicit sentence approval without asking for the same approval again.",
+        "Regenerates only changed narration where supported and preserves six unchanged WAVs/timing.",
+        "Rechecks timeline/caption synchronization and requires a current preview before final."
+      ],
+      "name": "narration-revision"
+    },
+    {
+      "id": 15,
+      "prompt": "Revise the already-produced eclipse video: voice only, no music or SFX, and phrase captions instead of highlighted words. Keep the script and visuals. Give a dry-run with the concrete configuration, commands and QC required for the replacement final. Do not modify project artifacts, synthesize, or render.",
+      "expected_output": "Executable scoped revision plan with preserved approval boundaries and explicit QC limits.",
+      "files": [],
+      "expectations": [
+        "Implements explicit voice-only with music and SFX disabled and phrase captions actually supported by the renderer.",
+        "Preserves script approval and avoids TTS or restarting discovery for production-only settings.",
+        "Explains current preview, technical QC and separate listening limits."
+      ],
+      "name": "sound-override"
+    }
+  ]
+}

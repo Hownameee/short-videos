@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-04T17:34:45.372Z",
+  "runtime": {
+    "node": "v24.21.0",
+    "remotion": "4.0.532"
+  },
+  "checksums": {
+    "videoJson": "sha256:8426fd614cddf66e743617a51369c51feb0187daa862eb6ce36d172c91583c5e",
+    "rendererSrc": "sha256:3c4435657055143266ad57fd505711df507e81a0fe98ec282412e0174b0c412f",
+    "dependencyLockfile": "sha256:81c78f177fe1fa6436dca86682535986196b5f5aa4672f8a5012357ea3f97fd7",
+    "finalMp4": "sha256:86d004c2b8467e2f7f5e677f21bc65fd6cb3bae8f87f4c40077c79d4ee93d288"
+  }
+}

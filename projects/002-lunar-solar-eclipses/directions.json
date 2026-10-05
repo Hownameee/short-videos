@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "directions": [
+    {
+      "id": "two-shadows",
+      "title": "Two eclipses. Two shadows.",
+      "tensionHook": "One hides the Sun. The other turns the Moon red.",
+      "promise": "Understand which body blocks the light and which receives the shadow.",
+      "payoff": "Solar means Moon shadow on Earth; lunar means Earth shadow on Moon.",
+      "coreBeats": [
+        "Solar alignment",
+        "Lunar alignment and red light",
+        "Orbital tilt"
+      ],
+      "evidenceIds": [
+        "solar",
+        "lunar",
+        "red",
+        "tilt"
+      ],
+      "visualApproach": "Original space illustrations, moving alignments and shadow sweeps"
+    },
+    {
+      "id": "missing-month",
+      "title": "Why not every month?",
+      "tensionHook": "The Moon circles Earth every month. Why not a monthly eclipse?",
+      "promise": "Explain the role of orbital inclination.",
+      "payoff": "The shadows usually miss because the orbital planes differ."
+    }
+  ],
+  "recommendedDirectionId": "two-shadows",
+  "researchVersion": "sha256:b0edc354afdecf46ed10d3bb2ae3a9ad7717f7b6e449be3c666f16e1d51b3109"
+}

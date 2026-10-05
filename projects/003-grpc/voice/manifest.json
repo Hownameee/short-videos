@@ -1,0 +1,1293 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-05T15:31:09.877426+00:00",
+  "provider": "kokoro",
+  "model": "hexgrad/Kokoro-82M",
+  "langCode": "a",
+  "voice": "af_heart",
+  "speed": 1.0,
+  "sampleRate": 24000,
+  "packageVersion": "0.9.4",
+  "generatorVersion": "sha256:b0fe446bb560cb7d5d8ffd7b0cbf09cfb60d2e03cb3dd5a6f3cf7d07fe47f420",
+  "scriptVersion": "sha256:89e6a0526e0590b951dd6657873596b44715e7807c1cf1e17412f76dc46e0260",
+  "captionTiming": "kokoro-predicted-word-timestamps",
+  "scenes": [
+    {
+      "id": "hook",
+      "text": "Why do high-scale microservices ditch REST and JSON for gRPC? Here is the architecture secret in sixty seconds.",
+      "sourceText": "Why do high-scale microservices ditch REST and JSON for gRPC? Here is the architecture secret in sixty seconds.",
+      "file": "hook.wav",
+      "durationSec": 8.625,
+      "sampleRate": 24000,
+      "textChecksum": "sha256:2e3eca57b8eb41bd9b6b6c46203ddacef455be1cd2eebd9b46e54354ee033d2f",
+      "fileChecksum": "sha256:546cf992afe98092bfa8237f9f1cf5e1c5eb19f10da261c6fc35365c39fb074c",
+      "words": [
+        {
+          "text": "Why",
+          "startMs": 275,
+          "endMs": 475,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "do",
+          "startMs": 475,
+          "endMs": 650,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "high-scale",
+          "startMs": 650,
+          "endMs": 1200,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "microservices",
+          "startMs": 1200,
+          "endMs": 2188,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "ditch",
+          "startMs": 2188,
+          "endMs": 2488,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "REST",
+          "startMs": 2488,
+          "endMs": 3150,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "and",
+          "startMs": 3150,
+          "endMs": 3312,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "JSON",
+          "startMs": 3312,
+          "endMs": 4175,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "for",
+          "startMs": 4175,
+          "endMs": 4312,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "gRPC?",
+          "startMs": 4312,
+          "endMs": 5612,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "Here",
+          "startMs": 5612,
+          "endMs": 5850,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "is",
+          "startMs": 5850,
+          "endMs": 5962,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "the",
+          "startMs": 5962,
+          "endMs": 6075,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "architecture",
+          "startMs": 6075,
+          "endMs": 6700,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "secret",
+          "startMs": 6700,
+          "endMs": 7125,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "in",
+          "startMs": 7125,
+          "endMs": 7288,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "sixty",
+          "startMs": 7288,
+          "endMs": 7650,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "seconds.",
+          "startMs": 7650,
+          "endMs": 8525,
+          "timestampMs": null,
+          "confidence": null
+        }
+      ],
+      "captions": [
+        {
+          "text": "Why do high-scale microservices ditch",
+          "startMs": 275,
+          "endMs": 2488,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "REST and JSON for gRPC?",
+          "startMs": 2488,
+          "endMs": 5612,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "Here is the architecture",
+          "startMs": 5612,
+          "endMs": 6700,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "secret in sixty seconds.",
+          "startMs": 6700,
+          "endMs": 8625,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        }
+      ],
+      "cacheKey": "sha256:dd8c5a6e88767ba8e6a853cba4839ee112c826897416dd7df55f2c57db258888"
+    },
+    {
+      "id": "rest-bottleneck",
+      "text": "With REST, services exchange bloated text strings. Every single request parses redundant field keys in JSON, while opening heavy new TCP handshakes.",
+      "sourceText": "With REST, services exchange bloated text strings. Every single request parses redundant field keys in JSON, while opening heavy new TCP handshakes.",
+      "file": "rest-bottleneck.wav",
+      "durationSec": 11.275,
+      "sampleRate": 24000,
+      "textChecksum": "sha256:bdafa19c399fe29029f8304f78ac6b29ea1cbdf1e9821ad27ab940e45e3c413c",
+      "fileChecksum": "sha256:bd205ff8f842cf2c2a6481a2e6fdb0581d536323a32f9342636d8d82d62a3fc5",
+      "words": [
+        {
+          "text": "With",
+          "startMs": 250,
+          "endMs": 425,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "REST,",
+          "startMs": 425,
+          "endMs": 1012,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "services",
+          "startMs": 1012,
+          "endMs": 1600,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "exchange",
+          "startMs": 1600,
+          "endMs": 2212,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "bloated",
+          "startMs": 2212,
+          "endMs": 2600,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "text",
+          "startMs": 2600,
+          "endMs": 2888,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "strings.",
+          "startMs": 2888,
+          "endMs": 3862,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "Every",
+          "startMs": 3862,
+          "endMs": 4188,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "single",
+          "startMs": 4188,
+          "endMs": 4525,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "request",
+          "startMs": 4525,
+          "endMs": 5138,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "parses",
+          "startMs": 5138,
+          "endMs": 5625,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "redundant",
+          "startMs": 5625,
+          "endMs": 6212,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "field",
+          "startMs": 6212,
+          "endMs": 6525,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "keys",
+          "startMs": 6525,
+          "endMs": 6925,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "in",
+          "startMs": 6925,
+          "endMs": 7075,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "JSON,",
+          "startMs": 7075,
+          "endMs": 8250,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "while",
+          "startMs": 8250,
+          "endMs": 8475,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "opening",
+          "startMs": 8475,
+          "endMs": 8888,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "heavy",
+          "startMs": 8888,
+          "endMs": 9238,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "new",
+          "startMs": 9238,
+          "endMs": 9488,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "TCP",
+          "startMs": 9488,
+          "endMs": 10150,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "handshakes.",
+          "startMs": 10150,
+          "endMs": 11175,
+          "timestampMs": null,
+          "confidence": null
+        }
+      ],
+      "captions": [
+        {
+          "text": "With REST, services exchange bloated text strings.",
+          "startMs": 250,
+          "endMs": 3862,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "Every single request parses redundant",
+          "startMs": 3862,
+          "endMs": 6212,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "field keys in JSON, while",
+          "startMs": 6212,
+          "endMs": 8475,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "opening heavy new TCP handshakes.",
+          "startMs": 8475,
+          "endMs": 11275,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        }
+      ],
+      "cacheKey": "sha256:020641615cf267f2c2b07778f537648e36e6b604842192c6792c8ab069a5423f"
+    },
+    {
+      "id": "protobuf",
+      "text": "gRPC replaces JSON with Protocol Buffers. Instead of sending raw text, you define a strict schema that compiles into compact binary. Payloads shrink dramatically and serialize up to ten times faster.",
+      "sourceText": "gRPC replaces JSON with Protocol Buffers. Instead of sending raw text, you define a strict schema that compiles into compact binary. Payloads shrink dramatically and serialize up to ten times faster.",
+      "file": "protobuf.wav",
+      "durationSec": 14.975,
+      "sampleRate": 24000,
+      "textChecksum": "sha256:9c2a651f22b02ce5687b66e8c4d1a53f46258ecd54b9df3f2894d1c8c2b8d64f",
+      "fileChecksum": "sha256:a49950d4bc95ceb3b4f956d348b79c569f735fcc969aa02e78743fd20d865598",
+      "words": [
+        {
+          "text": "gRPC",
+          "startMs": 300,
+          "endMs": 1100,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "replaces",
+          "startMs": 1100,
+          "endMs": 1738,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "JSON",
+          "startMs": 1738,
+          "endMs": 2650,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "with",
+          "startMs": 2650,
+          "endMs": 2825,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "Protocol",
+          "startMs": 2825,
+          "endMs": 3350,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "Buffers.",
+          "startMs": 3350,
+          "endMs": 4338,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "Instead",
+          "startMs": 4338,
+          "endMs": 4688,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "of",
+          "startMs": 4688,
+          "endMs": 4775,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "sending",
+          "startMs": 4775,
+          "endMs": 5125,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "raw",
+          "startMs": 5125,
+          "endMs": 5362,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "text,",
+          "startMs": 5362,
+          "endMs": 6125,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "you",
+          "startMs": 6125,
+          "endMs": 6250,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "define",
+          "startMs": 6250,
+          "endMs": 6700,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "a",
+          "startMs": 6700,
+          "endMs": 6812,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "strict",
+          "startMs": 6812,
+          "endMs": 7212,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "schema",
+          "startMs": 7212,
+          "endMs": 7700,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "that",
+          "startMs": 7700,
+          "endMs": 7850,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "compiles",
+          "startMs": 7850,
+          "endMs": 8412,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "into",
+          "startMs": 8412,
+          "endMs": 8625,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "compact",
+          "startMs": 8625,
+          "endMs": 9175,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "binary.",
+          "startMs": 9175,
+          "endMs": 10262,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "Payloads",
+          "startMs": 10262,
+          "endMs": 10862,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "shrink",
+          "startMs": 10862,
+          "endMs": 11150,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "dramatically",
+          "startMs": 11150,
+          "endMs": 12100,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "and",
+          "startMs": 12100,
+          "endMs": 12300,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "serialize",
+          "startMs": 12300,
+          "endMs": 12975,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "up",
+          "startMs": 12975,
+          "endMs": 13150,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "to",
+          "startMs": 13150,
+          "endMs": 13288,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "ten",
+          "startMs": 13288,
+          "endMs": 13550,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "times",
+          "startMs": 13550,
+          "endMs": 13925,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "faster.",
+          "startMs": 13925,
+          "endMs": 14875,
+          "timestampMs": null,
+          "confidence": null
+        }
+      ],
+      "captions": [
+        {
+          "text": "gRPC replaces JSON with Protocol Buffers.",
+          "startMs": 300,
+          "endMs": 4338,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "Instead of sending raw text,",
+          "startMs": 4338,
+          "endMs": 6125,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "you define a strict schema",
+          "startMs": 6125,
+          "endMs": 7700,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "that compiles into compact binary.",
+          "startMs": 7700,
+          "endMs": 10262,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "Payloads shrink dramatically and serialize",
+          "startMs": 10262,
+          "endMs": 12975,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "up to ten times faster.",
+          "startMs": 12975,
+          "endMs": 14975,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        }
+      ],
+      "cacheKey": "sha256:40652c3bd1713b08153bf7d4850d40b2001e74ccbd1f6dfbec7a390263eb2350"
+    },
+    {
+      "id": "http2-multiplex",
+      "text": "Next is the transport: HTTP two. Instead of waiting in line, gRPC multiplexes hundreds of concurrent requests over one persistent TCP connection with zero head-of-line blocking.",
+      "sourceText": "Next is the transport: HTTP/2. Instead of waiting in line, gRPC multiplexes hundreds of concurrent requests over one persistent TCP connection with zero head-of-line blocking.",
+      "file": "http2-multiplex.wav",
+      "durationSec": 13.65,
+      "sampleRate": 24000,
+      "textChecksum": "sha256:6af48c7ceed513fe36eb3d6f1f821c727581b8edcb4823e7a6e8e5e872da8cac",
+      "fileChecksum": "sha256:a28f8990c2ca47ff7f9418033c52f851f95d621830e77ff791817f31330ba0fe",
+      "words": [
+        {
+          "text": "Next",
+          "startMs": 325,
+          "endMs": 675,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "is",
+          "startMs": 675,
+          "endMs": 812,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "the",
+          "startMs": 812,
+          "endMs": 900,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "transport:",
+          "startMs": 900,
+          "endMs": 1962,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "HTTP",
+          "startMs": 1962,
+          "endMs": 2888,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "two.",
+          "startMs": 2888,
+          "endMs": 3788,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "Instead",
+          "startMs": 3788,
+          "endMs": 4138,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "of",
+          "startMs": 4138,
+          "endMs": 4225,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "waiting",
+          "startMs": 4225,
+          "endMs": 4550,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "in",
+          "startMs": 4550,
+          "endMs": 4675,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "line,",
+          "startMs": 4675,
+          "endMs": 5362,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "gRPC",
+          "startMs": 5362,
+          "endMs": 6138,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "multiplexes",
+          "startMs": 6138,
+          "endMs": 6988,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "hundreds",
+          "startMs": 6988,
+          "endMs": 7438,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "of",
+          "startMs": 7438,
+          "endMs": 7525,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "concurrent",
+          "startMs": 7525,
+          "endMs": 7988,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "requests",
+          "startMs": 7988,
+          "endMs": 8688,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "over",
+          "startMs": 8688,
+          "endMs": 9012,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "one",
+          "startMs": 9012,
+          "endMs": 9325,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "persistent",
+          "startMs": 9325,
+          "endMs": 9888,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "TCP",
+          "startMs": 9888,
+          "endMs": 10500,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "connection",
+          "startMs": 10500,
+          "endMs": 11362,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "with",
+          "startMs": 11362,
+          "endMs": 11600,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "zero",
+          "startMs": 11600,
+          "endMs": 12000,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "head-of-line",
+          "startMs": 12000,
+          "endMs": 12625,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "blocking.",
+          "startMs": 12625,
+          "endMs": 13550,
+          "timestampMs": null,
+          "confidence": null
+        }
+      ],
+      "captions": [
+        {
+          "text": "Next is the transport: HTTP two.",
+          "startMs": 325,
+          "endMs": 3788,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "Instead of waiting in line, gRPC multiplexes",
+          "startMs": 3788,
+          "endMs": 6988,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "hundreds of concurrent requests over one",
+          "startMs": 6988,
+          "endMs": 9325,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "persistent TCP connection with zero head-of-line blocking.",
+          "startMs": 9325,
+          "endMs": 13650,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        }
+      ],
+      "cacheKey": "sha256:6ab0d6d4642596fac4ac2cc3b01799176006f0af12db4665e74679d3f7634f9c"
+    },
+    {
+      "id": "streaming",
+      "text": "And unlike REST, you get streaming natively. Client streaming, server streaming, and full bidirectional streams keep data flowing in real time.",
+      "sourceText": "And unlike REST, you get streaming natively. Client streaming, server streaming, and full bidirectional streams keep data flowing in real time.",
+      "file": "streaming.wav",
+      "durationSec": 9.325,
+      "sampleRate": 24000,
+      "textChecksum": "sha256:c26a22ad9c7ee3fc4012f1c5a109399c94bcd6ec22392afad1a1896b1e2f9772",
+      "fileChecksum": "sha256:3b4cf90fb790098585264627081ecd81cd77e05a612ac4acba4042b29cde5701",
+      "words": [
+        {
+          "text": "And",
+          "startMs": 250,
+          "endMs": 400,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "unlike",
+          "startMs": 400,
+          "endMs": 750,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "REST,",
+          "startMs": 750,
+          "endMs": 1250,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "you",
+          "startMs": 1250,
+          "endMs": 1350,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "get",
+          "startMs": 1350,
+          "endMs": 1550,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "streaming",
+          "startMs": 1550,
+          "endMs": 1975,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "natively.",
+          "startMs": 1975,
+          "endMs": 3088,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "Client",
+          "startMs": 3088,
+          "endMs": 3450,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "streaming,",
+          "startMs": 3450,
+          "endMs": 4238,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "server",
+          "startMs": 4238,
+          "endMs": 4625,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "streaming,",
+          "startMs": 4625,
+          "endMs": 5225,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "and",
+          "startMs": 5225,
+          "endMs": 5375,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "full",
+          "startMs": 5375,
+          "endMs": 5650,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "bidirectional",
+          "startMs": 5650,
+          "endMs": 6325,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "streams",
+          "startMs": 6325,
+          "endMs": 6888,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "keep",
+          "startMs": 6888,
+          "endMs": 7175,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "data",
+          "startMs": 7175,
+          "endMs": 7488,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "flowing",
+          "startMs": 7488,
+          "endMs": 7975,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "in",
+          "startMs": 7975,
+          "endMs": 8125,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "real",
+          "startMs": 8125,
+          "endMs": 8400,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "time.",
+          "startMs": 8400,
+          "endMs": 9225,
+          "timestampMs": null,
+          "confidence": null
+        }
+      ],
+      "captions": [
+        {
+          "text": "And unlike REST, you get streaming natively.",
+          "startMs": 250,
+          "endMs": 3088,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "Client streaming, server streaming, and full bidirectional",
+          "startMs": 3088,
+          "endMs": 6325,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "streams keep data flowing in real time.",
+          "startMs": 6325,
+          "endMs": 9325,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        }
+      ],
+      "cacheKey": "sha256:8097e96a7eace49619b2117e752070ffc9e068b1e09491940018fc841d2b5584"
+    },
+    {
+      "id": "takeaway",
+      "text": "The rule of thumb: use gRPC internally between backend microservices, and keep REST for public web clients. What does your team build with?",
+      "sourceText": "The rule of thumb: use gRPC internally between backend microservices, and keep REST for public web clients. What does your team build with?",
+      "file": "takeaway.wav",
+      "durationSec": 9.575,
+      "sampleRate": 24000,
+      "textChecksum": "sha256:c9c1abe9f8592f19eb45f3e5ff6abf790c73f65f4f15d3874b964e05d67a3b91",
+      "fileChecksum": "sha256:39724a4edf4f3936d86774642afa94e3dab6b2bc20a09dd31d8f0bb1991daa23",
+      "words": [
+        {
+          "text": "The",
+          "startMs": 250,
+          "endMs": 375,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "rule",
+          "startMs": 375,
+          "endMs": 725,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "of",
+          "startMs": 725,
+          "endMs": 888,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "thumb:",
+          "startMs": 888,
+          "endMs": 1638,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "use",
+          "startMs": 1638,
+          "endMs": 1938,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "gRPC",
+          "startMs": 1938,
+          "endMs": 2725,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "internally",
+          "startMs": 2725,
+          "endMs": 3400,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "between",
+          "startMs": 3400,
+          "endMs": 3750,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "backend",
+          "startMs": 3750,
+          "endMs": 4125,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "microservices,",
+          "startMs": 4125,
+          "endMs": 5425,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "and",
+          "startMs": 5425,
+          "endMs": 5550,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "keep",
+          "startMs": 5550,
+          "endMs": 5800,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "REST",
+          "startMs": 5800,
+          "endMs": 6125,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "for",
+          "startMs": 6125,
+          "endMs": 6250,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "public",
+          "startMs": 6250,
+          "endMs": 6650,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "web",
+          "startMs": 6650,
+          "endMs": 6875,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "clients.",
+          "startMs": 6875,
+          "endMs": 7900,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "What",
+          "startMs": 7900,
+          "endMs": 8038,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "does",
+          "startMs": 8038,
+          "endMs": 8162,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "your",
+          "startMs": 8162,
+          "endMs": 8275,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "team",
+          "startMs": 8275,
+          "endMs": 8575,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "build",
+          "startMs": 8575,
+          "endMs": 8850,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "with?",
+          "startMs": 8850,
+          "endMs": 9475,
+          "timestampMs": null,
+          "confidence": null
+        }
+      ],
+      "captions": [
+        {
+          "text": "The rule of thumb: use gRPC",
+          "startMs": 250,
+          "endMs": 2725,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "internally between backend microservices, and",
+          "startMs": 2725,
+          "endMs": 5550,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "keep REST for public web clients.",
+          "startMs": 5550,
+          "endMs": 7900,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "What does your team build with?",
+          "startMs": 7900,
+          "endMs": 9575,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        }
+      ],
+      "cacheKey": "sha256:4323b42a653d3d16185ed1fb9459a8fd8bb88c2e56953c023e5acc16012889a0"
+    }
+  ]
+}

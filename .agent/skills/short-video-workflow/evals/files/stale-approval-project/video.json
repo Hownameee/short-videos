@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "scriptVersion": "sha256:script-v2",
+  "approval": {
+    "status": "approved",
+    "approvedAt": "2026-10-03T08:30:00Z",
+    "approvedScriptVersion": "sha256:script-v1"
+  },
+  "meta": {
+    "slug": "docker-stale-script",
+    "title": "Docker and works on my machine",
+    "platform": "youtube_shorts",
+    "language": "en",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30
+  },
+  "audio": {
+    "provider": "kokoro",
+    "voice": "af_heart",
+    "langCode": "a",
+    "music": null
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "durationRangeSec": {"min": 3, "max": 7},
+      "narration": "Your app working locally proves less than you think.",
+      "onScreenText": "WORKS HERE. FAILS THERE.",
+      "visualType": "split-comparison",
+      "assets": [],
+      "sourceIds": [],
+      "sfx": null,
+      "transition": "cut",
+      "pronunciation": []
+    }
+  ],
+  "outro": {
+    "takeaway": "Package the runtime assumptions.",
+    "cta": "Next: image versus container."
+  }
+}

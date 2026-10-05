@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "Lunar vs Solar Eclipses — Follow the Shadow",
+    "renderer": "eclipses",
+    "language": "en",
+    "platform": "youtube_shorts",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30
+  },
+  "captions": {
+    "mode": "word-highlight"
+  },
+  "audio": {
+    "voice": {
+      "provider": "kokoro",
+      "model": "hexgrad/Kokoro-82M",
+      "voice": "af_heart",
+      "langCode": "a",
+      "sampleRate": 24000,
+      "speed": 0.98
+    },
+    "music": {
+      "file": "assets/music/orbital-ambient.wav",
+      "volume": 0.13
+    }
+  },
+  "design": {
+    "visualThesis": "Moving shadows make the two alignments instantly distinguishable.",
+    "mood": [
+      "cosmic",
+      "clear",
+      "cinematic"
+    ],
+    "palette": {
+      "background": "#050813",
+      "text": "#F5F3EB",
+      "muted": "#A3ADC3",
+      "accent": "#FFCF7B",
+      "solar": "#FFCF7B",
+      "lunar": "#99B7FF",
+      "copper": "#DD7851"
+    },
+    "typography": {
+      "display": "Arial",
+      "body": "Arial"
+    },
+    "safeArea": {
+      "top": 155,
+      "left": 90,
+      "right": 175,
+      "bottom": 330
+    },
+    "motionGrammar": "Orbital movement, moving shadow cones, continuous solar transit, curved light rays; no static-slide substitutes.",
+    "assetLanguage": "Original SVG planetary illustrations with shading and craters. No external imagery. Diagrams labeled not to scale."
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "purpose": "Same three worlds.",
+      "narration": "One hides the Sun. The other turns the Moon red. Here's the difference.",
+      "onScreenText": [
+        "Same three worlds.",
+        "Two different eclipses."
+      ],
+      "durationRangeSec": {
+        "min": 3,
+        "max": 15
+      },
+      "visualType": "hook",
+      "visual": "Twin disks: Moon crosses the Sun while a second Moon darkens to copper.",
+      "motion": {
+        "action": "Twin disks: Moon crosses the Sun while a second Moon darkens to copper.",
+        "cue": "Narration word timestamps and normalized scene duration",
+        "settle": "Hold the final alignment for the conclusion"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "solar",
+        "lunar"
+      ]
+    },
+    {
+      "id": "solar",
+      "purpose": "SOLAR ECLIPSE",
+      "narration": "In a solar eclipse, the Moon moves between the Sun and Earth. Its shadow falls on a small part of Earth.",
+      "onScreenText": [
+        "SOLAR ECLIPSE",
+        "The Moon is in between."
+      ],
+      "durationRangeSec": {
+        "min": 3,
+        "max": 15
+      },
+      "visualType": "solar",
+      "visual": "Moon moves into Sun-Earth alignment; its narrow shadow meets Earth.",
+      "motion": {
+        "action": "Moon moves into Sun-Earth alignment; its narrow shadow meets Earth.",
+        "cue": "Narration word timestamps and normalized scene duration",
+        "settle": "Hold the final alignment for the conclusion"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "solar"
+      ]
+    },
+    {
+      "id": "totality",
+      "purpose": "The Sun disappears.",
+      "narration": "From that shadow, the Moon can cover the Sun. During totality, the Sun's outer atmosphere, the corona, becomes visible.",
+      "onScreenText": [
+        "The Sun disappears.",
+        "The corona emerges."
+      ],
+      "durationRangeSec": {
+        "min": 3,
+        "max": 15
+      },
+      "visualType": "totality",
+      "visual": "Large Moon disk crosses the solar disk; corona appears at complete coverage.",
+      "motion": {
+        "action": "Large Moon disk crosses the solar disk; corona appears at complete coverage.",
+        "cue": "Narration word timestamps and normalized scene duration",
+        "settle": "Hold the final alignment for the conclusion"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "corona"
+      ]
+    },
+    {
+      "id": "lunar",
+      "purpose": "LUNAR ECLIPSE",
+      "narration": "In a lunar eclipse, Earth sits between the Sun and Moon. The Moon travels through Earth's shadow.",
+      "onScreenText": [
+        "LUNAR ECLIPSE",
+        "Earth is in between."
+      ],
+      "durationRangeSec": {
+        "min": 3,
+        "max": 15
+      },
+      "visualType": "lunar",
+      "visual": "Earth remains central while Moon moves into its shadow cone.",
+      "motion": {
+        "action": "Earth remains central while Moon moves into its shadow cone.",
+        "cue": "Narration word timestamps and normalized scene duration",
+        "settle": "Hold the final alignment for the conclusion"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "lunar"
+      ]
+    },
+    {
+      "id": "red",
+      "purpose": "Why does it turn red?",
+      "narration": "During a total lunar eclipse, some sunlight bends through Earth's atmosphere. More red light reaches the Moon, giving it a copper glow.",
+      "onScreenText": [
+        "Why does it turn red?",
+        "Sunlight takes a detour."
+      ],
+      "durationRangeSec": {
+        "min": 3,
+        "max": 15
+      },
+      "visualType": "red",
+      "visual": "Warm light paths curve around Earth and reach a Moon that changes from gray to copper.",
+      "motion": {
+        "action": "Warm light paths curve around Earth and reach a Moon that changes from gray to copper.",
+        "cue": "Narration word timestamps and normalized scene duration",
+        "settle": "Hold the final alignment for the conclusion"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "red"
+      ]
+    },
+    {
+      "id": "tilt",
+      "purpose": "Why not every month?",
+      "narration": "Why not every month? The Moon's orbit is tilted about five degrees, so the shadows usually miss.",
+      "onScreenText": [
+        "Why not every month?",
+        "A five-degree tilt."
+      ],
+      "durationRangeSec": {
+        "min": 3,
+        "max": 15
+      },
+      "visualType": "tilt",
+      "visual": "Moon follows a tilted orbital track and misses the extended shadow axis.",
+      "motion": {
+        "action": "Moon follows a tilted orbital track and misses the extended shadow axis.",
+        "cue": "Narration word timestamps and normalized scene duration",
+        "settle": "Hold the final alignment for the conclusion"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "tilt"
+      ]
+    },
+    {
+      "id": "recap",
+      "purpose": "Follow the shadow.",
+      "narration": "Solar: the Moon's shadow on Earth. Lunar: Earth's shadow on the Moon. For solar viewing, use proper eclipse glasses, never ordinary sunglasses.",
+      "onScreenText": [
+        "Follow the shadow.",
+        "Remember the difference."
+      ],
+      "durationRangeSec": {
+        "min": 3,
+        "max": 15
+      },
+      "visualType": "recap",
+      "visual": "Two animated alignment rows recap the shadow direction, then reveal the solar-viewing note.",
+      "motion": {
+        "action": "Two animated alignment rows recap the shadow direction, then reveal the solar-viewing note.",
+        "cue": "Narration word timestamps and normalized scene duration",
+        "settle": "Hold the final alignment for the conclusion"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "solar",
+        "lunar",
+        "safe"
+      ]
+    }
+  ],
+  "authorization": {
+    "mode": "user-delegated",
+    "quote": "automation all -> output mp4 clip",
+    "scope": "Select direction, approve script and deliver rendered final MP4",
+    "assumption": "sonar esclipse means solar eclipse"
+  },
+  "scriptVersion": "sha256:d62db915c63e614af9de72d8f5dabbb1a1c5ee6e86c1abc4f01e2234e87a2ca1",
+  "approval": {
+    "status": "approved",
+    "approvedAt": "2026-10-05T02:32:48.569Z",
+    "approvedScriptVersion": "sha256:d62db915c63e614af9de72d8f5dabbb1a1c5ee6e86c1abc4f01e2234e87a2ca1"
+  }
+}

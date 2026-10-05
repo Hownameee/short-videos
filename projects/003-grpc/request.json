@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "projectId": "003-grpc",
+  "slug": "grpc",
+  "prompt": "Explain gRPC: why microservices choose it over REST, Protocol Buffers binary serialization, and HTTP/2 multiplexing streaming",
+  "audience": null,
+  "platform": "youtube_shorts",
+  "language": "en",
+  "productionDefaults": {
+    "captions": "word-highlight",
+    "motion": "explanatory",
+    "backgroundSound": "intentional-music"
+  },
+  "durationRangeSec": {
+    "min": 45,
+    "max": 75
+  },
+  "tone": null,
+  "goal": null,
+  "ctaGoal": null,
+  "constraints": [],
+  "assumptions": [],
+  "createdAt": "2026-10-05T15:18:07.979Z"
+}

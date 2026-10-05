@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "state": "directions_proposed",
+  "updatedAt": "2026-10-03T08:00:00Z",
+  "versions": {
+    "research": "sha256:research-v1",
+    "direction": null,
+    "script": null
+  },
+  "productionRequest": null
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "state": "produced",
+  "updatedAt": "2026-10-05T15:34:07.363Z",
+  "versions": {
+    "request": "sha256:5ab1c9db3404d7be03eabcf7bca879746bbf6b746b05bc4c944252b7008751c4",
+    "research": "sha256:6d3fba5e89a5d18d20d31c84eecaed9d21a018a30a21b557e0aa3a2bc5b8b2b1",
+    "directions": "sha256:a07b6b24efb55421835d1be11904b764426b5c42718b0177118efab17cc9d430",
+    "direction": "sha256:ed8f9f3db99673d9a3af6ad7e598fe179007138234cdcf933957551285921d53",
+    "script": "sha256:89e6a0526e0590b951dd6657873596b44715e7807c1cf1e17412f76dc46e0260",
+    "render": "sha256:15daf987d78e92807f4b8f1616d9a7adf4ae90fc9d2148f389a661c3d0e1b6a9"
+  },
+  "productionRequest": {
+    "kind": "final",
+    "requestedAt": "2026-10-05T15:33:37.896Z"
+  },
+  "outputs": {
+    "preview": {
+      "path": "projects/003-grpc/output/preview.mp4",
+      "checksum": "sha256:ee698c2474513dd36433ddad35e2f9df2134179b659bc4f58c0ba5536cad7276",
+      "createdAt": "2026-10-05T15:32:45.616Z",
+      "inputFingerprint": "sha256:6d872442ca41368f2bc21b0c5df7fe9e8d3cb306741f319ef0c93e9bdb78e717"
+    },
+    "contactSheet": {
+      "path": "projects/003-grpc/output/contact-sheet.png",
+      "checksum": "sha256:5af669a85d39b53d02f0c3f9859fd5b3ee6efc6395cee2c38e2920d56a9feb1c",
+      "timesSec": [
+        0,
+        4.533333333333333,
+        14.966666666666667,
+        28.533333333333335,
+        43.3,
+        55.266666666666666,
+        65.16666666666667,
+        70.16666666666667
+      ]
+    },
+    "final": {
+      "path": "projects/003-grpc/output/final.mp4",
+      "checksum": "sha256:15daf987d78e92807f4b8f1616d9a7adf4ae90fc9d2148f389a661c3d0e1b6a9",
+      "createdAt": "2026-10-05T15:34:07.359Z"
+    },
+    "report": {
+      "path": "projects/003-grpc/output/report.json"
+    },
+    "sourceSnapshot": {
+      "path": "projects/003-grpc/src",
+      "checksum": "sha256:0f343127b76a020abbea4b6bec51794e10876ce9310ab4ac06ce16ac876490f3"
+    }
+  },
+  "lastError": null
+}

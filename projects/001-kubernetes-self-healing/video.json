@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "Kubernetes: One Pod disappears. Who brings it back?",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "language": "en",
+    "captionLanguage": "en",
+    "platform": "youtube_shorts"
+  },
+  "audio": {
+    "voice": {
+      "provider": "kokoro",
+      "voice": "af_heart",
+      "langCode": "a",
+      "model": "hexgrad/Kokoro-82M",
+      "speed": 1.02,
+      "sampleRate": 24000
+    },
+    "music": {
+      "file": "assets/music/technical-pulse.wav",
+      "volume": 0.1
+    }
+  },
+  "design": {
+    "visualThesis": "A missing replica becomes a visible gap that the reconciliation loop closes.",
+    "mood": [
+      "precise",
+      "calm",
+      "technical"
+    ],
+    "palette": {
+      "background": "#081522",
+      "surface": "#10293B",
+      "text": "#F3F7F2",
+      "muted": "#A0B7BF",
+      "accent": "#62C8FF",
+      "warning": "#FFAE66",
+      "success": "#88E5B0"
+    },
+    "typography": {
+      "display": "Arial",
+      "body": "Arial",
+      "code": "monospace"
+    },
+    "safeArea": {
+      "top": 160,
+      "right": 180,
+      "bottom": 330,
+      "left": 90
+    },
+    "motionGrammar": "Stable diagram positions, short eased entrances, single purposeful change per beat.",
+    "assetLanguage": "Original SVG/HTML schematics. No screenshots or simulated terminal presented as live evidence."
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "purpose": "One Pod disappears. Who brings it back?",
+      "durationRangeSec": {
+        "min": 3,
+        "max": 18
+      },
+      "narration": "Delete one Pod. Who brings your app back? Here's Kubernetes in one minute.",
+      "phrases": [
+        {
+          "en": "Delete one Pod. Who brings your app back?"
+        },
+        {
+          "en": "Here's Kubernetes in one minute."
+        }
+      ],
+      "onScreenText": [
+        "One Pod disappears.",
+        "Who brings it back?"
+      ],
+      "visualType": "hook",
+      "visual": "Original animated schematic; illustrative, not a live cluster recording.",
+      "sfx": [],
+      "sourceIds": [
+        "deployment",
+        "healing"
+      ]
+    },
+    {
+      "id": "declare",
+      "purpose": "You declare it. Kubernetes maintains it.",
+      "durationRangeSec": {
+        "min": 3,
+        "max": 18
+      },
+      "narration": "Imagine your web app needs three copies. Set three replicas in a Deployment. Each copy runs in a Pod, which contains your application container.",
+      "phrases": [
+        {
+          "en": "Imagine your web app needs three copies."
+        },
+        {
+          "en": "Set three replicas in a Deployment."
+        },
+        {
+          "en": "Each copy runs in a Pod, which contains your application container."
+        }
+      ],
+      "onScreenText": [
+        "You declare it.",
+        "Kubernetes maintains it."
+      ],
+      "visualType": "declare",
+      "visual": "Original animated schematic; illustrative, not a live cluster recording.",
+      "sfx": [],
+      "sourceIds": [
+        "deployment",
+        "healing"
+      ]
+    },
+    {
+      "id": "observe",
+      "purpose": "Desired: three. Actual: two.",
+      "durationRangeSec": {
+        "min": 3,
+        "max": 18
+      },
+      "narration": "Now one of those Pods is deleted. The ReplicaSet controller notices the gap: you want three, but only two remain.",
+      "phrases": [
+        {
+          "en": "Now one of those Pods is deleted."
+        },
+        {
+          "en": "The ReplicaSet controller notices the gap: you want three, but only two remain."
+        }
+      ],
+      "onScreenText": [
+        "Desired: three.",
+        "Actual: two."
+      ],
+      "visualType": "observe",
+      "visual": "Original animated schematic; illustrative, not a live cluster recording.",
+      "sfx": [],
+      "sourceIds": [
+        "deployment",
+        "healing"
+      ]
+    },
+    {
+      "id": "replace",
+      "purpose": "Notice the gap. Create a new Pod.",
+      "durationRangeSec": {
+        "min": 3,
+        "max": 18
+      },
+      "narration": "It creates a replacement Pod. The scheduler picks a suitable node, and the kubelet starts its containers. That loop is called reconciliation.",
+      "phrases": [
+        {
+          "en": "It creates a replacement Pod."
+        },
+        {
+          "en": "The scheduler picks a suitable node, and the kubelet starts its containers."
+        },
+        {
+          "en": "That loop is called reconciliation."
+        }
+      ],
+      "onScreenText": [
+        "Notice the gap.",
+        "Create a new Pod."
+      ],
+      "visualType": "replace",
+      "visual": "Original animated schematic; illustrative, not a live cluster recording.",
+      "sfx": [],
+      "sourceIds": [
+        "deployment",
+        "healing"
+      ]
+    },
+    {
+      "id": "service",
+      "purpose": "Pods change. The address stays.",
+      "durationRangeSec": {
+        "min": 3,
+        "max": 18
+      },
+      "narration": "But clients need a stable address. A Service routes traffic to ready Pods. The replacement joins when it's ready.",
+      "phrases": [
+        {
+          "en": "But clients need a stable address."
+        },
+        {
+          "en": "A Service routes traffic to ready Pods."
+        },
+        {
+          "en": "The replacement joins when it's ready."
+        }
+      ],
+      "onScreenText": [
+        "Pods change.",
+        "The address stays."
+      ],
+      "visualType": "service",
+      "visual": "Original animated schematic; illustrative, not a live cluster recording.",
+      "sfx": [],
+      "sourceIds": [
+        "service"
+      ]
+    },
+    {
+      "id": "limits",
+      "purpose": "Self-healing. Not magic.",
+      "durationRangeSec": {
+        "min": 3,
+        "max": 18
+      },
+      "narration": "Recovery takes time and available resources. Kubernetes won't fix broken application code.",
+      "phrases": [
+        {
+          "en": "Recovery takes time and available resources."
+        },
+        {
+          "en": "Kubernetes won't fix broken application code."
+        }
+      ],
+      "onScreenText": [
+        "Self-healing.",
+        "Not magic."
+      ],
+      "visualType": "limits",
+      "visual": "Original animated schematic; illustrative, not a live cluster recording.",
+      "sfx": [],
+      "sourceIds": [
+        "deployment",
+        "healing"
+      ]
+    },
+    {
+      "id": "takeaway",
+      "purpose": "Declare the goal. Keep closing the gap.",
+      "durationRangeSec": {
+        "min": 3,
+        "max": 18
+      },
+      "narration": "You declare the desired state. Kubernetes keeps working toward it. Try three replicas in a test cluster, then delete one Pod and watch.",
+      "phrases": [
+        {
+          "en": "You declare the desired state. Kubernetes keeps working toward it."
+        },
+        {
+          "en": "Try three replicas in a test cluster, then delete one Pod and watch."
+        }
+      ],
+      "onScreenText": [
+        "Declare the goal.",
+        "Keep closing the gap."
+      ],
+      "visualType": "takeaway",
+      "visual": "Original animated schematic; illustrative, not a live cluster recording.",
+      "sfx": [],
+      "sourceIds": [
+        "deployment",
+        "healing"
+      ]
+    }
+  ],
+  "authorization": {
+    "mode": "user-delegated",
+    "quote": "bạn tự quyết định tất cả, khi nào hoàn thành xong video thì dừng.",
+    "scope": "Agent selects direction, approves script, produces preview and final."
+  },
+  "scriptVersion": "sha256:c5a84059ebd72ce5c0daaacbdb24d2d09437002f4b3fa5db2c0dfaeef08a42f8",
+  "approval": {
+    "status": "approved",
+    "approvedAt": "2026-10-04T17:14:29.562Z",
+    "approvedScriptVersion": "sha256:c5a84059ebd72ce5c0daaacbdb24d2d09437002f4b3fa5db2c0dfaeef08a42f8"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "directionId": "microservice-bottleneck",
+  "researchVersion": "sha256:6d3fba5e89a5d18d20d31c84eecaed9d21a018a30a21b557e0aa3a2bc5b8b2b1",
+  "selectedAt": "2026-10-05T15:19:29.934Z",
+  "userNotes": "Autonomous decision: microservice-bottleneck covers both Protobuf and HTTP/2 for a complete understanding.",
+  "overrides": {},
+  "assumptions": []
+}

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "assets": [
+    {
+      "id": "technical-pulse",
+      "path": "assets/music/technical-pulse.wav",
+      "type": "audio",
+      "license": "Royalty-free repository sound asset",
+      "notes": "Rhythmic tech pulse background music for engineering pacing"
+    }
+  ]
+}

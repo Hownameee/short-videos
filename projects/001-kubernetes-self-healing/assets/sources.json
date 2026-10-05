@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "assets": [
+    {
+      "id": "diagrams",
+      "type": "visual",
+      "source": "Original React/SVG diagrams in renderer/src/KubernetesVideo.tsx",
+      "license": "project-original"
+    },
+    {
+      "id": "soundtrack",
+      "source": "tools/audio/generate_soundtrack.py",
+      "license": "project-generated"
+    },
+    {
+      "id": "voice",
+      "source": "hexgrad/Kokoro-82M",
+      "url": "https://huggingface.co/hexgrad/Kokoro-82M",
+      "license": "Apache-2.0 model; generated narration"
+    }
+  ],
+  "research": [
+    {
+      "id": "deployment",
+      "title": "Deployments",
+      "publisher": "Kubernetes",
+      "url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+      "accessedAt": "2026-10-05"
+    },
+    {
+      "id": "healing",
+      "title": "Kubernetes Self-Healing",
+      "publisher": "Kubernetes",
+      "url": "https://kubernetes.io/docs/concepts/architecture/self-healing/",
+      "accessedAt": "2026-10-05"
+    },
+    {
+      "id": "service",
+      "title": "Service",
+      "publisher": "Kubernetes",
+      "url": "https://kubernetes.io/docs/concepts/services-networking/service/",
+      "accessedAt": "2026-10-05"
+    }
+  ]
+}

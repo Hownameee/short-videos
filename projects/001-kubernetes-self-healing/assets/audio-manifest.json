@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "generator": "tools/audio/generate_soundtrack.py",
+  "license": "project-generated",
+  "music": {
+    "file": "assets/music/technical-pulse.wav",
+    "checksum": "sha256:d5665dcfb53c9c524e8e914b4ebd639c9c8fd4b800f5a6da69e8dc94cd7096a9"
+  },
+  "sfx": [
+    {
+      "id": "impact-soft",
+      "file": "assets/sfx/impact-soft.wav",
+      "checksum": "sha256:9ace43015ee4213c9445d263238186111af06a156cb04089564a2a62605d5f82"
+    },
+    {
+      "id": "copy-pop",
+      "file": "assets/sfx/copy-pop.wav",
+      "checksum": "sha256:7d1c64fe67033c5f6a87de9b4a5f13d684e1a9373be3fd14dfd04479e860cad1"
+    },
+    {
+      "id": "route-switch-clean",
+      "file": "assets/sfx/route-switch-clean.wav",
+      "checksum": "sha256:079cba07ffb061d2d7b4a24206730b151abe62e8581e2bf7e5483c55c3d8302d"
+    },
+    {
+      "id": "success-chime",
+      "file": "assets/sfx/success-chime.wav",
+      "checksum": "sha256:4db3f831e7e6320564a9fbca7759f404a014230100a5884c35531c1782af6a8f"
+    }
+  ]
+}

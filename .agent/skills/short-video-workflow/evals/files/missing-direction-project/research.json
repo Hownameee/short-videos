@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "version": "sha256:research-v1",
+  "claims": [
+    {
+      "id": "claim-1",
+      "text": "Containers package an application and its dependencies into an isolated process.",
+      "sourceUrl": "https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/",
+      "kind": "verified_fact"
+    }
+  ]
+}

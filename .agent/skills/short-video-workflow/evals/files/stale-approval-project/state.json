@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "state": "script_approved",
+  "updatedAt": "2026-10-03T09:00:00Z",
+  "versions": {
+    "research": "sha256:research-v1",
+    "direction": "sha256:direction-v1",
+    "script": "sha256:script-v2"
+  },
+  "productionRequest": null
+}

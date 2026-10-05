@@ -1,0 +1,1 @@
+Your database can work perfectly on your laptop, then slow down inside a container. Why? The first write may copy an entire file. Let us follow one small change, separate the container layer from the data volume, and see what actually happens.

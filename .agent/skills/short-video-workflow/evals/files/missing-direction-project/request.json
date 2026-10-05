@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "slug": "docker-for-startups",
+  "prompt": "Does a small startup need Docker?",
+  "audience": "startup developers",
+  "platform": "youtube_shorts",
+  "language": "vi",
+  "durationRangeSec": {"min": 45, "max": 70},
+  "tone": "clear and moderately tense",
+  "goal": "Help a small team decide when Docker is useful",
+  "ctaGoal": "Lead to a practical Docker setup video",
+  "constraints": [],
+  "assumptions": []
+}

@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "slug": "grpc",
+    "title": "Why Microservices Swapped REST for gRPC",
+    "platform": "youtube_shorts",
+    "language": "en",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "renderer": "grpc"
+  },
+  "hook": {
+    "type": "tension",
+    "text": "Why do high-scale microservices ditch REST and JSON for gRPC?",
+    "promise": "Explain why gRPC outperforms REST in backend systems",
+    "durationRangeSec": {
+      "min": 4,
+      "max": 8
+    }
+  },
+  "captions": {
+    "mode": "word-highlight"
+  },
+  "audio": {
+    "voice": {
+      "provider": "kokoro",
+      "voice": "af_heart",
+      "langCode": "a",
+      "sampleRate": 24000,
+      "speed": 1
+    },
+    "music": {
+      "file": "assets/music/technical-pulse.wav",
+      "volume": 0.12
+    }
+  },
+  "design": {
+    "visualThesis": "gRPC eliminates text serialization overhead and TCP connection queues by using compact binary Protobuf over a single multiplexed HTTP/2 pipe.",
+    "mood": [
+      "technical",
+      "high-performance",
+      "clean",
+      "modern"
+    ],
+    "palette": {
+      "background": "#070B14",
+      "surface": "#0F172A",
+      "surfaceBorder": "#1E293B",
+      "text": "#F8FAFC",
+      "muted": "#94A3B8",
+      "accent": "#2496ED",
+      "secondary": "#00D2B4",
+      "warning": "#F59E0B",
+      "danger": "#EF4444"
+    },
+    "typography": {
+      "display": "Inter, system-ui, sans-serif",
+      "body": "Inter, system-ui, sans-serif",
+      "code": "JetBrains Mono, Menlo, monospace"
+    },
+    "safeArea": {
+      "top": 150,
+      "right": 180,
+      "bottom": 320,
+      "left": 90
+    },
+    "motionGrammar": "Crisp transitions, glowing stream paths, data packet movement, and dynamic metric meters.",
+    "assetLanguage": "Original SVG graphics, glowing technical schematics, structured code snippets, and network diagrams."
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "purpose": "Hook the viewer with the industry shift from REST to gRPC",
+      "durationRangeSec": {
+        "min": 4,
+        "max": 8
+      },
+      "narration": "Why do high-scale microservices ditch REST and JSON for gRPC? Here is the architecture secret in sixty seconds.",
+      "onScreenText": [
+        "REST vs gRPC",
+        "Why Microservices Swapped"
+      ],
+      "visualType": "split-comparison",
+      "motion": {
+        "action": "Confrontation between REST and gRPC with speed gauges",
+        "cue": "REST and JSON for gRPC",
+        "settle": "gRPC highlighted as high-performance standard"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "grpc-intro"
+      ]
+    },
+    {
+      "id": "rest-bottleneck",
+      "purpose": "Explain the text bloat and TCP overhead of REST",
+      "durationRangeSec": {
+        "min": 7,
+        "max": 12
+      },
+      "narration": "With REST, services exchange bloated text strings. Every single request parses redundant field keys in JSON, while opening heavy new TCP handshakes.",
+      "onScreenText": [
+        "The REST Bottleneck",
+        "Text Bloat • Repeated Handshakes"
+      ],
+      "visualType": "code-breakdown",
+      "motion": {
+        "action": "Highlight repeated key strings in JSON and queue of blocked connections",
+        "cue": "redundant field keys",
+        "settle": "Latency and CPU waste highlighted in red"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "protobuf-binary",
+        "http2-multiplexing"
+      ]
+    },
+    {
+      "id": "protobuf",
+      "purpose": "Demonstrate Protocol Buffers binary serialization and strict schema",
+      "durationRangeSec": {
+        "min": 8,
+        "max": 14
+      },
+      "narration": "gRPC replaces JSON with Protocol Buffers. Instead of sending raw text, you define a strict schema that compiles into compact binary. Payloads shrink dramatically and serialize up to ten times faster.",
+      "onScreenText": [
+        "Protocol Buffers",
+        "Strict Schema → Compact Binary"
+      ],
+      "visualType": "schema-binary",
+      "motion": {
+        "action": "Transform proto schema into compact binary stream with 10x throughput meter",
+        "cue": "compact binary",
+        "settle": "Tiny binary payload comparison"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "protobuf-binary"
+      ]
+    },
+    {
+      "id": "http2-multiplex",
+      "purpose": "Visualize HTTP/2 multiplexing across a single persistent TCP connection",
+      "durationRangeSec": {
+        "min": 8,
+        "max": 14
+      },
+      "narration": "Next is the transport: HTTP/2. Instead of waiting in line, gRPC multiplexes hundreds of concurrent requests over one persistent TCP connection with zero head-of-line blocking.",
+      "onScreenText": [
+        "HTTP/2 Multiplexing",
+        "Single Socket • Concurrent Streams"
+      ],
+      "visualType": "network-pipeline",
+      "motion": {
+        "action": "Interleave multiple color-coded request streams simultaneously through one glowing pipe",
+        "cue": "multiplexes hundreds of concurrent requests",
+        "settle": "Zero queue blocking, bidirectional flow"
+      },
+      "pronunciation": [
+        {
+          "written": "HTTP/2",
+          "spoken": "HTTP two"
+        }
+      ],
+      "sfx": [],
+      "sourceIds": [
+        "http2-multiplexing"
+      ]
+    },
+    {
+      "id": "streaming",
+      "purpose": "Show the four communication modes with focus on streaming",
+      "durationRangeSec": {
+        "min": 6,
+        "max": 11
+      },
+      "narration": "And unlike REST, you get streaming natively. Client streaming, server streaming, and full bidirectional streams keep data flowing in real time.",
+      "onScreenText": [
+        "Native Streaming",
+        "Unary • Client • Server • Bidirectional"
+      ],
+      "visualType": "streaming-matrix",
+      "motion": {
+        "action": "Two microservice nodes streaming real-time data packets back and forth",
+        "cue": "full bidirectional streams",
+        "settle": "All four streaming modes active"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "streaming-patterns"
+      ]
+    },
+    {
+      "id": "takeaway",
+      "purpose": "Provide the practical architecture rule of thumb and call to action",
+      "durationRangeSec": {
+        "min": 6,
+        "max": 11
+      },
+      "narration": "The rule of thumb: use gRPC internally between backend microservices, and keep REST for public web clients. What does your team build with?",
+      "onScreenText": [
+        "The Rule: gRPC Inside, REST Outside",
+        "What does your team build with?"
+      ],
+      "visualType": "architecture-boundary",
+      "motion": {
+        "action": "Draw cluster boundary separating public edge REST from internal gRPC mesh",
+        "cue": "use gRPC internally",
+        "settle": "Clear system architecture blueprint and audience prompt"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "east-west-tradeoff"
+      ]
+    }
+  ],
+  "outro": {
+    "takeaway": "Use gRPC for internal backend microservices; keep REST for public edge clients.",
+    "cta": "What does your team build with?"
+  },
+  "scriptVersion": "sha256:89e6a0526e0590b951dd6657873596b44715e7807c1cf1e17412f76dc46e0260",
+  "approval": {
+    "status": "approved",
+    "approvedAt": "2026-10-05T15:29:11.694Z",
+    "approvedScriptVersion": "sha256:89e6a0526e0590b951dd6657873596b44715e7807c1cf1e17412f76dc46e0260"
+  }
+}

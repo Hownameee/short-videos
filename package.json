@@ -1,0 +1,13 @@
+{
+  "name": "short-video-research-workflow",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "video": "node tools/video-cli.mjs",
+    "test:video": "node --test tools/*.test.mjs"
+  }
+}
