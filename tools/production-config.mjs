@@ -3,6 +3,8 @@ const sceneIds = {
   kubernetes: ["hook", "declare", "observe", "replace", "service", "limits", "takeaway"],
   eclipses: ["hook", "solar", "totality", "lunar", "red", "tilt", "recap"],
   grpc: ["hook", "rest-bottleneck", "protobuf", "http2-multiplex", "streaming", "takeaway"],
+  rag: ["hook", "hallucination-problem", "rag-solution", "pipeline", "grounded-answer", "takeaway"],
+  income: ["hook", "nominal", "prices", "real", "reveal", "takeaway"],
 };
 
 export const assertLocalMediaPath = (file, prefix) => {

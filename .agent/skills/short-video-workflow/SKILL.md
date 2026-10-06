@@ -31,7 +31,7 @@ script_draft → script_approved → production_requested → produced.
 Resolve stale or conflicting artifacts before the dependent work.
 
 Read [defaults](../../../docs/VIDEO_PRODUCTION_DEFAULTS.md) once per task:
-English, karaoke, explanatory motion and purposeful audible background music,
+2160×3840 at 60 fps, English, karaoke, explanatory motion and purposeful audible background music,
 unless explicitly overridden. Keep one truthful promise, normally at most three
 supporting beats, a resolved payoff and one useful CTA. Put value before branding.
 Retain factual sources and asset licenses. Research, LLM, media, voice, rendering

@@ -35,6 +35,9 @@ const workspaceRoot = path.resolve(
 const usage = `
 Short-video workflow CLI
 
+New video default: 2160x3840 at 60 fps (renderer/src/video-format.json).
+script --draft fills missing format fields; explicit video.meta values win.
+
 Create a project:
   npm run video -- discover --prompt "Topic" [--name slug-source]
 

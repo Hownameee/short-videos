@@ -78,6 +78,11 @@ For every scene provide:
 - Kokoro pronunciation notes for acronyms, product names, numbers, and URLs.
 
 Apply the repository's [production defaults](../../../docs/VIDEO_PRODUCTION_DEFAULTS.md):
+new videos use `meta.width: 2160`, `meta.height: 3840`, `meta.fps: 60` unless
+explicitly overridden. Follow the request's recorded format; do not copy old
+1080p/30 fps project metadata into a new default script. The draft command fills
+missing format fields before approval. Plan motion in seconds so its speed is
+independent of fps. Keep the defaults of
 English output, `captions.mode: "word-highlight"`, and a concrete motion plan
 per scene. Record what changes visually, its narration cue, and the final state;
 "fade in the slide" alone is not a scene motion plan. Design caption groups for

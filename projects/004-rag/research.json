@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "claims": [
+    {
+      "id": "rag-definition",
+      "text": "RAG (Retrieval-Augmented Generation) is a technique that grounds LLM responses in external knowledge by retrieving relevant documents at query time and injecting them into the prompt as context, rather than relying solely on the model's training data.",
+      "sourceIds": ["ibm-rag", "databricks-rag"]
+    },
+    {
+      "id": "hallucination-reduction",
+      "text": "RAG reduces hallucinations by shifting the model from recalling information (where it may fabricate facts to fill memory gaps) to reasoning over provided, verifiable source documents.",
+      "sourceIds": ["ibm-rag", "databricks-rag"]
+    },
+    {
+      "id": "chunking-embedding-pipeline",
+      "text": "The RAG pipeline works in two stages: (1) offline ingestion where documents are chunked, converted to vector embeddings, and stored in a vector database; (2) online retrieval where user queries are embedded, matched against stored vectors via similarity search, and the top-k results are injected into the LLM prompt.",
+      "sourceIds": ["bigdata-rag", "databricks-rag"]
+    },
+    {
+      "id": "rag-vs-finetuning",
+      "text": "Unlike fine-tuning, which requires expensive retraining to update knowledge and can increase hallucinations when learning new facts, RAG updates instantly by simply adding documents to the database with no model retraining required.",
+      "sourceIds": ["ibm-rag", "towardsai-rag"]
+    },
+    {
+      "id": "vector-similarity-search",
+      "text": "Vector databases enable semantic similarity search by comparing the mathematical distance between query embeddings and document chunk embeddings, finding conceptually related content even when exact keywords differ.",
+      "sourceIds": ["bigdata-rag", "databricks-rag"]
+    },
+    {
+      "id": "source-citation",
+      "text": "RAG enables transparent source citation because every generated answer can trace back to the specific document chunks that informed it, making AI responses verifiable and auditable.",
+      "sourceIds": ["ibm-rag", "towardsai-rag"]
+    }
+  ],
+  "sources": [
+    {
+      "id": "ibm-rag",
+      "title": "What is Retrieval-Augmented Generation (RAG)?",
+      "publisher": "IBM",
+      "url": "https://www.ibm.com/think/topics/retrieval-augmented-generation",
+      "accessedAt": "2026-10-05"
+    },
+    {
+      "id": "databricks-rag",
+      "title": "What is Retrieval-Augmented Generation?",
+      "publisher": "Databricks",
+      "url": "https://www.databricks.com/glossary/retrieval-augmented-generation-rag",
+      "accessedAt": "2026-10-05"
+    },
+    {
+      "id": "bigdata-rag",
+      "title": "RAG Architecture: A Complete Guide",
+      "publisher": "BigData Boutique",
+      "url": "https://bigdataboutique.com/blog/rag-architecture-a-complete-guide",
+      "accessedAt": "2026-10-05"
+    },
+    {
+      "id": "towardsai-rag",
+      "title": "RAG in 2025: Architecture, Advances & Applications",
+      "publisher": "Towards AI",
+      "url": "https://towardsai.net/p/artificial-intelligence/rag-in-2025",
+      "accessedAt": "2026-10-05"
+    }
+  ]
+}

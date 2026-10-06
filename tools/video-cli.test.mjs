@@ -30,6 +30,8 @@ import {
 const makeWorkspace = async () => {
   const workspaceRoot = await mkdtemp(path.join(os.tmpdir(), "short-video-workflow-"));
   await mkdir(path.join(workspaceRoot, "renderer/src"), { recursive: true });
+  await writeFile(path.join(workspaceRoot, "renderer/src/video-format.json"),
+    await readFile(new URL("../renderer/src/video-format.json", import.meta.url)));
   await mkdir(path.join(workspaceRoot, "tools"));
   for (const file of ["video-cli.mjs","video-workflow.mjs","production-config.mjs","caption-validation.mjs","media-qc.mjs"]) {
     await writeFile(path.join(workspaceRoot,"tools",file), await readFile(new URL(`./${file}`,import.meta.url)));
@@ -87,7 +89,7 @@ const fillDiscovery = async (projectDir) => {
   );
 };
 
-const fillScript = async (projectDir) => {
+const fillScript = async (projectDir, meta = { width: 1080, height: 1920, fps: 30 }) => {
   await writeFile(
     path.join(projectDir, "script.md"),
     "# Script\n\nYour app works on one machine because its runtime is already present. Docker packages that environment so the same image can run elsewhere. The takeaway is to reproduce the runtime, not to hide broken code.\n",
@@ -96,7 +98,7 @@ const fillScript = async (projectDir) => {
     path.join(projectDir, "video.json"),
     JSON.stringify({
       schemaVersion: 1,
-      meta: { width: 1080, height: 1920, fps: 30 },
+      meta,
       design: { visualThesis: "Stable environment" },
       audio: null,
       scenes: [
@@ -134,6 +136,45 @@ test("temporary sibling keeps the media extension for FFmpeg", () => {
   assert.match(path.basename(temporary), /^\.contact-sheet\.next-.+\.png$/);
 });
 
+test("new requests and scripts without a format approve as 4K60 and reject an HD final", async () => {
+  const root = await makeWorkspace();
+  const {project, projectDir} = await createProject(root, {prompt: "A new explainer"});
+  const request = await readJson(path.join(projectDir, "request.json"));
+  assert.deepEqual(
+    [request.productionDefaults.width, request.productionDefaults.height, request.productionDefaults.fps],
+    [2160, 3840, 60],
+  );
+  await fillDiscovery(projectDir);
+  await completeDiscovery(root, project);
+  await selectDirection(root, project, 1);
+  await fillScript(projectDir, {title: "A new explainer"});
+  await recordScriptDraft(root, project);
+  await approveScript(root, project);
+  const video = await readJson(path.join(projectDir, "video.json"));
+  assert.deepEqual(video.meta, {title: "A new explainer", width: 2160, height: 3840, fps: 60});
+  assert.equal(video.approval.approvedScriptVersion, video.scriptVersion);
+  const stream = {codec_type: "video", codec_name: "h264", width: 2160, height: 3840, r_frame_rate: "60/1"};
+  validateFinalMedia({streams: [stream], format: {duration: "10"}}, video, 10);
+  assert.throws(() => validateFinalMedia({streams: [{...stream, width: 1080, height: 1920}], format: {duration: "10"}}, video, 10), /dimensions/);
+  assert.throws(() => validateFinalMedia({streams: [{...stream, r_frame_rate: "30/1"}], format: {duration: "10"}}, video, 10), /FPS/);
+});
+
+test("draft defaults respect explicit legacy formats and request overrides; invalid FPS is rejected", async () => {
+  const root = await makeWorkspace();
+  const {project, projectDir} = await prepareApprovedProject(root);
+  let video = await readJson(path.join(projectDir, "video.json"));
+  assert.deepEqual(video.meta, {width: 1080, height: 1920, fps: 30});
+  const request = await readJson(path.join(projectDir, "request.json"));
+  request.productionDefaults.fps = 24;
+  await writeFile(path.join(projectDir, "request.json"), JSON.stringify(request));
+  await fillScript(projectDir, {width: 1080, height: 1920});
+  await recordScriptDraft(root, project);
+  video = await readJson(path.join(projectDir, "video.json"));
+  assert.deepEqual(video.meta, {width: 1080, height: 1920, fps: 24});
+  await fillScript(projectDir, {fps: 0});
+  await assert.rejects(recordScriptDraft(root, project), /Invalid meta.fps/);
+});
+
 test("createProject allocates the next NNN folder and initial state", async () => {
   const workspaceRoot = await makeWorkspace();
   const first = await createProject(workspaceRoot, { prompt: "Video đầu tiên" });
@@ -144,6 +185,9 @@ test("createProject allocates the next NNN folder and initial state", async () =
   const request = await readJson(path.join(first.projectDir, "request.json"));
   assert.equal(request.language, "en");
   assert.deepEqual(request.productionDefaults, {
+    width: 2160,
+    height: 3840,
+    fps: 60,
     captions: "word-highlight",
     motion: "explanatory",
     backgroundSound: "intentional-music",

@@ -27,7 +27,7 @@ variation, not unrelated templates placed back to back.
 
 ## Phone-scale legibility
 
-- Preview at a phone-like display size, not only the full 1080×1920 canvas.
+- Preview at a phone-like display size, not only the full 2160×3840 default canvas.
 - Headline, caption, labels, numbers, code, and chart values remain readable.
 - Text does not collide with likely platform controls, title, avatar, or description.
 - Caption line breaks follow phrases and normally remain within two lines.

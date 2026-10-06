@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "scriptVersion": "sha256:6ae40dd1be08f9566e6065f949f6d5f61da38bfd81ed7ebddf0a89d5df3bb1c7",
+  "audio": {
+    "music": {
+      "file": "assets/music/deliberate-thought.mp3",
+      "volume": 0.12,
+      "fadeInSec": 0.5,
+      "fadeOutSec": 1.5
+    },
+    "sfx": false
+  },
+  "captions": {
+    "mode": "word-highlight"
+  },
+  "soundIntent": "Curious tech mood fading into a confident resolution."
+}

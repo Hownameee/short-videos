@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-05T16:26:48.565Z",
+  "runtime": {
+    "node": "v24.21.0",
+    "remotion": "4.0.532"
+  },
+  "checksums": {
+    "videoJson": "sha256:58cc43710a7e58181bcb9251bc2d36b01074d81570ca16a63f83a463e7b1bb91",
+    "rendererSrc": "sha256:0673e2eafc9403c290cca1e81997f2af3c9c482609db52239a529a1b32c383b7",
+    "dependencyLockfile": "sha256:81c78f177fe1fa6436dca86682535986196b5f5aa4672f8a5012357ea3f97fd7",
+    "finalMp4": "sha256:484441b7c8866c8fe7b77c3e43d0fff0ae4c68fd536244459d8f0a8aba239916",
+    "renderInputs": "sha256:ea148f8477caa8e8b982b116f9917efb6b3363d787ec8fce97d4e3a63af4f383"
+  },
+  "inputs": {
+    "video.json": "sha256:58cc43710a7e58181bcb9251bc2d36b01074d81570ca16a63f83a463e7b1bb91",
+    "script.md": "sha256:59db0622f1dc8269a96dad22dcf9e7b1a3602244e765656feb11a12724a808fb",
+    "production.json": "sha256:4c821930a71bad5aac8e7229079f3c3691e5f3028aca2b3479a9b83079a43102",
+    "voice": "sha256:7bfccabda8e752deba9e74df61a84c12b40923ce188e6709edfc63384ca69d76",
+    "assets": "sha256:4dcc0ff4509cd93497e928175c170001f615ce09b2fe42c0b02c07be664a20ee",
+    "renderer": "sha256:0673e2eafc9403c290cca1e81997f2af3c9c482609db52239a529a1b32c383b7",
+    "lockfile": "sha256:81c78f177fe1fa6436dca86682535986196b5f5aa4672f8a5012357ea3f97fd7",
+    "workflow": "sha256:75734f291321389fe4a384a1b45f08f9027f34bdb3760ed663eda1c0aa1bb8d5",
+    "runtimeFiles": {
+      "renderer/package.json": "sha256:239ee8a96e1a00bb080abb849c5b94d712eddc5e7875dbdfcc3e51607230343b",
+      "renderer/remotion.config.ts": "sha256:680114316c3f433b7ebee0f4badbedd162661ea7f86bfae17a8956dbf13f9629",
+      "renderer/tsconfig.json": "sha256:a6fbcf514dbfd3d116c3f7f78b72949c8c2ff45bdbe17aeff4c97e16bc1327fa",
+      "tools/video-cli.mjs": "sha256:e08e0a056ed2811083e2dc0c1082e6cc9f76e04dd3a9c045d3a83c727914100c",
+      "tools/video-workflow.mjs": "sha256:e4408ccb30c502b5de3267efa155ba8d62b9149feaada6626a66a9066cc6efb1",
+      "tools/production-config.mjs": "sha256:e931e6840196dc22a085a8d09c150a0775f38a31e2f36c3cf08426d193272c43",
+      "tools/caption-validation.mjs": "sha256:7bf339a2f14be20d0c0fbe4b880629c7da82822008ea2a5fa855eeb058eb86c8",
+      "tools/media-qc.mjs": "sha256:37b6120bb8a5fa31ed05ccbc029dc0f519a3228db8a2ee99d5475b4d5eb5be5c"
+    }
+  }
+}

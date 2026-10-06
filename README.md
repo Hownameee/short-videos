@@ -4,6 +4,8 @@ A local workspace for researching, scripting, and producing short educational
 videos with AI-assisted workflows, Remotion animations, and Kokoro narration.
 The default style is English narration, word-timed karaoke captions, meaningful
 motion, and audible background music chosen to support the story's emotion.
+New videos default to vertical 4K (2160×3840) at 60 fps. Review previews use
+1080×1920 at the same frame rate; explicit project settings override the defaults.
 
 This is a working research pipeline, not a one-command prompt-to-video service.
 Research, direction selection, script approval, visual implementation, and
@@ -67,7 +69,12 @@ direction artifacts, select a direction, then draft and approve its script.
 Follow the [workflow skill](.agent/skills/short-video-workflow/SKILL.md) and
 [phase commands](docs/REMOTION_PROJECT_SETUP.md) for those steps. New topics also
 need a composition in `renderer/src/` and a matching `video.meta.renderer` route;
-the existing routes are `kubernetes`, `eclipses`, and `grpc`.
+the existing routes are `kubernetes`, `eclipses`, `grpc`, `rag`, and `income`.
+
+New requests record the shared format from `renderer/src/video-format.json`.
+`script --draft` fills missing `video.meta.width`, `height` and `fps` from those
+defaults before approval. Set those fields explicitly for a different format;
+existing approved videos are not automatically converted.
 
 Once a project's script is approved, its composition is implemented, and its
 music/SFX assets are prepared, replace `projects/NNN-topic` below with its path:

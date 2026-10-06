@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "assets": [
+    {
+      "id": "purchasing-power",
+      "path": "assets/music/purchasing-power.wav",
+      "type": "audio",
+      "creator": "Original procedural composition created for this project",
+      "license": "Original project-generated audio; no third-party recordings or samples",
+      "source": "compose_music.py",
+      "checksum": "sha256:976f0a5e33ea9b0f8c18b7aaa39b13eb23c5faeaf3fb225011587bc5aec7d8b5",
+      "notes": "100 BPM mallet and bass score; voiced ducking, four-bar harmony, reveal lift, final cadence; fades baked in; renderer gain 1."
+    },
+    {
+      "id": "income-diagrams",
+      "type": "vector",
+      "source": "renderer/src/IncomeVideo.tsx",
+      "license": "Original project-created SVG diagrams"
+    },
+    {
+      "id": "narration",
+      "type": "voice",
+      "source": "hexgrad/Kokoro-82M",
+      "url": "https://huggingface.co/hexgrad/Kokoro-82M",
+      "license": "Kokoro model Apache-2.0; generated narration",
+      "voice": "af_heart",
+      "notes": "Exact settings, spoken text and audio checksums in voice/manifest.json"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "state": "produced",
+  "updatedAt": "2026-10-05T16:26:48.568Z",
+  "versions": {
+    "request": "sha256:a135fab6659b73999189bd2ad9a856fc2d0725261e8efb8d2fdf0131586220a5",
+    "research": "sha256:f4992ed361236e25d43c5fe5c32046deb4f8642981a4e50f4c9f753050b4b871",
+    "directions": "sha256:8f3a799eac048bdcbe775d0d6d149ff6286adf31ee2aa68099dc35aac89b56a5",
+    "direction": "sha256:7b8667e21362465f773f338b584f4bf4843a347e6536f7f7538122231008680a",
+    "script": "sha256:6ae40dd1be08f9566e6065f949f6d5f61da38bfd81ed7ebddf0a89d5df3bb1c7",
+    "render": "sha256:484441b7c8866c8fe7b77c3e43d0fff0ae4c68fd536244459d8f0a8aba239916"
+  },
+  "productionRequest": {
+    "kind": "final",
+    "requestedAt": "2026-10-05T16:26:15.547Z"
+  },
+  "lastError": null,
+  "outputs": {
+    "preview": {
+      "path": "projects/004-rag/output/preview.mp4",
+      "checksum": "sha256:e563382595f250211a247b73a1764aa105eda0119ca8ac91bf1e62d9363a6821",
+      "createdAt": "2026-10-05T16:25:51.512Z",
+      "inputFingerprint": "sha256:ea148f8477caa8e8b982b116f9917efb6b3363d787ec8fce97d4e3a63af4f383"
+    },
+    "contactSheet": {
+      "path": "projects/004-rag/output/contact-sheet.png",
+      "checksum": "sha256:9c2c5a9a086e2ee3032ed9dd9cc01bb2555d099324238f3302c5fb6c4a84e15e",
+      "timesSec": [
+        0,
+        5,
+        17.1,
+        31.366666666666667,
+        50.166666666666664,
+        67.66666666666667,
+        76.56666666666666,
+        79.53333333333333
+      ]
+    },
+    "final": {
+      "path": "projects/004-rag/output/final.mp4",
+      "checksum": "sha256:484441b7c8866c8fe7b77c3e43d0fff0ae4c68fd536244459d8f0a8aba239916",
+      "createdAt": "2026-10-05T16:26:48.565Z"
+    },
+    "report": {
+      "path": "projects/004-rag/output/report.json"
+    },
+    "sourceSnapshot": {
+      "path": "projects/004-rag/src",
+      "checksum": "sha256:0673e2eafc9403c290cca1e81997f2af3c9c482609db52239a529a1b32c383b7"
+    }
+  }
+}

@@ -53,7 +53,11 @@ smallest system that fits the audience and subject and record the assumption.
   in project data. Preview overlays for the actual target platform; do not assume
   one universal TikTok, Shorts, and Reels safe area.
 - Check the composition at roughly phone size. A layout that works only when the
-  1080×1920 canvas fills a desktop monitor does not pass.
+  full-resolution canvas fills a desktop monitor does not pass.
+- Default delivery is 2160×3840 at 60 fps. A 1080×1920 authoring coordinate system
+  is acceptable when the entire layout, including captions, scales uniformly.
+  Use seconds for motion, configured fps for frame conversion, and inspect native
+  output frames as well as phone-size previews.
 - Reserve negative space around the focal point. Empty space is part of hierarchy,
   not an area that must be filled with particles, cards, badges, or icons.
 - Use depth intentionally: background establishes context, middle ground carries

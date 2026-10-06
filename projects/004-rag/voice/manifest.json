@@ -1,0 +1,1818 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-05T16:18:37.244228+00:00",
+  "provider": "kokoro",
+  "model": "hexgrad/Kokoro-82M",
+  "langCode": "a",
+  "voice": "af_heart",
+  "speed": 1.0,
+  "sampleRate": 24000,
+  "packageVersion": "0.9.4",
+  "generatorVersion": "sha256:b0fe446bb560cb7d5d8ffd7b0cbf09cfb60d2e03cb3dd5a6f3cf7d07fe47f420",
+  "scriptVersion": "sha256:6ae40dd1be08f9566e6065f949f6d5f61da38bfd81ed7ebddf0a89d5df3bb1c7",
+  "captionTiming": "kokoro-predicted-word-timestamps",
+  "scenes": [
+    {
+      "id": "hook",
+      "text": "Your AI just made up a fact. It sounded perfect. It was completely wrong. In sixty seconds, I will show you the architecture that fixes this.",
+      "sourceText": "Your AI just made up a fact. It sounded perfect. It was completely wrong. In sixty seconds, I will show you the architecture that fixes this.",
+      "file": "hook.wav",
+      "durationSec": 9.575,
+      "sampleRate": 24000,
+      "textChecksum": "sha256:8d0f1758d56f189d270423b1bd8d1324f939bee3e70e5b6df70476f08b2a6cd0",
+      "fileChecksum": "sha256:23219a69f292f5ab8bc3419864ec6bc6d502c82da11dd79f1e570f71314c1406",
+      "words": [
+        {
+          "text": "Your",
+          "startMs": 275,
+          "endMs": 462,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "AI",
+          "startMs": 462,
+          "endMs": 938,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "just",
+          "startMs": 938,
+          "endMs": 1175,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "made",
+          "startMs": 1175,
+          "endMs": 1362,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "up",
+          "startMs": 1362,
+          "endMs": 1488,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "a",
+          "startMs": 1488,
+          "endMs": 1550,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "fact.",
+          "startMs": 1550,
+          "endMs": 2325,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "It",
+          "startMs": 2325,
+          "endMs": 2538,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "sounded",
+          "startMs": 2538,
+          "endMs": 2975,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "perfect.",
+          "startMs": 2975,
+          "endMs": 3825,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "It",
+          "startMs": 3825,
+          "endMs": 3938,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "was",
+          "startMs": 3938,
+          "endMs": 4100,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "completely",
+          "startMs": 4100,
+          "endMs": 4725,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "wrong.",
+          "startMs": 4725,
+          "endMs": 5662,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "In",
+          "startMs": 5662,
+          "endMs": 5838,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "sixty",
+          "startMs": 5838,
+          "endMs": 6200,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "seconds,",
+          "startMs": 6200,
+          "endMs": 6775,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "I",
+          "startMs": 6775,
+          "endMs": 6900,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "will",
+          "startMs": 6900,
+          "endMs": 7062,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "show",
+          "startMs": 7062,
+          "endMs": 7300,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "you",
+          "startMs": 7300,
+          "endMs": 7438,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "the",
+          "startMs": 7438,
+          "endMs": 7550,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "architecture",
+          "startMs": 7550,
+          "endMs": 8200,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "that",
+          "startMs": 8200,
+          "endMs": 8400,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "fixes",
+          "startMs": 8400,
+          "endMs": 8800,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "this.",
+          "startMs": 8800,
+          "endMs": 9475,
+          "timestampMs": null,
+          "confidence": null
+        }
+      ],
+      "captions": [
+        {
+          "text": "Your AI just made up a fact.",
+          "startMs": 275,
+          "endMs": 2325,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "It sounded perfect.",
+          "startMs": 2325,
+          "endMs": 3825,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "It was completely wrong.",
+          "startMs": 3825,
+          "endMs": 5662,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "In sixty seconds, I will show",
+          "startMs": 5662,
+          "endMs": 7300,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "you the architecture that fixes this.",
+          "startMs": 7300,
+          "endMs": 9575,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        }
+      ],
+      "cacheKey": "sha256:3c70fc7d90ae0929634673bec5f60b41f0ecaea27ceebb6b8daa7a4052ed8d70"
+    },
+    {
+      "id": "hallucination-problem",
+      "text": "Here is the problem. Large language models generate text from patterns in training data. When they hit a gap, they do not say I do not know. They fill it with something that sounds right. This is called a hallucination.",
+      "sourceText": "Here is the problem. Large language models generate text from patterns in training data. When they hit a gap, they do not say I do not know. They fill it with something that sounds right. This is called a hallucination.",
+      "file": "hallucination-problem.wav",
+      "durationSec": 13.675,
+      "sampleRate": 24000,
+      "textChecksum": "sha256:02757a2c58a57a3f8d034aa12ca6d4fa03df74b08d714d2e816d0066af0a6475",
+      "fileChecksum": "sha256:b05b401e32eaed47a1882f639acd8e3bae9937df8c5e3fbd7ee1c687342c2d7b",
+      "words": [
+        {
+          "text": "Here",
+          "startMs": 275,
+          "endMs": 525,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "is",
+          "startMs": 525,
+          "endMs": 662,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "the",
+          "startMs": 662,
+          "endMs": 750,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "problem.",
+          "startMs": 750,
+          "endMs": 1700,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "Large",
+          "startMs": 1700,
+          "endMs": 2075,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "language",
+          "startMs": 2075,
+          "endMs": 2525,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "models",
+          "startMs": 2525,
+          "endMs": 2988,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "generate",
+          "startMs": 2988,
+          "endMs": 3488,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "text",
+          "startMs": 3488,
+          "endMs": 3838,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "from",
+          "startMs": 3838,
+          "endMs": 4000,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "patterns",
+          "startMs": 4000,
+          "endMs": 4525,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "in",
+          "startMs": 4525,
+          "endMs": 4650,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "training",
+          "startMs": 4650,
+          "endMs": 5050,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "data.",
+          "startMs": 5050,
+          "endMs": 5875,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "When",
+          "startMs": 5875,
+          "endMs": 6012,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "they",
+          "startMs": 6012,
+          "endMs": 6150,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "hit",
+          "startMs": 6150,
+          "endMs": 6288,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "a",
+          "startMs": 6288,
+          "endMs": 6350,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "gap,",
+          "startMs": 6350,
+          "endMs": 6875,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "they",
+          "startMs": 6875,
+          "endMs": 7025,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "do",
+          "startMs": 7025,
+          "endMs": 7150,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "not",
+          "startMs": 7150,
+          "endMs": 7412,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "say",
+          "startMs": 7412,
+          "endMs": 7725,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "I",
+          "startMs": 7725,
+          "endMs": 7875,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "do",
+          "startMs": 7875,
+          "endMs": 8000,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "not",
+          "startMs": 8000,
+          "endMs": 8225,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "know.",
+          "startMs": 8225,
+          "endMs": 8975,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "They",
+          "startMs": 8975,
+          "endMs": 9162,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "fill",
+          "startMs": 9162,
+          "endMs": 9362,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "it",
+          "startMs": 9362,
+          "endMs": 9438,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "with",
+          "startMs": 9438,
+          "endMs": 9575,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "something",
+          "startMs": 9575,
+          "endMs": 9975,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "that",
+          "startMs": 9975,
+          "endMs": 10188,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "sounds",
+          "startMs": 10188,
+          "endMs": 10550,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "right.",
+          "startMs": 10550,
+          "endMs": 11300,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "This",
+          "startMs": 11300,
+          "endMs": 11638,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "is",
+          "startMs": 11638,
+          "endMs": 11800,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "called",
+          "startMs": 11800,
+          "endMs": 12150,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "a",
+          "startMs": 12150,
+          "endMs": 12225,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "hallucination.",
+          "startMs": 12225,
+          "endMs": 13575,
+          "timestampMs": null,
+          "confidence": null
+        }
+      ],
+      "captions": [
+        {
+          "text": "Here is the problem.",
+          "startMs": 275,
+          "endMs": 1700,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "Large language models generate text",
+          "startMs": 1700,
+          "endMs": 3838,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "from patterns in training data.",
+          "startMs": 3838,
+          "endMs": 5875,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "When they hit a gap, they",
+          "startMs": 5875,
+          "endMs": 7025,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "do not say I do not know.",
+          "startMs": 7025,
+          "endMs": 8975,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "They fill it with",
+          "startMs": 8975,
+          "endMs": 9575,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "something that sounds right.",
+          "startMs": 9575,
+          "endMs": 11300,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "This is called a hallucination.",
+          "startMs": 11300,
+          "endMs": 13675,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        }
+      ],
+      "cacheKey": "sha256:bfea25d2bf78a93b2519b90d9dad14d9aa9d76d02c3635cfbf9ff3df65b987c3"
+    },
+    {
+      "id": "rag-solution",
+      "text": "rag fixes this. Retrieval-Augmented Generation connects your LLM to real documents. Instead of guessing, the model searches your actual data first, then generates an answer based only on what it found.",
+      "sourceText": "RAG fixes this. Retrieval-Augmented Generation connects your LLM to real documents. Instead of guessing, the model searches your actual data first, then generates an answer based only on what it found.",
+      "file": "rag-solution.wav",
+      "durationSec": 13.925,
+      "sampleRate": 24000,
+      "textChecksum": "sha256:41c74ada172bd478152fe945bd8d7f086aee4cde0306aa3838d0e3978b48db02",
+      "fileChecksum": "sha256:90174f20ab130adf82e6a1928f9c4c3525a3f5f571ad37c29eb05fdb693886f1",
+      "words": [
+        {
+          "text": "rag",
+          "startMs": 325,
+          "endMs": 688,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "fixes",
+          "startMs": 688,
+          "endMs": 1150,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "this.",
+          "startMs": 1150,
+          "endMs": 1938,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "Retrieval-Augmented",
+          "startMs": 1938,
+          "endMs": 3000,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "Generation",
+          "startMs": 3000,
+          "endMs": 3850,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "connects",
+          "startMs": 3850,
+          "endMs": 4262,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "your",
+          "startMs": 4262,
+          "endMs": 4462,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "LLM",
+          "startMs": 4462,
+          "endMs": 5262,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "to",
+          "startMs": 5262,
+          "endMs": 5400,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "real",
+          "startMs": 5400,
+          "endMs": 5675,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "documents.",
+          "startMs": 5675,
+          "endMs": 6862,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "Instead",
+          "startMs": 6862,
+          "endMs": 7212,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "of",
+          "startMs": 7212,
+          "endMs": 7300,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "guessing,",
+          "startMs": 7300,
+          "endMs": 8050,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "the",
+          "startMs": 8050,
+          "endMs": 8175,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "model",
+          "startMs": 8175,
+          "endMs": 8562,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "searches",
+          "startMs": 8562,
+          "endMs": 8962,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "your",
+          "startMs": 8962,
+          "endMs": 9138,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "actual",
+          "startMs": 9138,
+          "endMs": 9550,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "data",
+          "startMs": 9550,
+          "endMs": 9838,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "first,",
+          "startMs": 9838,
+          "endMs": 10575,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "then",
+          "startMs": 10575,
+          "endMs": 10812,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "generates",
+          "startMs": 10812,
+          "endMs": 11338,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "an",
+          "startMs": 11338,
+          "endMs": 11438,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "answer",
+          "startMs": 11438,
+          "endMs": 11938,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "based",
+          "startMs": 11938,
+          "endMs": 12288,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "only",
+          "startMs": 12288,
+          "endMs": 12625,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "on",
+          "startMs": 12625,
+          "endMs": 12738,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "what",
+          "startMs": 12738,
+          "endMs": 12862,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "it",
+          "startMs": 12862,
+          "endMs": 12950,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "found.",
+          "startMs": 12950,
+          "endMs": 13825,
+          "timestampMs": null,
+          "confidence": null
+        }
+      ],
+      "captions": [
+        {
+          "text": "rag fixes this.",
+          "startMs": 325,
+          "endMs": 1938,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "Retrieval-Augmented Generation connects your",
+          "startMs": 1938,
+          "endMs": 4462,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "LLM to real documents.",
+          "startMs": 4462,
+          "endMs": 6862,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "Instead of guessing, the model searches your",
+          "startMs": 6862,
+          "endMs": 9138,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "actual data first, then generates an",
+          "startMs": 9138,
+          "endMs": 11438,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "answer based only on what it found.",
+          "startMs": 11438,
+          "endMs": 13925,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        }
+      ],
+      "cacheKey": "sha256:bf57a40910418cff81597f2d57370dbf18e0ddfffcd6f8f6b7a3a4f2adfbd1c1"
+    },
+    {
+      "id": "pipeline",
+      "text": "Here is how it works. First, your documents are split into chunks and converted into vector embeddings. These vectors are stored in a database. When a user asks a question, the query gets embedded too. A similarity search finds the most relevant chunks. Those chunks are injected into the prompt alongside the question. The LLM reads the evidence, then answers.",
+      "sourceText": "Here is how it works. First, your documents are split into chunks and converted into vector embeddings. These vectors are stored in a database. When a user asks a question, the query gets embedded too. A similarity search finds the most relevant chunks. Those chunks are injected into the prompt alongside the question. The LLM reads the evidence, then answers.",
+      "file": "pipeline.wav",
+      "durationSec": 22.75,
+      "sampleRate": 24000,
+      "textChecksum": "sha256:90be807472d5f029a27665ada9b4a06da4c2e74777ea11e419397e9409424d70",
+      "fileChecksum": "sha256:1c018ab1a5600d3b7811154c153b7e5189b58b6db4fcf5e48a2011aeff827e47",
+      "words": [
+        {
+          "text": "Here",
+          "startMs": 275,
+          "endMs": 525,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "is",
+          "startMs": 525,
+          "endMs": 675,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "how",
+          "startMs": 675,
+          "endMs": 875,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "it",
+          "startMs": 875,
+          "endMs": 975,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "works.",
+          "startMs": 975,
+          "endMs": 1800,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "First,",
+          "startMs": 1800,
+          "endMs": 2275,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "your",
+          "startMs": 2275,
+          "endMs": 2425,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "documents",
+          "startMs": 2425,
+          "endMs": 2938,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "are",
+          "startMs": 2938,
+          "endMs": 3062,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "split",
+          "startMs": 3062,
+          "endMs": 3362,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "into",
+          "startMs": 3362,
+          "endMs": 3612,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "chunks",
+          "startMs": 3612,
+          "endMs": 4088,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "and",
+          "startMs": 4088,
+          "endMs": 4225,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "converted",
+          "startMs": 4225,
+          "endMs": 4738,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "into",
+          "startMs": 4738,
+          "endMs": 4975,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "vector",
+          "startMs": 4975,
+          "endMs": 5312,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "embeddings.",
+          "startMs": 5312,
+          "endMs": 6375,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "These",
+          "startMs": 6375,
+          "endMs": 6675,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "vectors",
+          "startMs": 6675,
+          "endMs": 7125,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "are",
+          "startMs": 7125,
+          "endMs": 7262,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "stored",
+          "startMs": 7262,
+          "endMs": 7650,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "in",
+          "startMs": 7650,
+          "endMs": 7738,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "a",
+          "startMs": 7738,
+          "endMs": 7800,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "database.",
+          "startMs": 7800,
+          "endMs": 8825,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "When",
+          "startMs": 8825,
+          "endMs": 8962,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "a",
+          "startMs": 8962,
+          "endMs": 9062,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "user",
+          "startMs": 9062,
+          "endMs": 9425,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "asks",
+          "startMs": 9425,
+          "endMs": 9712,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "a",
+          "startMs": 9712,
+          "endMs": 9775,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "question,",
+          "startMs": 9775,
+          "endMs": 10475,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "the",
+          "startMs": 10475,
+          "endMs": 10588,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "query",
+          "startMs": 10588,
+          "endMs": 11000,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "gets",
+          "startMs": 11000,
+          "endMs": 11225,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "embedded",
+          "startMs": 11225,
+          "endMs": 11712,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "too.",
+          "startMs": 11712,
+          "endMs": 12612,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "A",
+          "startMs": 12612,
+          "endMs": 12738,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "similarity",
+          "startMs": 12738,
+          "endMs": 13388,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "search",
+          "startMs": 13388,
+          "endMs": 13762,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "finds",
+          "startMs": 13762,
+          "endMs": 14088,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "the",
+          "startMs": 14088,
+          "endMs": 14175,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "most",
+          "startMs": 14175,
+          "endMs": 14488,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "relevant",
+          "startMs": 14488,
+          "endMs": 14962,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "chunks.",
+          "startMs": 14962,
+          "endMs": 15912,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "Those",
+          "startMs": 15912,
+          "endMs": 16212,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "chunks",
+          "startMs": 16212,
+          "endMs": 16575,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "are",
+          "startMs": 16575,
+          "endMs": 16662,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "injected",
+          "startMs": 16662,
+          "endMs": 17162,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "into",
+          "startMs": 17162,
+          "endMs": 17338,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "the",
+          "startMs": 17338,
+          "endMs": 17425,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "prompt",
+          "startMs": 17425,
+          "endMs": 17825,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "alongside",
+          "startMs": 17825,
+          "endMs": 18362,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "the",
+          "startMs": 18362,
+          "endMs": 18450,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "question.",
+          "startMs": 18450,
+          "endMs": 19350,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "The",
+          "startMs": 19350,
+          "endMs": 19512,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "LLM",
+          "startMs": 19512,
+          "endMs": 20250,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "reads",
+          "startMs": 20250,
+          "endMs": 20588,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "the",
+          "startMs": 20588,
+          "endMs": 20700,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "evidence,",
+          "startMs": 20700,
+          "endMs": 21425,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "then",
+          "startMs": 21425,
+          "endMs": 21650,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "answers.",
+          "startMs": 21650,
+          "endMs": 22650,
+          "timestampMs": null,
+          "confidence": null
+        }
+      ],
+      "captions": [
+        {
+          "text": "Here is how it works.",
+          "startMs": 275,
+          "endMs": 1800,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "First, your documents are split into",
+          "startMs": 1800,
+          "endMs": 3612,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "chunks and converted into vector embeddings.",
+          "startMs": 3612,
+          "endMs": 6375,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "These vectors are stored in a database.",
+          "startMs": 6375,
+          "endMs": 8825,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "When a user asks a question,",
+          "startMs": 8825,
+          "endMs": 10475,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "the query gets embedded too.",
+          "startMs": 10475,
+          "endMs": 12612,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "A similarity search finds",
+          "startMs": 12612,
+          "endMs": 14088,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "the most relevant chunks.",
+          "startMs": 14088,
+          "endMs": 15912,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "Those chunks are injected into",
+          "startMs": 15912,
+          "endMs": 17338,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "the prompt alongside the question.",
+          "startMs": 17338,
+          "endMs": 19350,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "The LLM reads the evidence, then answers.",
+          "startMs": 19350,
+          "endMs": 22750,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        }
+      ],
+      "cacheKey": "sha256:846a58a09c12c4ab6aa6615a3b3a297ec6bf64e2c805ead9f060f6b148c376d2"
+    },
+    {
+      "id": "grounded-answer",
+      "text": "Now every answer is grounded. The model cites its sources. You can verify every claim. And when your data changes, the model knows immediately. No retraining required.",
+      "sourceText": "Now every answer is grounded. The model cites its sources. You can verify every claim. And when your data changes, the model knows immediately. No retraining required.",
+      "file": "grounded-answer.wav",
+      "durationSec": 11.375,
+      "sampleRate": 24000,
+      "textChecksum": "sha256:15a109f99aba9332ae3d569eb40eb0dc3bafa77ab398e44550530d4d2f2160ea",
+      "fileChecksum": "sha256:ea78a5ce0c978696f93c22c5d94a9544a551e76bda5504dca0e835896c5edec1",
+      "words": [
+        {
+          "text": "Now",
+          "startMs": 325,
+          "endMs": 612,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "every",
+          "startMs": 612,
+          "endMs": 925,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "answer",
+          "startMs": 925,
+          "endMs": 1300,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "is",
+          "startMs": 1300,
+          "endMs": 1450,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "grounded.",
+          "startMs": 1450,
+          "endMs": 2275,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "The",
+          "startMs": 2275,
+          "endMs": 2400,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "model",
+          "startMs": 2400,
+          "endMs": 2762,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "cites",
+          "startMs": 2762,
+          "endMs": 3075,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "its",
+          "startMs": 3075,
+          "endMs": 3225,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "sources.",
+          "startMs": 3225,
+          "endMs": 4125,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "You",
+          "startMs": 4125,
+          "endMs": 4250,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "can",
+          "startMs": 4250,
+          "endMs": 4425,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "verify",
+          "startMs": 4425,
+          "endMs": 4988,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "every",
+          "startMs": 4988,
+          "endMs": 5325,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "claim.",
+          "startMs": 5325,
+          "endMs": 6125,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "And",
+          "startMs": 6125,
+          "endMs": 6262,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "when",
+          "startMs": 6262,
+          "endMs": 6400,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "your",
+          "startMs": 6400,
+          "endMs": 6525,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "data",
+          "startMs": 6525,
+          "endMs": 6838,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "changes,",
+          "startMs": 6838,
+          "endMs": 7525,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "the",
+          "startMs": 7525,
+          "endMs": 7650,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "model",
+          "startMs": 7650,
+          "endMs": 8000,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "knows",
+          "startMs": 8000,
+          "endMs": 8300,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "immediately.",
+          "startMs": 8300,
+          "endMs": 9400,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "No",
+          "startMs": 9400,
+          "endMs": 9675,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "retraining",
+          "startMs": 9675,
+          "endMs": 10225,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "required.",
+          "startMs": 10225,
+          "endMs": 11275,
+          "timestampMs": null,
+          "confidence": null
+        }
+      ],
+      "captions": [
+        {
+          "text": "Now every answer is grounded.",
+          "startMs": 325,
+          "endMs": 2275,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "The model cites its sources.",
+          "startMs": 2275,
+          "endMs": 4125,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "You can verify every claim.",
+          "startMs": 4125,
+          "endMs": 6125,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "And when your data",
+          "startMs": 6125,
+          "endMs": 6838,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "changes, the model knows immediately.",
+          "startMs": 6838,
+          "endMs": 9400,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "No retraining required.",
+          "startMs": 9400,
+          "endMs": 11375,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        }
+      ],
+      "cacheKey": "sha256:da182c3dd08aed02b04d365bc39ee4161e37832c57944649e317d5c841d7e26a"
+    },
+    {
+      "id": "takeaway",
+      "text": "That is RAG. Your LLM stops guessing and starts reading. What will you build with it?",
+      "sourceText": "That is RAG. Your LLM stops guessing and starts reading. What will you build with it?",
+      "file": "takeaway.wav",
+      "durationSec": 5.5,
+      "sampleRate": 24000,
+      "textChecksum": "sha256:535ae2e9ea09d5cd6bf031ff95a43d25d1e8ec9de7dfc92ae725d2b25f00f908",
+      "fileChecksum": "sha256:559ab90df3c4e844d2382517f7f61fdc7362e1d06c7d436d6a358fff27c90c9a",
+      "words": [
+        {
+          "text": "That",
+          "startMs": 275,
+          "endMs": 425,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "is",
+          "startMs": 425,
+          "endMs": 575,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "RAG.",
+          "startMs": 575,
+          "endMs": 1200,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "Your",
+          "startMs": 1200,
+          "endMs": 1412,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "LLM",
+          "startMs": 1412,
+          "endMs": 2000,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "stops",
+          "startMs": 2000,
+          "endMs": 2350,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "guessing",
+          "startMs": 2350,
+          "endMs": 2788,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "and",
+          "startMs": 2788,
+          "endMs": 2900,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "starts",
+          "startMs": 2900,
+          "endMs": 3250,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "reading.",
+          "startMs": 3250,
+          "endMs": 3975,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "What",
+          "startMs": 3975,
+          "endMs": 4112,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "will",
+          "startMs": 4112,
+          "endMs": 4225,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "you",
+          "startMs": 4225,
+          "endMs": 4362,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "build",
+          "startMs": 4362,
+          "endMs": 4638,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "with",
+          "startMs": 4638,
+          "endMs": 4788,
+          "timestampMs": null,
+          "confidence": null
+        },
+        {
+          "text": "it?",
+          "startMs": 4788,
+          "endMs": 5400,
+          "timestampMs": null,
+          "confidence": null
+        }
+      ],
+      "captions": [
+        {
+          "text": "That is RAG.",
+          "startMs": 275,
+          "endMs": 1200,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "Your LLM stops guessing and starts reading.",
+          "startMs": 1200,
+          "endMs": 3975,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        },
+        {
+          "text": "What will you build with it?",
+          "startMs": 3975,
+          "endMs": 5500,
+          "timestampMs": null,
+          "confidence": null,
+          "pageBreakAfter": true
+        }
+      ],
+      "cacheKey": "sha256:4e3e837dd79b889c915aa3d9a34c0527317a2979b8b802303c82682f43620851"
+    }
+  ]
+}

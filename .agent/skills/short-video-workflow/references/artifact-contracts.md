@@ -86,7 +86,7 @@ Allowed states are `request_created`, `directions_proposed`,
   "audience": "junior developers",
   "platform": "youtube_shorts",
   "language": "en",
-  "productionDefaults": { "captions": "word-highlight", "motion": "explanatory", "backgroundSound": "intentional-music" },
+  "productionDefaults": { "width": 2160, "height": 3840, "fps": 60, "captions": "word-highlight", "motion": "explanatory", "backgroundSound": "intentional-music" },
   "durationRangeSec": { "min": 45, "max": 75 },
   "tone": "fast, playful, moderately tense",
   "goal": "Explain the role of a reproducible runtime environment",
@@ -151,9 +151,9 @@ Allowed states are `request_created`, `directions_proposed`,
     "title": "Why it breaks after deploy",
     "platform": "youtube_shorts",
     "language": "en",
-    "width": 1080,
-    "height": 1920,
-    "fps": 30
+    "width": 2160,
+    "height": 3840,
+    "fps": 60
   },
   "hook": {
     "type": "tension",
@@ -181,7 +181,7 @@ Allowed states are `request_created`, `directions_proposed`,
       "body": "Inter",
       "code": "JetBrains Mono"
     },
-    "safeArea": { "top": 140, "right": 180, "bottom": 300, "left": 90 },
+    "safeArea": { "top": 280, "right": 360, "bottom": 600, "left": 180 },
     "motionGrammar": "direct cuts, shared-object moves, restrained spring emphasis",
     "assetLanguage": "native diagrams and tightly cropped real UI evidence"
   },
@@ -208,9 +208,15 @@ Allowed states are `request_created`, `directions_proposed`,
 }
 ```
 
-The `safeArea` values above are an example starting point for a 1080×1920 project,
+Format defaults come from `renderer/src/video-format.json`. New requests record
+them under `productionDefaults`; `script --draft` fills omitted `meta.width`,
+`meta.height` and `meta.fps` from request/shared defaults before script hashing.
+Explicit video metadata wins. Already-approved projects are not rewritten.
+
+The `safeArea` values above are output pixels for a 2160×3840 project,
 not a universal platform standard. Set them from the actual target platform and
-verify them with a UI overlay in the preview.
+verify them with a UI overlay in the preview. When authoring at 1080×1920 logical
+coordinates, use half these margins and scale the entire layout by 2.
 
 The music path/gain are placeholders, not a ready asset or universal mix level.
 Select or generate the real asset, save its provenance, and measure the actual
@@ -224,7 +230,7 @@ These are agent-owned review records; the current CLI does not validate their
 schema or infer audibility from them. Preserve an existing QC file's other fields.
 
 The example is an editorial plan, not an implemented Docker renderer. Current
-render routes are `meta.renderer: "kubernetes" | "eclipses"`; omitted renderer
+render routes are `meta.renderer: "kubernetes" | "eclipses" | "grpc" | "rag" | "income"`; omitted renderer
 retains legacy Kubernetes compatibility. Unsupported routes or scene IDs fail.
 
 ## Production-only revisions

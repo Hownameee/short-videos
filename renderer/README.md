@@ -14,9 +14,30 @@ with spring motion, deletion emits fragments, controller paths scan continuously
 and Service paths carry animated packets. Render this project
 through the workflow CLI so its video data and voice manifest are supplied.
 
+New projects and Studio's empty composition default to **2160×3840 at 60 fps**,
+defined once in [`src/video-format.json`](src/video-format.json). Explicit project
+metadata takes precedence. The workflow fills missing format fields when a
+script draft is recorded, before approval. A default review preview is 1080×1920
+at 60 fps; final rendering uses the full canvas.
+
+The older topic routes use a shared 1080×1920 design canvas scaled uniformly to
+the output size in `Composition.tsx`; `IncomeVideo.tsx` owns its equivalent
+scaling. New routes must implement target-resolution layout or join that shared
+canvas, without applying both scaling strategies. Use configured fps for
+timelines and seconds for animation speeds; project audio generators must follow
+the same frame-rounded scene boundaries. Existing project metadata and archived
+sources are preserved.
+
 `video.meta.renderer: "eclipses"` selects `EclipseVideo.tsx` for
 `../projects/002-lunar-solar-eclipses/`. The Kubernetes composition remains
 available through the existing default route. Both use the shared karaoke component.
+
+`video.meta.renderer: "income"` selects `IncomeVideo.tsx` for
+`../projects/005-nominal-vs-real-income/`: a hypothetical pay raise and inflation
+example using animated pay slips, a shopping basket, an inflation-adjustment
+calculation, and indexed nominal/real income bars. It uses shared word-highlight
+captions and a project-generated musical score. Reproduction and asset details
+are in [the project's production notes](../projects/005-nominal-vs-real-income/PRODUCTION.md).
 
 For future videos, reuse `src/KaraokeCaptions.tsx` and the shared
 `../tools/kokoro/generate_audio.py` generator. Apply

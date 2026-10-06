@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "directionId": "hallucination-fix",
+  "selectedAt": "2026-10-05T16:14:49.000Z",
+  "userNotes": "",
+  "overrides": {},
+  "assumptions": ["User delegated all decisions"]
+}

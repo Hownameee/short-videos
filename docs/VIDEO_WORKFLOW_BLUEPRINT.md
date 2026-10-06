@@ -196,9 +196,9 @@ tảng. Dùng duration WAV thật để quyết định frame count; không ép 
   "schemaVersion": 1,
   "meta": {
     "title": "Why it breaks after deploy",
-    "width": 1080,
-    "height": 1920,
-    "fps": 30
+    "width": 2160,
+    "height": 3840,
+    "fps": 60
   },
   "design": {
     "visualThesis": "A stable system replaces an unpredictable environment"
@@ -225,7 +225,7 @@ phù hợp theo production defaults. CLI tự thêm `scriptVersion` và approval
 - **Nội dung:** hook khớp title/first frame; promise có payoff; claim có nguồn.
 - **Hình:** một focal point; text đọc được ở phone scale; không asset vỡ/frame đen.
 - **Âm thanh:** không lặp/cắt từ; voice rõ hơn music/SFX; loop/fade không lộ.
-- **Kỹ thuật:** 1080×1920, đúng FPS/duration; có audio khi manifest khai báo.
+- **Kỹ thuật:** mặc định 2160×3840 ở 60 fps; kiểm tra dimensions/FPS/duration theo cấu hình đã duyệt; có audio khi manifest khai báo.
 - **Quyền dùng:** asset, music và SFX có source/license metadata.
 - **Archive:** source snapshot và checksum khớp final mới nhất.
 

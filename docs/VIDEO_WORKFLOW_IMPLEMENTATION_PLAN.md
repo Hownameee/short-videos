@@ -1,6 +1,6 @@
 # Workflow implementation map
 
-The repository implements a resumable local CLI and two topic compositions.
+The repository implements a resumable local CLI and topic-specific compositions.
 Discovery research, scriptwriting, new scenes/assets, editorial QC and publishing
 are not automated. Read this file for code changes, not every production task.
 
@@ -14,6 +14,7 @@ are not automated. Read this file for code changes, not every production task.
 | Selective narration and transactional voice replacement | tools/kokoro/generate_audio.py |
 | Caption grouping | tools/kokoro/captions.py |
 | Topic dispatch, music and caption modes | renderer/src/ |
+| Shared new-video format (2160×3840, 60 fps) | renderer/src/video-format.json |
 
 ## Revision contract
 

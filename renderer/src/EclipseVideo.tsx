@@ -655,7 +655,7 @@ const Scene = ({
           style={{
             marginTop: 35,
             height: 3,
-            width: interpolate(frame, [0, 36], [0, 145], clamp),
+            width: interpolate(seconds, [0, 1.2], [0, 145], clamp),
             backgroundColor: color,
           }}
         />

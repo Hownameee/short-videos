@@ -5,10 +5,33 @@ Apply these defaults to new and resumed projects unless the user overrides them.
 | Area | Default |
 | --- | --- |
 | Language | English narration, on-screen text and captions |
+| Final format | Vertical 4K: 2160×3840 at 60 fps |
+| Review preview | Half resolution (1080×1920), retaining 60 fps |
 | Captions | `word-highlight`; shared KaraokeCaptions, scene-local time |
 | Motion | An explanatory action, narration cue and readable settled result per scene |
 | Sound | Audible purposeful music with a hook/explanation/reveal/ending arc |
 | Export | Shared workflow CLI, current preview, technical and editorial QC |
+
+## Resolution and frame rate
+
+The shared default is [video-format.json](../renderer/src/video-format.json).
+New requests record its width, height and fps in `productionDefaults`. When
+recording `script --draft`, missing `video.meta` format fields inherit the
+request defaults, or the shared defaults for older requests, before hashing and
+approval. Explicit `video.meta.width`, `height` and `fps` override these values.
+Existing approved projects and historical render archives retain their settings;
+changing them requires a new draft/approval and fresh preview.
+
+Render SVG, text and diagrams at the target resolution. If authoring on a
+1080×1920 design canvas, scale the entire layout uniformly by 2 for 4K, including
+HTML captions, overlays, backgrounds and safe margins. Do not enlarge an existing
+MP4 or duplicate 30 fps frames to claim a 4K60 render.
+
+Use seconds for motion and cue times; convert to frames using the configured
+fps. Music, sound effects, scene-tail rounding and review-frame scripts must use
+the same timeline rate. Keep provider word timings in milliseconds. Review
+consecutive 60 fps frames, safe areas and captions before the full-resolution
+final. Preview scale affects resolution only, not frame rate or timing.
 
 ## Narration and captions
 

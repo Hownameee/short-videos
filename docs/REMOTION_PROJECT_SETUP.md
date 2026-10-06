@@ -40,8 +40,15 @@ npm run video -- render --project projects/NNN-topic --final
 
 Research, scriptwriting, asset preparation and new scene implementation remain
 agent/user tasks. Kokoro produces narration, not music or visuals. The renderer
-currently implements Kubernetes and eclipses; set `meta.renderer` explicitly
+currently implements Kubernetes, eclipses, gRPC, RAG and income; set `meta.renderer` explicitly
 for new data. An unknown renderer fails instead of silently selecting Kubernetes.
+
+New projects default to **2160×3840 at 60 fps**, from
+[`renderer/src/video-format.json`](../renderer/src/video-format.json).
+`discover` records those settings in `request.json.productionDefaults`;
+`script --draft` fills missing `video.meta.width`, `height` and `fps` before
+hashing the script. Explicit project values override defaults. Existing approved
+projects keep their own settings until explicitly revised and reapproved.
 
 For an existing music/caption correction, run `video revise --project …`, edit
 `production.json`, then preflight and preview/final. Narration edits go through
@@ -51,7 +58,8 @@ describe the supported overlay and invalidation.
 
 ## Outputs and checks
 
-Preview uses scale 0.5/CRF 28 and samples opening, every scene and ending.
+Preview uses scale 0.5/CRF 28 and samples opening, every scene and ending:
+1080×1920 at 60 fps for the default 4K60 project, retaining the final's timeline.
 Final uses CRF 18, requires a current preview fingerprint, and checks expected
 duration, dimensions/FPS, H.264/AAC, full decode and encoded audio measurements.
 Normalization targets -16 LUFS / -1.5 dBTP. Reports include audio/asset/input hashes.

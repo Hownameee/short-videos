@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "slug": "rag",
+    "title": "Your AI is Lying — RAG Fixes It",
+    "platform": "youtube_shorts",
+    "language": "en",
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "renderer": "rag"
+  },
+  "hook": {
+    "type": "tension",
+    "text": "Your AI just made up a fact. It sounded perfect. It was completely wrong.",
+    "promise": "Show how RAG grounds LLM responses in retrievable evidence to eliminate hallucinations",
+    "durationRangeSec": {
+      "min": 4,
+      "max": 8
+    }
+  },
+  "captions": {
+    "mode": "word-highlight"
+  },
+  "audio": {
+    "voice": {
+      "provider": "kokoro",
+      "voice": "af_heart",
+      "langCode": "a",
+      "sampleRate": 24000,
+      "speed": 1
+    },
+    "music": {
+      "file": "assets/music/curious-tech.wav",
+      "volume": 0.12
+    }
+  },
+  "design": {
+    "visualThesis": "RAG eliminates LLM hallucinations by connecting the model to real documents through a vector-powered retrieval pipeline.",
+    "mood": [
+      "curious",
+      "technical",
+      "trustworthy",
+      "modern"
+    ],
+    "palette": {
+      "background": "#06090F",
+      "surface": "#0D1B2A",
+      "surfaceBorder": "#1B2D45",
+      "text": "#F0F4F8",
+      "muted": "#8DA2B5",
+      "accent": "#7C3AED",
+      "secondary": "#06D6A0",
+      "warning": "#FFB703",
+      "danger": "#EF4444"
+    },
+    "typography": {
+      "display": "Inter, system-ui, sans-serif",
+      "body": "Inter, system-ui, sans-serif",
+      "code": "JetBrains Mono, Menlo, monospace"
+    },
+    "safeArea": {
+      "top": 150,
+      "right": 180,
+      "bottom": 320,
+      "left": 90
+    },
+    "motionGrammar": "Clean pipeline flows, document-to-vector transformations, similarity search arcs, and confident result reveals.",
+    "assetLanguage": "Original SVG graphics, animated pipeline diagrams, vector space visualizations, and document retrieval flows."
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "purpose": "Hook the viewer with the AI hallucination problem",
+      "durationRangeSec": {
+        "min": 5,
+        "max": 9
+      },
+      "narration": "Your AI just made up a fact. It sounded perfect. It was completely wrong. In sixty seconds, I will show you the architecture that fixes this.",
+      "onScreenText": [
+        "Your AI is Lying",
+        "RAG Fixes It"
+      ],
+      "visualType": "dramatic-reveal",
+      "motion": {
+        "action": "A confident AI response with a verified badge shatters to reveal fabricated text underneath",
+        "cue": "completely wrong",
+        "settle": "Shattered badge fragments, red warning glow"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "hallucination-reduction"
+      ]
+    },
+    {
+      "id": "hallucination-problem",
+      "purpose": "Explain what hallucinations are and why LLMs produce them",
+      "durationRangeSec": {
+        "min": 8,
+        "max": 13
+      },
+      "narration": "Here is the problem. Large language models generate text from patterns in training data. When they hit a gap, they do not say I do not know. They fill it with something that sounds right. This is called a hallucination.",
+      "onScreenText": [
+        "The Hallucination Problem",
+        "Knowledge Gap → Fabrication"
+      ],
+      "visualType": "brain-diagram",
+      "motion": {
+        "action": "LLM brain icon generates text; gaps in knowledge light up with question marks morphing into fabricated confident text",
+        "cue": "hit a gap",
+        "settle": "Warning label 'HALLUCINATION' stamps onto the generated text"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "hallucination-reduction",
+        "rag-definition"
+      ]
+    },
+    {
+      "id": "rag-solution",
+      "purpose": "Introduce RAG as the solution that connects LLMs to real documents",
+      "durationRangeSec": {
+        "min": 7,
+        "max": 12
+      },
+      "narration": "RAG fixes this. Retrieval-Augmented Generation connects your LLM to real documents. Instead of guessing, the model searches your actual data first, then generates an answer based only on what it found.",
+      "onScreenText": [
+        "Retrieval-Augmented Generation",
+        "Search First → Then Answer"
+      ],
+      "visualType": "connection-diagram",
+      "motion": {
+        "action": "LLM connects to a document database via animated retrieval arrows; documents flow into the prompt context window",
+        "cue": "searches your actual data",
+        "settle": "Grounded response appears with a green verified badge"
+      },
+      "pronunciation": [
+        {
+          "written": "RAG",
+          "spoken": "rag"
+        }
+      ],
+      "sfx": [],
+      "sourceIds": [
+        "rag-definition",
+        "hallucination-reduction"
+      ]
+    },
+    {
+      "id": "pipeline",
+      "purpose": "Walk through the complete RAG pipeline from ingestion to generation",
+      "durationRangeSec": {
+        "min": 12,
+        "max": 18
+      },
+      "narration": "Here is how it works. First, your documents are split into chunks and converted into vector embeddings. These vectors are stored in a database. When a user asks a question, the query gets embedded too. A similarity search finds the most relevant chunks. Those chunks are injected into the prompt alongside the question. The LLM reads the evidence, then answers.",
+      "onScreenText": [
+        "The RAG Pipeline",
+        "Chunk → Embed → Store → Retrieve → Generate"
+      ],
+      "visualType": "animated-pipeline",
+      "motion": {
+        "action": "End-to-end animated pipeline: documents split into chunks, chunks transform into vector dots, dots flow into vector DB, query arrow triggers similarity search arcs, matched chunks inject into prompt box, LLM generates grounded answer",
+        "cue": "split into chunks",
+        "settle": "Complete pipeline diagram with all stages connected"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "chunking-embedding-pipeline",
+        "vector-similarity-search"
+      ]
+    },
+    {
+      "id": "grounded-answer",
+      "purpose": "Show the result: grounded, citable, instantly updatable answers",
+      "durationRangeSec": {
+        "min": 7,
+        "max": 12
+      },
+      "narration": "Now every answer is grounded. The model cites its sources. You can verify every claim. And when your data changes, the model knows immediately. No retraining required.",
+      "onScreenText": [
+        "Grounded & Verifiable",
+        "No Retraining Required"
+      ],
+      "visualType": "result-panel",
+      "motion": {
+        "action": "Response panel with inline source citations that highlight back to original documents; a 'last updated: now' timestamp pulses green",
+        "cue": "cites its sources",
+        "settle": "Clean verified response with citation links and live update indicator"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "source-citation",
+        "rag-vs-finetuning"
+      ]
+    },
+    {
+      "id": "takeaway",
+      "purpose": "Deliver the one-line takeaway and engagement CTA",
+      "durationRangeSec": {
+        "min": 4,
+        "max": 8
+      },
+      "narration": "That is RAG. Your LLM stops guessing and starts reading. What will you build with it?",
+      "onScreenText": [
+        "Stop Guessing. Start Reading.",
+        "What will you build?"
+      ],
+      "visualType": "architecture-summary",
+      "motion": {
+        "action": "Clean architecture diagram of the complete RAG loop zooms to final state with audience prompt",
+        "cue": "stops guessing",
+        "settle": "Settled RAG architecture blueprint with CTA text"
+      },
+      "sfx": [],
+      "sourceIds": [
+        "rag-definition"
+      ]
+    }
+  ],
+  "outro": {
+    "takeaway": "RAG grounds your LLM in real documents — it stops guessing and starts reading.",
+    "cta": "What will you build with it?"
+  },
+  "scriptVersion": "sha256:6ae40dd1be08f9566e6065f949f6d5f61da38bfd81ed7ebddf0a89d5df3bb1c7",
+  "approval": {
+    "status": "approved",
+    "approvedAt": "2026-10-05T16:16:43.193Z",
+    "approvedScriptVersion": "sha256:6ae40dd1be08f9566e6065f949f6d5f61da38bfd81ed7ebddf0a89d5df3bb1c7"
+  }
+}

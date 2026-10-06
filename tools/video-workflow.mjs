@@ -18,6 +18,10 @@ import { validateVoiceCaptions } from "./caption-validation.mjs";
 import { assertLocalMediaPath, resolveProductionVideo, validateRenderConfig, expectedDuration, reviewTimes } from "./production-config.mjs";
 import { measureAudio } from "./media-qc.mjs";
 
+const defaultVideoFormat = JSON.parse(await readFile(
+  new URL("../renderer/src/video-format.json", import.meta.url), "utf8",
+));
+
 export const STATES = Object.freeze({
   REQUEST_CREATED: "request_created",
   DIRECTIONS_PROPOSED: "directions_proposed",
@@ -254,6 +258,7 @@ export const createProject = async (workspaceRoot, options) => {
       platform: options.platform || "youtube_shorts",
       language: options.language || "en",
       productionDefaults: {
+        ...defaultVideoFormat,
         captions: "word-highlight",
         motion: "explanatory",
         backgroundSound: "intentional-music",
@@ -486,6 +491,15 @@ export const recordScriptDraft = async (workspaceRoot, projectInput) => {
   }
   const video = await readJson(videoPath);
   validateVideo(video);
+  const request = await readJson(path.join(projectDir, "request.json"));
+  for (const field of ["width", "height", "fps"]) {
+    if (video.meta[field] === undefined) {
+      video.meta[field] = request.productionDefaults?.[field] ?? defaultVideoFormat[field];
+    }
+    if (!Number.isInteger(video.meta[field]) || video.meta[field] <= 0) {
+      throw new Error(`Invalid meta.${field}.`);
+    }
+  }
   const version = scriptChecksum(scriptMarkdown, video);
   video.scriptVersion = version;
   video.approval = {
@@ -806,9 +820,9 @@ const rationalNumber = (value) => {
 export const validateFinalMedia = (probe, video, expectedDurationSec) => {
   const videoStream = probe.streams?.find((stream) => stream.codec_type === "video");
   if (!videoStream) throw new Error("Final output has no video stream.");
-  const expectedWidth = Number(video.meta.width ?? 1080);
-  const expectedHeight = Number(video.meta.height ?? 1920);
-  const expectedFps = Number(video.meta.fps ?? 30);
+  const expectedWidth = Number(video.meta.width ?? defaultVideoFormat.width);
+  const expectedHeight = Number(video.meta.height ?? defaultVideoFormat.height);
+  const expectedFps = Number(video.meta.fps ?? defaultVideoFormat.fps);
   if (videoStream.width !== expectedWidth || videoStream.height !== expectedHeight) {
     throw new Error(
       `Final dimensions are ${videoStream.width}x${videoStream.height}; expected ${expectedWidth}x${expectedHeight}.`,
