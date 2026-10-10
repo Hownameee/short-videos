@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "scriptVersion": "sha256:6ae40dd1be08f9566e6065f949f6d5f61da38bfd81ed7ebddf0a89d5df3bb1c7",
+  "scriptVersion": "sha256:31f3c6ac153ec36706496eb535b20721be83c0db30a3f9354172905838e927d4",
   "audio": {
     "music": {
-      "file": "assets/music/deliberate-thought.mp3",
-      "volume": 0.12,
-      "fadeInSec": 0.5,
-      "fadeOutSec": 1.5
+      "file": "assets/music/evidence-trail.wav",
+      "volume": 1,
+      "fadeInSec": 0,
+      "fadeOutSec": 0
     },
     "sfx": false
   },
   "captions": {
     "mode": "word-highlight"
   },
-  "soundIntent": "Curious tech mood fading into a confident resolution."
+  "soundIntent": "Original 96 BPM evidence-trail score: curious hook, sparse indexing/search, lift at generated answer, space around limitations, resolved ending. Word-interval ducking, active-speech RMS target 15 dB below voice, baked fades."
 }

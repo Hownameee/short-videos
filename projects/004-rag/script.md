@@ -1,53 +1,23 @@
-# Your AI is Lying — RAG Fixes It
+# RAG: Follow the Evidence
 
-English narration, titles and captions. Vertical 1080x1920, 30 fps. Target 50–65 seconds. Audience: software engineers and AI practitioners. Tone: clear, technical, energetic.
+English; developers and AI practitioners; approximately 60 seconds; 2160x3840 at 60 fps.
 
-Promise: Show how RAG grounds every LLM response in real, retrievable evidence — eliminating hallucinations by shifting from "recalling" to "reasoning over documents."
+Hook: a confident 90-day answer conflicts with a 30-day example policy.
+Promise: follow the same evidence through the complete RAG flow.
+Payoff: a sourced answer plus an honest insufficient-evidence branch.
+Takeaway / CTA: keep the index current and check the answer against its source.
 
-## hook
+| Beat | Exact narration | Motion, cue, settle and sources |
+| --- | --- | --- |
+| hook | How long do we keep logs? An AI might say ninety days. But our example policy says thirty. That gap is where RAG can help. | Cross out the unsupported 90-day answer and reveal the policy fragment with 30 days. Cue: But. Settle: Unsupported 90 contrasts with fictional policy 30. Sources: rag-paper. |
+| hallucination-problem | First, prepare the documents. Split them into passages and index them for search. Embeddings are one way to match meaning. | One document separates into three passages; the retention passage stays amber and joins a search index. Cue: Split. Settle: Passages indexed for search; embeddings are one option. Sources: azure-rag. |
+| rag-solution | Now ask the question. Retrieve the relevant policy passage. The search result is evidence for the model, not the final answer. | The question searches three passages and selects the retention excerpt with its source ID. Cue: Retrieve. Settle: Relevant passage plus source metadata, not yet an answer. Sources: azure-rag. |
+| pipeline | Put the question and that passage into the prompt. The model writes an answer: thirty days, with a link back to the source. | Question and policy fragment move together into a prompt, then a cited 30-day answer appears. Cue: model. Settle: Answer and source passage connected by the same reference. Sources: foundry-rag. |
+| grounded-answer | That does not guarantee truth. Search can miss, documents can be outdated, and models can misread them. Missing evidence should trigger a clear refusal. | A question about exceptions takes a no-evidence branch to an explicit insufficient-evidence answer. Cue: Missing. Settle: No unsupported exception invented; stop and say evidence is missing. Sources: foundry-rag. |
+| takeaway | RAG means retrieval augmented generation. Retrieve, then answer with evidence. Keep the index current, and check whether the answer really matches its source. | Trace the amber passage through search and generation, then link answer back to its source for checking. Cue: check. Settle: A citation must support the answer; maintain the searchable index. Sources: rag-paper, foundry-rag. |
 
-Your AI just made up a fact. It sounded perfect. It was completely wrong. In sixty seconds, I will show you the architecture that fixes this.
+The policy, the two numbers and the follow-up question are fictional teaching examples. They are not real log-retention advice. The old discovery claims are historical; [revision-research.md](revision-research.md) is the current fact-check supplement.
 
-Visual: A confident LLM response with a "verified" badge that shatters, revealing fabricated text underneath.
-Sources: hallucination-reduction
+Original 96 BPM restrained pluck/pad/bass score: curious opening, sparse indexing and search, brighter answer reveal, space around limitations, settled ending. Word-interval ducking, measured active-speech balance and baked fades. English Kokoro af_heart at normal speed. RAG is pronounced as the word rag. Captions use provider-predicted word timings.
 
-## hallucination-problem
-
-Here is the problem. Large language models generate text from patterns in training data. When they hit a gap, they do not say "I do not know." They fill it with something that sounds right. This is called a hallucination.
-
-Visual: An LLM brain icon generating text; question marks and warning symbols appear as gaps in knowledge light up.
-Sources: hallucination-reduction, rag-definition
-
-## rag-solution
-
-RAG fixes this. Retrieval-Augmented Generation connects your LLM to real documents. Instead of guessing, the model searches your actual data first, then generates an answer based only on what it found.
-
-Visual: The LLM connects to a document database via a retrieval arrow; documents flow into the prompt window.
-Pronunciation: RAG -> rag (single syllable, rhymes with "bag")
-Sources: rag-definition, hallucination-reduction
-
-## pipeline
-
-Here is how it works. First, your documents are split into chunks and converted into vector embeddings. These vectors are stored in a database. When a user asks a question, the query gets embedded too. A similarity search finds the most relevant chunks. Those chunks are injected into the prompt alongside the question. The LLM reads the evidence, then answers.
-
-Visual: Animated end-to-end pipeline: documents → chunks → embeddings → vector database → query embedding → similarity search → prompt augmentation → grounded response.
-Sources: chunking-embedding-pipeline, vector-similarity-search
-
-## grounded-answer
-
-Now every answer is grounded. The model cites its sources. You can verify every claim. And when your data changes, the model knows immediately — no retraining required.
-
-Visual: A response panel with inline source citations highlighting back to original documents; a "last updated: now" timestamp pulses.
-Sources: source-citation, rag-vs-finetuning
-
-## takeaway
-
-That is RAG. Your LLM stops guessing and starts reading. What will you build with it?
-
-Visual: Clean architecture diagram showing the complete RAG loop with a call-to-action prompt.
-Sources: rag-definition
-
----
-Estimated total duration: ~58 seconds.
-Audio: af_heart voice, curious-tech music at 0.12 gain. Curious tension at the hook, space for the pipeline walkthrough, confident lift at the grounded-answer reveal, settled at takeaway.
-Captions: word-highlight karaoke.
+The user explicitly requested this complete remake and delegated production choices.

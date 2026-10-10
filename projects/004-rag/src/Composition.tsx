@@ -1,8 +1,15 @@
-import { CalculateMetadataFunction, Composition } from "remotion";
+import {
+  AbsoluteFill,
+  CalculateMetadataFunction,
+  Composition,
+  useVideoConfig,
+} from "remotion";
+import defaultVideoFormat from "./video-format.json";
 import { KubernetesVideo } from "./KubernetesVideo";
 import { EclipseVideo } from "./EclipseVideo";
 import { GrpcVideo } from "./GrpcVideo";
 import { RagVideo } from "./RagVideo";
+import { IncomeVideo } from "./IncomeVideo";
 import type { VideoProps } from "./video-types";
 
 const defaultProps: VideoProps = {
@@ -11,9 +18,7 @@ const defaultProps: VideoProps = {
   video: {
     meta: {
       title: "New video",
-      width: 1080,
-      height: 1920,
-      fps: 30,
+      ...defaultVideoFormat,
     },
     design: {
       palette: {
@@ -57,9 +62,9 @@ export const MyComposition = () => {
       id="ShortVideo"
       component={ProjectVideo}
       durationInFrames={60}
-      fps={30}
-      width={1080}
-      height={1920}
+      fps={defaultVideoFormat.fps}
+      width={defaultVideoFormat.width}
+      height={defaultVideoFormat.height}
       defaultProps={defaultProps}
       calculateMetadata={calculateMetadata}
     />
@@ -67,11 +72,39 @@ export const MyComposition = () => {
 };
 
 const ProjectVideo = (props: VideoProps) => {
+  const { width, height } = useVideoConfig();
   const renderer = props.video.meta.renderer ?? "kubernetes";
-  if (renderer === "eclipses") return <EclipseVideo {...props} />;
-  if (renderer === "kubernetes") return <KubernetesVideo {...props} />;
-  if (renderer === "grpc") return <GrpcVideo {...props} />;
-  if (renderer === "rag") return <RagVideo {...props} />;
-  throw new Error(`Unsupported renderer: ${renderer}`);
+  // Income owns its scaling; older topics share a fixed 1080x1920 design canvas.
+  if (renderer === "income") return <IncomeVideo {...props} />;
+  const topic =
+    renderer === "eclipses" ? (
+      <EclipseVideo {...props} />
+    ) : renderer === "kubernetes" ? (
+      <KubernetesVideo {...props} />
+    ) : renderer === "grpc" ? (
+      <GrpcVideo {...props} />
+    ) : renderer === "rag" ? (
+      <RagVideo {...props} />
+    ) : null;
+  if (!topic) throw new Error(`Unsupported renderer: ${renderer}`);
+  const scale = Math.min(width / 1080, height / 1920);
+  return (
+    <AbsoluteFill
+      style={{ backgroundColor: props.video.design.palette.background }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          width: 1080,
+          height: 1920,
+          left: (width - 1080 * scale) / 2,
+          top: (height - 1920 * scale) / 2,
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+        }}
+      >
+        {topic}
+      </div>
+    </AbsoluteFill>
+  );
 };
-

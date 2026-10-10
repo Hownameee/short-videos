@@ -1,8 +1,8 @@
+import type { ReactNode } from "react";
 import {
   AbsoluteFill,
   Audio,
   Series,
-  spring,
   staticFile,
   useCurrentFrame,
   useVideoConfig,
@@ -12,681 +12,466 @@ import { KaraokeCaptions } from "./KaraokeCaptions";
 import { BackgroundMusic } from "./BackgroundMusic";
 
 const C = {
-  bg: "#06090F",
-  panel: "#0D1B2A",
-  panelBorder: "#1B2D45",
-  text: "#F0F4F8",
-  muted: "#8DA2B5",
-  purple: "#7C3AED",
-  purpleGlow: "#A855F7",
-  green: "#06D6A0",
-  greenDark: "#059669",
-  amber: "#FFB703",
-  red: "#EF4444",
-  blue: "#3B82F6",
-  cyan: "#22D3EE",
+  bg: "#131D2B",
+  panel: "#233044",
+  paper: "#F7F2E8",
+  ink: "#172331",
+  muted: "#A9B8C9",
+  line: "#465368",
+  purple: "#C3AFFA",
+  amber: "#F7C76A",
+  red: "#F49B88",
+};
+const ease = (t: number, at: number, length = 0.8) => {
+  const p = Math.max(0, Math.min(1, (t - at) / length));
+  return p * p * (3 - 2 * p);
+};
+const cue = (voice: VoiceScene, word: string, fallback: number) =>
+  (voice.words?.find(
+    (w) => w.text.toLowerCase().replace(/[^a-z]/g, "") === word.toLowerCase(),
+  )?.startMs ?? fallback * 1000) / 1000;
+const Text = ({
+  x = 90,
+  y,
+  size = 42,
+  fill = C.paper,
+  children,
+  anchor = "start",
+  mono = false,
+  weight = 600,
+}: {
+  x?: number;
+  y: number;
+  size?: number;
+  fill?: string;
+  children: ReactNode;
+  anchor?: "start" | "middle" | "end";
+  mono?: boolean;
+  weight?: number;
+}) => (
+  <text
+    x={x}
+    y={y}
+    fontSize={size}
+    fill={fill}
+    textAnchor={anchor}
+    fontWeight={weight}
+    fontFamily={mono ? "Menlo, monospace" : "Arial, sans-serif"}
+  >
+    {children}
+  </text>
+);
+const Rule = ({ y }: { y: number }) => (
+  <line x1={90} y1={y} x2={900} y2={y} stroke={C.line} strokeWidth={2} />
+);
+const Evidence = ({ y, compact = false }: { y: number; compact?: boolean }) => (
+  <g>
+    <rect
+      x={90}
+      y={y}
+      width={810}
+      height={compact ? 192 : 267}
+      fill={C.paper}
+      rx={5}
+    />
+    <rect x={90} y={y} width={10} height={compact ? 192 : 267} fill={C.amber} />
+    <Text x={125} y={y + 49} size={30} fill="#57452F" mono>
+      ops-policy.md · §2
+    </Text>
+    <Text x={125} y={y + 105} size={37} fill={C.ink}>
+      Application logs are retained for
+    </Text>
+    <Text
+      x={125}
+      y={y + (compact ? 165 : 214)}
+      size={compact ? 55 : 89}
+      fill={C.ink}
+    >
+      30 days.
+    </Text>
+  </g>
+);
+
+const Hook = ({ t, voice }: { t: number; voice: VoiceScene }) => {
+  const p = ease(t, cue(voice, "But", 5));
+  return (
+    <>
+      <Text y={552} size={39} fill={C.muted}>
+        How long do we keep logs?
+      </Text>
+      <Text y={633} size={30} fill={C.red}>
+        UNSUPPORTED ANSWER
+      </Text>
+      <Text y={782} size={135} fill={C.red}>
+        90 days.
+      </Text>
+      <path
+        d={`M90 726 L${90 + 590 * p} ${726 - 30 * p}`}
+        stroke={C.paper}
+        strokeWidth={7}
+      />
+      <g opacity={p} transform={`translate(0 ${45 * (1 - p)})`}>
+        <Evidence y={857} />
+      </g>
+      <Text y={1235} size={35} fill={C.muted}>
+        Fictional example. The source matters.
+      </Text>
+    </>
+  );
 };
 
-const mono = "JetBrains Mono, Menlo, monospace";
-
-// ─── Scene 1: Hook — Shattering verified badge ──────────────────────────
-const HookScene = ({ seconds }: { seconds: number }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const intro = spring({ frame, fps, config: { damping: 14, stiffness: 100 } });
-  const shatterStart = 3.5;
-  const shattered = seconds > shatterStart;
-  const shatterProgress = shattered
-    ? Math.min(1, (seconds - shatterStart) / 0.8)
-    : 0;
-  const pulse = (Math.sin(seconds * 3) + 1) / 2;
-
+const Prepare = ({ t, voice }: { t: number; voice: VoiceScene }) => {
+  const split = ease(t, cue(voice, "Split", 2));
+  const index = ease(t, cue(voice, "index", 4));
+  const embedding = ease(t, cue(voice, "Embeddings", 6));
   return (
-    <g transform={`translate(0 ${(1 - intro) * 50})`} opacity={intro}>
-      {/* AI Response Card */}
-      <rect x="115" y="320" width="850" height="520" rx="24" fill={C.panel}
-        stroke={shattered ? C.red : C.panelBorder} strokeWidth="2" />
-
-      {/* Response header */}
-      <g transform="translate(155 365)">
-        <circle cx="18" cy="18" r="18" fill={`${C.purple}30`} />
-        <text x="18" y="24" fill={C.purple} fontSize="18" fontWeight="bold"
-          textAnchor="middle" fontFamily={mono}>AI</text>
-        <text x="52" y="24" fill={C.text} fontSize="22" fontWeight="700">
-          AI Assistant Response
-        </text>
-      </g>
-
-      {/* Fake response text */}
-      {[0, 1, 2, 3].map((i) => (
-        <g key={i} transform={`translate(155 ${420 + i * 50})`}>
-          <rect x="0" y="0" width={[700, 780, 650, 500][i]} height="32" rx="6"
-            fill={shattered ? `${C.red}15` : "#1B2D4540"} />
-          <text x="14" y="22" fill={shattered ? "#FCA5A5" : C.muted}
-            fontSize="16" fontFamily={mono}>
-            {[
-              "The company was founded in 2019 by...",
-              "Revenue grew 340% year-over-year driven by...",
-              "Their proprietary algorithm processes...",
-              "Studies confirm a 97% accuracy rate...",
-            ][i]}
-          </text>
-        </g>
-      ))}
-
-      {/* Verified Badge — shatters */}
-      {!shattered && (
-        <g transform="translate(380 680)">
-          <rect x="0" y="0" width="320" height="56" rx="28" fill={`${C.green}20`}
-            stroke={C.green} strokeWidth="2" />
-          <text x="55" y="37" fill={C.green} fontSize="22" fontWeight="800">
-            ✓ Verified Response
-          </text>
-        </g>
-      )}
-
-      {/* Shatter fragments */}
-      {shattered && (
-        <>
-          {[...Array(12)].map((_, i) => {
-            const angle = (i / 12) * Math.PI * 2;
-            const dist = shatterProgress * (60 + (i % 3) * 40);
-            const cx = 540 + Math.cos(angle) * dist;
-            const cy = 708 + Math.sin(angle) * dist;
-            return (
-              <g key={i} opacity={1 - shatterProgress * 0.8}>
-                <rect x={cx - 12} y={cy - 8} width="24" height="16"
-                  rx="3" fill={C.green}
-                  transform={`rotate(${i * 30 + shatterProgress * 180} ${cx} ${cy})`} />
-              </g>
-            );
-          })}
-          {/* FABRICATED stamp */}
-          <g transform="translate(315 676)" opacity={shatterProgress}>
-            <rect x="0" y="0" width="450" height="64" rx="12"
-              fill={`${C.red}25`} stroke={C.red} strokeWidth="3" />
-            <text x="225" y="42" fill={C.red} fontSize="28" fontWeight="900"
-              textAnchor="middle" fontFamily={mono} letterSpacing="4">
-              ⚠ FABRICATED
-            </text>
+    <>
+      <Text y={555} size={30} fill={C.muted} mono>
+        ops-policy.md → passages
+      </Text>
+      {["01   Scope", "02   Retention: 30 days", "03   Access controls"].map(
+        (line, i) => (
+          <g key={line}>
+            <rect
+              x={90 + (1 - split) * i * 15}
+              y={617 + i * (85 + 61 * split)}
+              width={810 - (1 - split) * i * 30}
+              height={120}
+              rx={5}
+              fill={i === 1 ? C.amber : C.paper}
+            />
+            <Text
+              x={125}
+              y={690 + i * (85 + 61 * split)}
+              size={43}
+              fill={C.ink}
+            >
+              {line}
+            </Text>
           </g>
-        </>
+        ),
       )}
-
-      {/* Danger glow */}
-      {shattered && (
-        <rect x="115" y="320" width="850" height="520" rx="24"
-          fill="none" stroke={C.red}
-          strokeWidth={2 + pulse * 2}
-          opacity={0.4 + pulse * 0.3} />
-      )}
-    </g>
+      <g opacity={index}>
+        <path
+          d="M495 1058 V1100 M479 1084 L495 1100 L511 1084"
+          fill="none"
+          stroke={C.amber}
+          strokeWidth={4}
+        />
+        <rect
+          x={90}
+          y={1124}
+          width={810}
+          height={122}
+          rx={5}
+          fill={C.panel}
+          stroke={C.purple}
+          strokeWidth={2}
+        />
+        <Text x={125} y={1176} size={38} fill={C.purple}>
+          SEARCH INDEX
+        </Text>
+        <Text x={125} y={1221} size={30} fill={C.muted}>
+          {embedding > 0.5
+            ? "Embeddings can match meaning."
+            : "Store passages with source links."}
+        </Text>
+        {[0, 1, 2].map((i) => (
+          <rect
+            key={i}
+            x={785 + i * 25}
+            y={1190 - embedding * (i + 1) * 15}
+            width={13}
+            height={20 + embedding * (i + 1) * 15}
+            fill={C.amber}
+          />
+        ))}
+      </g>
+    </>
   );
 };
 
-// ─── Scene 2: Hallucination Problem — Brain with knowledge gaps ──────────
-const HallucinationProblemScene = ({ seconds }: { seconds: number }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const intro = spring({ frame, fps, config: { damping: 12, stiffness: 80 } });
-  const gapReveal = Math.min(1, Math.max(0, (seconds - 3) / 1.5));
-  const fabricateReveal = Math.min(1, Math.max(0, (seconds - 6) / 1.5));
-  const stampReveal = Math.min(1, Math.max(0, (seconds - 9) / 0.8));
-
+const Retrieve = ({ t, voice }: { t: number; voice: VoiceScene }) => {
+  const p = ease(t, cue(voice, "Retrieve", 1.8), 1);
   return (
-    <g opacity={intro}>
-      {/* Neural brain icon */}
-      <g transform={`translate(390 310) scale(${0.8 + intro * 0.2})`}>
-        <circle cx="150" cy="100" r="90" fill={`${C.purple}18`}
-          stroke={C.purple} strokeWidth="2.5" />
-        {/* Neural nodes */}
+    <>
+      <rect
+        x={90}
+        y={535}
+        width={810}
+        height={130}
+        rx={5}
+        fill={C.panel}
+        stroke={C.purple}
+        strokeWidth={2}
+      />
+      <Text x={125} y={583} size={28} fill={C.purple}>
+        QUESTION
+      </Text>
+      <Text x={125} y={636} size={42}>
+        How long do we keep logs?
+      </Text>
+      <g opacity={1 - p}>
         {[
-          [80, 60], [220, 60], [150, 30],
-          [90, 140], [210, 140], [150, 170],
-        ].map(([x, y], i) => (
-          <circle key={i} cx={x} cy={y} r="10"
-            fill={i < 3 ? C.purple : `${C.purple}60`} />
+          ["01", "Scope"],
+          ["03", "Access controls"],
+        ].map(([id, label], i) => (
+          <g key={id}>
+            <rect
+              x={90}
+              y={770 + i * 338}
+              width={810}
+              height={122}
+              rx={5}
+              fill={C.panel}
+            />
+            <Text x={125} y={846 + i * 338} size={41} fill={C.muted}>
+              {id} {label}
+            </Text>
+          </g>
         ))}
-        {/* Neural connections */}
+      </g>
+      <g transform={`translate(0 ${-(p * 143)})`}>
+        <rect
+          x={90}
+          y={940}
+          width={810}
+          height={122 + p * 118}
+          rx={5}
+          fill={C.amber}
+        />
+        <Text x={125} y={995} size={31} fill={C.ink} mono>
+          02 · ops-policy.md · §2
+        </Text>
+        <Text x={125} y={1050} size={47} fill={C.ink}>
+          Retention: 30 days
+        </Text>
+        <g opacity={p}>
+          <Text x={125} y={1120} size={35} fill={C.ink}>
+            Application logs, per the policy.
+          </Text>
+        </g>
+      </g>
+      <path d={`M495 685 V${685 + p * 80}`} stroke={C.purple} strokeWidth={4} />
+      <g opacity={p}>
+        <Text y={1160} size={44} fill={C.amber}>
+          Retrieved evidence + source link
+        </Text>
+        <Text y={1230} size={37} fill={C.muted}>
+          The answer comes next.
+        </Text>
+      </g>
+    </>
+  );
+};
+
+const Generate = ({ t, voice }: { t: number; voice: VoiceScene }) => {
+  const merge = ease(t, cue(voice, "prompt", 3));
+  const answer = ease(t, cue(voice, "answer", 5), 0.7);
+  const cite = ease(t, cue(voice, "link", 7));
+  return (
+    <>
+      <g opacity={merge}>
+        <rect
+          x={90}
+          y={550}
+          width={810}
+          height={427}
+          rx={8}
+          stroke={C.purple}
+          strokeWidth={3}
+          fill="none"
+        />
+        <Text x={125} y={603} size={31} fill={C.purple}>
+          AUGMENTED PROMPT
+        </Text>
+      </g>
+      <g transform={`translate(0 ${merge * 100})`}>
+        <rect x={90} y={540} width={810} height={103} fill={C.panel} rx={5} />
+        <Text x={125} y={606} size={43}>
+          How long do we keep logs?
+        </Text>
+      </g>
+      <g transform={`translate(0 ${merge * 50})`}>
+        <Evidence y={701} compact />
+      </g>
+      <path
+        d={`M495 987 V${987 + answer * 70}`}
+        stroke={C.purple}
+        strokeWidth={4}
+      />
+      <g opacity={answer} transform={`translate(0 ${25 * (1 - answer)})`}>
+        <Text y={1092} size={29} fill={C.purple}>
+          MODEL ANSWER
+        </Text>
+        <Text y={1190} size={84}>
+          30 days.<tspan fill={C.amber}> [1]</tspan>
+        </Text>
+        <Text y={1250} size={30} fill={C.amber} mono>
+          [1] ops-policy.md · §2
+        </Text>
+      </g>
+      <path
+        d="M825 1230 H881 V838 H850"
+        stroke={C.amber}
+        strokeWidth={4}
+        fill="none"
+        opacity={cite}
+      />
+    </>
+  );
+};
+
+const Limits = ({ t, voice }: { t: number; voice: VoiceScene }) => {
+  const changeAt = cue(voice, "Missing", 7.2);
+  const leave = ease(t, changeAt, 0.25);
+  const stop = ease(t, changeAt + 0.3, 0.5);
+  return (
+    <>
+      <g opacity={1 - leave}>
         {[
-          [80, 60, 150, 30], [220, 60, 150, 30],
-          [80, 60, 90, 140], [220, 60, 210, 140],
-          [90, 140, 150, 170], [210, 140, 150, 170],
-        ].map(([x1, y1, x2, y2], i) => (
-          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2}
-            stroke={`${C.purple}50`} strokeWidth="2" />
-        ))}
-        <text x="150" y="110" fill={C.text} fontSize="24" fontWeight="900"
-          textAnchor="middle" fontFamily={mono}>LLM</text>
-      </g>
-
-      {/* Training data label */}
-      <g transform="translate(315 540)">
-        <rect x="0" y="0" width="450" height="44" rx="10" fill={`${C.panel}`}
-          stroke={C.panelBorder} strokeWidth="1.5" />
-        <text x="225" y="30" fill={C.muted} fontSize="18" fontWeight="600"
-          textAnchor="middle" fontFamily={mono}>
-          PATTERNS FROM TRAINING DATA
-        </text>
-      </g>
-
-      {/* Knowledge blocks — some have gaps */}
-      <g transform="translate(140 620)">
-        {[0, 1, 2, 3, 4, 5].map((i) => {
-          const isGap = i === 2 || i === 4;
-          const col = i % 3;
-          const row = Math.floor(i / 3);
-          const x = col * 280;
-          const y = row * 110;
-          const gapShow = isGap ? gapReveal : 1;
+          "Search misses evidence.",
+          "Documents become stale.",
+          "Models misread passages.",
+        ].map((label, i) => {
+          const reveal = ease(t, 0.7 + i * 1.3);
           return (
-            <g key={i} transform={`translate(${x} ${y})`}>
-              <rect x="0" y="0" width="250" height="80" rx="12"
-                fill={isGap && gapShow > 0.5 ? `${C.amber}15` : C.panel}
-                stroke={isGap && gapShow > 0.5 ? C.amber : C.panelBorder}
-                strokeWidth="1.5" />
-              {isGap && gapShow > 0.5 ? (
-                <text x="125" y="48" fill={C.amber} fontSize="28" fontWeight="800"
-                  textAnchor="middle" fontFamily={mono}>
-                  ? ? ?
-                </text>
-              ) : (
-                <>
-                  <rect x="20" y="25" width={130 + i * 15} height="12" rx="4"
-                    fill={`${C.muted}30`} />
-                  <rect x="20" y="45" width={80 + i * 20} height="12" rx="4"
-                    fill={`${C.muted}20`} />
-                </>
-              )}
+            <g key={label} opacity={0.3 + 0.7 * reveal}>
+              <circle cx={108} cy={617 + i * 165} r={13} fill={C.red} />
+              <Text x={150} y={631 + i * 165} size={48}>
+                {label}
+              </Text>
+              <line
+                x1={150}
+                x2={900}
+                y1={679 + i * 165}
+                y2={679 + i * 165}
+                stroke={C.line}
+                strokeWidth={2}
+              />
             </g>
           );
         })}
       </g>
-
-      {/* Fabrication arrow and output */}
-      {fabricateReveal > 0 && (
-        <g opacity={fabricateReveal}>
-          <line x1="540" y1="880" x2="540" y2="940"
-            stroke={C.red} strokeWidth="3" strokeDasharray="6 4" />
-          <polygon points="530,940 550,940 540,960" fill={C.red} />
-
-          <rect x="270" y="970" width="540" height="70" rx="14"
-            fill={`${C.red}12`} stroke={C.red} strokeWidth="2" />
-          <text x="310" y="1012" fill="#FCA5A5" fontSize="18" fontFamily={mono}>
-            "Founded in 2019 with 97% accuracy..."
-          </text>
-          <rect x="700" y="985" width="80" height="36" rx="8"
-            fill={`${C.red}30`} />
-          <text x="740" y="1009" fill={C.red} fontSize="14" fontWeight="bold"
-            textAnchor="middle" fontFamily={mono}>FAKE</text>
-        </g>
-      )}
-
-      {/* HALLUCINATION label */}
-      {stampReveal > 0 && (
-        <g transform={`translate(255 1070) scale(${0.5 + stampReveal * 0.5})`}
-          opacity={stampReveal}>
-          <rect x="0" y="0" width="570" height="60" rx="12"
-            fill={`${C.red}20`} stroke={C.red} strokeWidth="3" />
-          <text x="285" y="41" fill={C.red} fontSize="26" fontWeight="900"
-            textAnchor="middle" fontFamily={mono} letterSpacing="6">
-            HALLUCINATION
-          </text>
-        </g>
-      )}
-    </g>
+      <g opacity={stop} transform={`translate(0 ${40 * (1 - stop)})`}>
+        <Text y={557} size={30} fill={C.purple}>
+          FOLLOW-UP QUESTION
+        </Text>
+        <Text y={633} size={54}>
+          Any deletion exceptions?
+        </Text>
+        <path
+          d="M495 675 V755 M479 739 L495 755 L511 739"
+          stroke={C.red}
+          strokeWidth={4}
+          fill="none"
+        />
+        <rect
+          x={90}
+          y={790}
+          width={810}
+          height={107}
+          rx={5}
+          fill={C.panel}
+          stroke={C.red}
+          strokeWidth={2}
+        />
+        <Text x={495} y={857} size={44} anchor="middle" fill={C.red}>
+          NO SUPPORTING PASSAGE
+        </Text>
+        <path
+          d="M495 914 V985 M479 969 L495 985 L511 969"
+          stroke={C.red}
+          strokeWidth={4}
+          fill="none"
+        />
+        <Text y={1080} size={60}>
+          “Not enough evidence
+        </Text>
+        <Text y={1154} size={60}>
+          to answer that.”
+        </Text>
+      </g>
+      <Text y={1245} size={35} fill={C.muted}>
+        Build this behavior. Test it.
+      </Text>
+    </>
   );
 };
 
-// ─── Scene 3: RAG Solution — LLM connects to documents ──────────────────
-const RagSolutionScene = ({ seconds }: { seconds: number }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const intro = spring({ frame, fps, config: { damping: 12, stiffness: 80 } });
-  const connectionReveal = Math.min(1, Math.max(0, (seconds - 2) / 1.5));
-  const docFlow = Math.min(1, Math.max(0, (seconds - 5) / 2));
-  const verified = Math.min(1, Math.max(0, (seconds - 8) / 1));
-
+const Takeaway = ({ t, voice }: { t: number; voice: VoiceScene }) => {
+  const check = ease(t, cue(voice, "check", 6));
+  const flow = ease(t, cue(voice, "Retrieve", 3), 2.5);
   return (
-    <g opacity={intro}>
-      {/* LLM Node */}
-      <g transform={`translate(390 290) scale(${intro})`}>
-        <rect x="0" y="0" width="300" height="100" rx="20"
-          fill={C.panel} stroke={C.purple} strokeWidth="2.5" />
-        <circle cx="50" cy="50" r="28" fill={`${C.purple}25`} />
-        <text x="50" y="57" fill={C.purpleGlow} fontSize="20" fontWeight="800"
-          textAnchor="middle" fontFamily={mono}>🧠</text>
-        <text x="170" y="42" fill={C.text} fontSize="22" fontWeight="800"
-          textAnchor="middle">Large Language</text>
-        <text x="170" y="72" fill={C.text} fontSize="22" fontWeight="800"
-          textAnchor="middle">Model</text>
-      </g>
-
-      {/* Retrieval Connection Arrow */}
-      {connectionReveal > 0 && (
-        <g opacity={connectionReveal}>
-          {/* Animated retrieval arrow */}
-          <line x1="540" y1="400" x2="540" y2={400 + connectionReveal * 140}
-            stroke={C.green} strokeWidth="4" />
-          <polygon
-            points={`530,${400 + connectionReveal * 140} 550,${400 + connectionReveal * 140} 540,${410 + connectionReveal * 140}`}
-            fill={C.green} />
-          <text x="600" y="475" fill={C.green} fontSize="18" fontWeight="700"
-            fontFamily={mono}>RETRIEVE</text>
-        </g>
-      )}
-
-      {/* Document Database */}
-      <g transform={`translate(270 560) scale(${Math.min(1, connectionReveal * 1.5)})`}>
-        <rect x="0" y="0" width="540" height="280" rx="20"
-          fill={C.panel} stroke={C.panelBorder} strokeWidth="2" />
-        <rect x="20" y="15" width="500" height="40" rx="8"
-          fill={`${C.green}12`} />
-        <text x="270" y="42" fill={C.green} fontSize="18" fontWeight="800"
-          textAnchor="middle" fontFamily={mono}>
-          📁 YOUR DOCUMENT DATABASE
-        </text>
-
-        {/* Document icons */}
-        {[0, 1, 2, 3, 4, 5].map((i) => {
-          const col = i % 3;
-          const row = Math.floor(i / 3);
-          const isActive = docFlow > 0.3 && (i === 1 || i === 4);
-          return (
-            <g key={i} transform={`translate(${40 + col * 175} ${75 + row * 100})`}>
-              <rect x="0" y="0" width="150" height="70" rx="10"
-                fill={isActive ? `${C.green}20` : `${C.panelBorder}60`}
-                stroke={isActive ? C.green : C.panelBorder}
-                strokeWidth={isActive ? 2 : 1} />
-              <text x="15" y="30" fill={isActive ? C.green : C.muted}
-                fontSize="14" fontFamily={mono}>
-                {["api-docs.md", "specs.pdf", "guide.md",
-                  "schema.sql", "policy.md", "faq.json"][i]}
-              </text>
-              <rect x="15" y="42" width={80 + i * 8} height="8" rx="3"
-                fill={isActive ? `${C.green}40` : `${C.muted}20`} />
-              {isActive && (
-                <text x="130" y="30" fill={C.green} fontSize="16"
-                  fontWeight="bold" textAnchor="middle">✓</text>
-              )}
-            </g>
-          );
-        })}
-      </g>
-
-      {/* Documents flowing to prompt */}
-      {docFlow > 0 && (
-        <g opacity={docFlow}>
-          <line x1="540" y1="855" x2="540" y2={855 + docFlow * 80}
-            stroke={C.purple} strokeWidth="3" strokeDasharray="8 4" />
-          <polygon
-            points={`530,${855 + docFlow * 80} 550,${855 + docFlow * 80} 540,${865 + docFlow * 80}`}
-            fill={C.purple} />
-
-          {/* Prompt + Context window */}
-          <rect x="220" y="960" width="640" height="120" rx="16"
-            fill={C.panel} stroke={C.purple} strokeWidth="2" />
-          <text x="250" y="995" fill={C.purpleGlow} fontSize="16" fontWeight="700"
-            fontFamily={mono}>PROMPT + RETRIEVED CONTEXT</text>
-          <rect x="250" y="1010" width="580" height="14" rx="4"
-            fill={`${C.purple}20`} />
-          <rect x="250" y="1032" width="420" height="14" rx="4"
-            fill={`${C.green}20`} />
-          <rect x="250" y="1054" width="500" height="14" rx="4"
-            fill={`${C.green}20`} />
-        </g>
-      )}
-
-      {/* Verified response */}
-      {verified > 0 && (
-        <g opacity={verified} transform={`translate(220 1110) scale(${0.8 + verified * 0.2})`}>
-          <rect x="0" y="0" width="640" height="80" rx="16"
-            fill={`${C.green}12`} stroke={C.green} strokeWidth="2.5" />
-          <text x="60" y="48" fill={C.green} fontSize="22" fontWeight="800">
-            ✓ Grounded Response
-          </text>
-          <text x="380" y="48" fill={C.muted} fontSize="16" fontFamily={mono}>
-            Based on real documents
-          </text>
-        </g>
-      )}
-    </g>
-  );
-};
-
-// ─── Scene 4: Pipeline — Animated end-to-end flow ───────────────────────
-const PipelineScene = ({ seconds }: { seconds: number }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const intro = spring({ frame, fps, config: { damping: 12, stiffness: 80 } });
-
-  // Stage reveals timed to narration
-  const stageChunk = Math.min(1, Math.max(0, (seconds - 1) / 1.5));
-  const stageEmbed = Math.min(1, Math.max(0, (seconds - 4) / 1.5));
-  const stageStore = Math.min(1, Math.max(0, (seconds - 6.5) / 1.5));
-  const stageQuery = Math.min(1, Math.max(0, (seconds - 9) / 1.5));
-  const stageSearch = Math.min(1, Math.max(0, (seconds - 11) / 1.5));
-  const stageAugment = Math.min(1, Math.max(0, (seconds - 14) / 1.5));
-  const stageGenerate = Math.min(1, Math.max(0, (seconds - 17) / 1.5));
-  const pulse = (Math.sin(seconds * 2) + 1) / 2;
-
-  const stageY = 300;
-  const stageH = 95;
-  const stageGap = 8;
-
-  const renderStage = (
-    label: string, icon: string, color: string,
-    y: number, progress: number, sublabel?: string
-  ) => (
-    <g opacity={progress} transform={`translate(115 ${y})`}>
-      <rect x="0" y="0" width="850" height={stageH} rx="16"
-        fill={`${color}10`} stroke={color} strokeWidth="2" />
-      <text x="60" y={sublabel ? 38 : 52} fill={color} fontSize="22" fontWeight="800"
-        fontFamily={mono}>{icon} {label}</text>
-      {sublabel && (
-        <text x="60" y="68" fill={C.muted} fontSize="16" fontFamily={mono}>
-          {sublabel}
-        </text>
-      )}
-      {/* Animated data particles */}
-      {progress > 0.5 && [0, 1, 2].map(i => {
-        const px = 650 + Math.sin(seconds * 3 + i * 2) * 60;
-        return (
-          <circle key={i} cx={px} cy={stageH / 2} r={5 + pulse * 2}
-            fill={color} opacity={0.4 + pulse * 0.3} />
-        );
-      })}
-    </g>
-  );
-
-  // Arrow between stages
-  const renderArrow = (y: number, progress: number, color: string) => (
-    progress > 0.3 ? (
-      <g opacity={progress}>
-        <line x1="540" y1={y} x2="540" y2={y + stageGap}
-          stroke={color} strokeWidth="2" strokeDasharray="4 3" />
-      </g>
-    ) : null
-  );
-
-  return (
-    <g opacity={intro}>
-      {/* Title: OFFLINE INGESTION */}
-      <g transform="translate(115 270)">
-        <text x="0" y="20" fill={C.amber} fontSize="16" fontWeight="800"
-          fontFamily={mono} letterSpacing="3">▼ OFFLINE INGESTION</text>
-      </g>
-
-      {/* Stage 1: Chunk */}
-      {renderStage("CHUNK", "📄", C.amber, stageY, stageChunk,
-        "Split documents into smaller segments")}
-      {renderArrow(stageY + stageH, stageEmbed, C.amber)}
-
-      {/* Stage 2: Embed */}
-      {renderStage("EMBED", "🔢", C.purple, stageY + stageH + stageGap, stageEmbed,
-        "Convert chunks to vector embeddings")}
-      {renderArrow(stageY + 2 * (stageH + stageGap) - stageGap, stageStore, C.purple)}
-
-      {/* Stage 3: Store */}
-      {renderStage("STORE", "🗄️", C.blue, stageY + 2 * (stageH + stageGap), stageStore,
-        "Index vectors in a database")}
-
-      {/* Divider */}
-      {stageQuery > 0 && (
-        <g opacity={stageQuery}>
-          <line x1="140" y1={stageY + 3 * (stageH + stageGap) + 10}
-            x2="940" y2={stageY + 3 * (stageH + stageGap) + 10}
-            stroke={C.panelBorder} strokeWidth="1.5" strokeDasharray="8 6" />
-          <text x="115" y={stageY + 3 * (stageH + stageGap) + 38}
-            fill={C.cyan} fontSize="16" fontWeight="800"
-            fontFamily={mono} letterSpacing="3">▼ ONLINE RETRIEVAL</text>
-        </g>
-      )}
-
-      {/* Stage 4: Query */}
-      {renderStage("QUERY", "❓", C.cyan, stageY + 3 * (stageH + stageGap) + 50, stageQuery,
-        "User question → query embedding")}
-      {renderArrow(stageY + 4 * (stageH + stageGap) + 50 - stageGap, stageSearch, C.cyan)}
-
-      {/* Stage 5: Search */}
-      {renderStage("SEARCH", "🔍", C.green, stageY + 4 * (stageH + stageGap) + 50, stageSearch,
-        "Find most relevant chunks")}
-      {renderArrow(stageY + 5 * (stageH + stageGap) + 50 - stageGap, stageAugment, C.green)}
-
-      {/* Stage 6: Augment */}
-      {renderStage("AUGMENT", "💉", C.purpleGlow, stageY + 5 * (stageH + stageGap) + 50, stageAugment,
-        "Inject chunks into prompt context")}
-      {renderArrow(stageY + 6 * (stageH + stageGap) + 50 - stageGap, stageGenerate, C.purpleGlow)}
-
-      {/* Stage 7: Generate */}
-      {stageGenerate > 0 && (
-        <g opacity={stageGenerate} transform={`translate(115 ${stageY + 6 * (stageH + stageGap) + 50})`}>
-          <rect x="0" y="0" width="850" height={stageH} rx="16"
-            fill={`${C.green}15`} stroke={C.green} strokeWidth="3" />
-          <text x="60" y="38" fill={C.green} fontSize="22" fontWeight="800"
-            fontFamily={mono}>✅ GENERATE</text>
-          <text x="60" y="68" fill={C.muted} fontSize="16" fontFamily={mono}>
-            LLM answers from evidence only
-          </text>
-          {/* Success glow */}
-          <rect x="0" y="0" width="850" height={stageH} rx="16"
-            fill="none" stroke={C.green}
-            strokeWidth={1 + pulse * 2} opacity={0.3 + pulse * 0.2} />
-        </g>
-      )}
-    </g>
-  );
-};
-
-// ─── Scene 5: Grounded Answer — Citations and live updates ──────────────
-const GroundedAnswerScene = ({ seconds }: { seconds: number }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const intro = spring({ frame, fps, config: { damping: 12, stiffness: 80 } });
-  const citationReveal = Math.min(1, Math.max(0, (seconds - 2) / 1.5));
-  const verifyReveal = Math.min(1, Math.max(0, (seconds - 5) / 1.5));
-  const liveReveal = Math.min(1, Math.max(0, (seconds - 7.5) / 1.5));
-  const pulse = (Math.sin(seconds * 2.5) + 1) / 2;
-
-  return (
-    <g opacity={intro}>
-      {/* Response panel */}
-      <rect x="115" y="290" width="850" height="400" rx="20"
-        fill={C.panel} stroke={C.green} strokeWidth="2" />
-
-      {/* Header */}
-      <g transform="translate(145 320)">
-        <rect x="0" y="0" width="190" height="40" rx="10"
-          fill={`${C.green}20`} />
-        <text x="95" y="27" fill={C.green} fontSize="18" fontWeight="800"
-          textAnchor="middle" fontFamily={mono}>✓ GROUNDED</text>
-      </g>
-
-      {/* Response text with citation markers */}
+    <>
+      <Text y={535} size={32} fill={C.muted}>
+        RETRIEVAL AUGMENTED GENERATION
+      </Text>
       {[
-        { text: "The API processes requests using a", y: 385, w: 560 },
-        { text: "microservice architecture deployed on", y: 420, w: 580 },
-        { text: "Kubernetes clusters across 3 regions.", y: 455, w: 540 },
-      ].map(({ text, y, w }, i) => (
-        <g key={i}>
-          <text x="155" y={y} fill={C.text} fontSize="20">{text}</text>
-          {citationReveal > 0 && (
-            <g opacity={citationReveal}>
-              <rect x={155 + w + 8} y={y - 18} width="36" height="24" rx="6"
-                fill={`${C.purple}30`} />
-              <text x={155 + w + 26} y={y} fill={C.purpleGlow} fontSize="14"
-                fontWeight="bold" textAnchor="middle" fontFamily={mono}>
-                [{i + 1}]
-              </text>
-            </g>
+        ["SOURCE", "30 days"],
+        ["RETRIEVE", "Relevant passage"],
+        ["GENERATE", "30 days [1]"],
+      ].map(([label, value], i) => (
+        <g key={label}>
+          <rect
+            x={90}
+            y={597 + i * 169}
+            width={810}
+            height={121}
+            rx={5}
+            fill={i === 0 ? C.paper : C.panel}
+          />
+          <Text
+            x={125}
+            y={643 + i * 169}
+            size={29}
+            fill={i === 0 ? C.ink : C.purple}
+          >
+            {label}
+          </Text>
+          <Text
+            x={125}
+            y={695 + i * 169}
+            size={43}
+            fill={i === 0 ? C.ink : C.paper}
+          >
+            {value}
+          </Text>
+          {i < 2 && (
+            <path
+              d={`M495 ${728 + i * 169} V${750 + i * 169}`}
+              stroke={C.amber}
+              strokeWidth={4}
+            />
           )}
         </g>
       ))}
-
-      {/* Source citations panel */}
-      {citationReveal > 0 && (
-        <g opacity={citationReveal} transform="translate(145 490)">
-          <rect x="0" y="0" width="790" height="170" rx="12"
-            fill={`${C.purple}08`} stroke={`${C.purple}40`} strokeWidth="1.5" />
-          <text x="20" y="30" fill={C.purpleGlow} fontSize="16" fontWeight="700"
-            fontFamily={mono}>SOURCES:</text>
-          {[
-            "[1] api-docs.md — Architecture Overview",
-            "[2] deployment.yaml — Cluster Config",
-            "[3] sla-report.pdf — Regional SLA Data",
-          ].map((src, i) => (
-            <text key={i} x="20" y={60 + i * 38} fill={C.muted} fontSize="16"
-              fontFamily={mono}>{src}</text>
-          ))}
-        </g>
-      )}
-
-      {/* Verify trail */}
-      {verifyReveal > 0 && (
-        <g opacity={verifyReveal} transform="translate(115 720)">
-          <rect x="0" y="0" width="850" height="110" rx="16"
-            fill={C.panel} stroke={C.panelBorder} strokeWidth="1.5" />
-          <text x="40" y="38" fill={C.green} fontSize="20" fontWeight="800"
-            fontFamily={mono}>🔗 VERIFY EVERY CLAIM</text>
-          <text x="40" y="72" fill={C.muted} fontSize="16" fontFamily={mono}>
-            Every sentence traces back to a real document
-          </text>
-
-          {/* Check marks */}
-          {[0, 1, 2].map(i => (
-            <g key={i} transform={`translate(${580 + i * 85} 25)`}>
-              <circle cx="25" cy="30" r="20" fill={`${C.green}20`}
-                stroke={C.green} strokeWidth="2" />
-              <text x="25" y="37" fill={C.green} fontSize="18" fontWeight="bold"
-                textAnchor="middle">✓</text>
-            </g>
-          ))}
-        </g>
-      )}
-
-      {/* Live update indicator */}
-      {liveReveal > 0 && (
-        <g opacity={liveReveal} transform="translate(115 860)">
-          <rect x="0" y="0" width="850" height="100" rx="16"
-            fill={`${C.cyan}08`} stroke={C.cyan} strokeWidth="2" />
-          <text x="40" y="40" fill={C.cyan} fontSize="20" fontWeight="800"
-            fontFamily={mono}>🔄 INSTANT UPDATES</text>
-          <text x="40" y="72" fill={C.muted} fontSize="16" fontFamily={mono}>
-            New data → Updated answers. No retraining.
-          </text>
-
-          {/* Pulsing "LIVE" indicator */}
-          <rect x="680" y="20" width="120" height="42" rx="21"
-            fill={`${C.green}${Math.round(20 + pulse * 15).toString(16)}`}
-            stroke={C.green} strokeWidth="2" />
-          <circle cx="710" cy="41" r={5 + pulse * 2}
-            fill={C.green} opacity={0.6 + pulse * 0.4} />
-          <text x="750" y="48" fill={C.green} fontSize="16" fontWeight="800"
-            fontFamily={mono}>LIVE</text>
-        </g>
-      )}
-    </g>
+      <rect
+        x={816}
+        y={640 + flow * 338}
+        width={43}
+        height={35}
+        rx={4}
+        fill={C.amber}
+      />
+      <path
+        d={`M865 1010 H885 V${1010 - check * 370} H865`}
+        stroke={C.amber}
+        strokeWidth={4}
+        fill="none"
+        opacity={check}
+      />
+      <Text y={1168} size={43} fill={C.amber}>
+        Does the source support the answer?
+      </Text>
+      <Text y={1240} size={36} fill={C.muted}>
+        Keep the searchable index current.
+      </Text>
+    </>
   );
 };
 
-// ─── Scene 6: Takeaway — Clean RAG architecture summary ─────────────────
-const TakeawayScene = ({ seconds }: { seconds: number }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
-  const intro = spring({ frame, fps, config: { damping: 12, stiffness: 80 } });
-  const ctaReveal = Math.min(1, Math.max(0, (seconds - 2.5) / 1));
-  const pulse = (Math.sin(seconds * 2) + 1) / 2;
-
-  return (
-    <g opacity={intro}>
-      {/* Central RAG architecture diagram */}
-      <g transform={`translate(165 310) scale(${intro})`}>
-        {/* Background glow */}
-        <rect x="0" y="0" width="750" height="550" rx="24"
-          fill={C.panel} stroke={C.panelBorder} strokeWidth="2" />
-
-        {/* Title */}
-        <text x="375" y="55" fill={C.text} fontSize="30" fontWeight="900"
-          textAnchor="middle">RAG Architecture</text>
-
-        {/* User query → Embed */}
-        <rect x="260" y="90" width="230" height="55" rx="14"
-          fill={`${C.cyan}15`} stroke={C.cyan} strokeWidth="2" />
-        <text x="375" y="125" fill={C.cyan} fontSize="18" fontWeight="700"
-          textAnchor="middle" fontFamily={mono}>User Query</text>
-
-        {/* Arrow down */}
-        <line x1="375" y1="145" x2="375" y2="175" stroke={C.muted} strokeWidth="2" />
-        <polygon points="370,175 380,175 375,185" fill={C.muted} />
-
-        {/* Vector DB */}
-        <rect x="200" y="190" width="350" height="55" rx="14"
-          fill={`${C.purple}15`} stroke={C.purple} strokeWidth="2" />
-        <text x="375" y="225" fill={C.purpleGlow} fontSize="18" fontWeight="700"
-          textAnchor="middle" fontFamily={mono}>🔍 Vector Search</text>
-
-        {/* Arrow down */}
-        <line x1="375" y1="245" x2="375" y2="275" stroke={C.muted} strokeWidth="2" />
-        <polygon points="370,275 380,275 375,285" fill={C.muted} />
-
-        {/* Documents */}
-        <rect x="40" y="195" width="130" height="45" rx="10"
-          fill={`${C.green}10`} stroke={C.green} strokeWidth="1.5" />
-        <text x="105" y="223" fill={C.green} fontSize="14" fontWeight="600"
-          textAnchor="middle" fontFamily={mono}>📁 Docs</text>
-        <line x1="170" y1="217" x2="200" y2="217"
-          stroke={C.green} strokeWidth="1.5" strokeDasharray="4 3" />
-
-        {/* Prompt + Context */}
-        <rect x="140" y="290" width="470" height="55" rx="14"
-          fill={`${C.amber}15`} stroke={C.amber} strokeWidth="2" />
-        <text x="375" y="325" fill={C.amber} fontSize="18" fontWeight="700"
-          textAnchor="middle" fontFamily={mono}>📝 Prompt + Context</text>
-
-        {/* Arrow down */}
-        <line x1="375" y1="345" x2="375" y2="375" stroke={C.muted} strokeWidth="2" />
-        <polygon points="370,375 380,375 375,385" fill={C.muted} />
-
-        {/* LLM → Grounded Response */}
-        <rect x="200" y="390" width="350" height="55" rx="14"
-          fill={`${C.green}15`} stroke={C.green} strokeWidth="2.5" />
-        <text x="375" y="425" fill={C.green} fontSize="18" fontWeight="800"
-          textAnchor="middle" fontFamily={mono}>✅ Grounded Answer</text>
-
-        {/* Loop arrow */}
-        <text x="625" y="430" fill={C.muted} fontSize="16">🔄</text>
-
-        {/* Highlight pulse */}
-        <rect x="200" y="390" width="350" height="55" rx="14"
-          fill="none" stroke={C.green}
-          strokeWidth={1 + pulse * 2} opacity={0.2 + pulse * 0.3} />
-      </g>
-
-      {/* Tagline */}
-      <g transform={`translate(165 910) scale(${intro})`}>
-        <text x="375" y="0" fill={C.text} fontSize="32" fontWeight="900"
-          textAnchor="middle">
-          Stop Guessing. Start Reading.
-        </text>
-      </g>
-
-      {/* CTA */}
-      {ctaReveal > 0 && (
-        <g opacity={ctaReveal} transform="translate(240 960)">
-          <rect x="0" y="0" width="600" height="70" rx="35"
-            fill={`${C.purple}20`} stroke={C.purple} strokeWidth="2.5" />
-          <text x="300" y="44" fill={C.purpleGlow} fontSize="24" fontWeight="800"
-            textAnchor="middle">
-            What will you build with it?
-          </text>
-        </g>
-      )}
-    </g>
-  );
-};
-
-// ─── Shared scene wrapper ───────────────────────────────────────────────
-const RagScene = ({
+const Scene = ({
   video,
   scene,
   voice,
@@ -701,191 +486,91 @@ const RagScene = ({
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const seconds = frame / fps;
-
+  const t = frame / fps;
+  const visuals = {
+    hook: Hook,
+    "hallucination-problem": Prepare,
+    "rag-solution": Retrieve,
+    pipeline: Generate,
+    "grounded-answer": Limits,
+    takeaway: Takeaway,
+  };
+  const Visual = visuals[scene.id as keyof typeof visuals];
+  if (!Visual) throw new Error(`Unknown RAG scene: ${scene.id}`);
   return (
     <AbsoluteFill>
       <Audio src={staticFile(`${assetRoot}/voice/${voice.file}`)} />
-
-      {/* Top Header & Topic Banner */}
-      <div
-        style={{
-          position: "absolute",
-          left: 90,
-          top: 140,
-          display: "flex",
-          alignItems: "center",
-          gap: 16,
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: `${C.purple}25`,
-            border: `1.5px solid ${C.purple}`,
-            color: C.purpleGlow,
-            fontFamily: mono,
-            fontSize: 18,
-            fontWeight: 800,
-            padding: "6px 14px",
-            borderRadius: 8,
-            letterSpacing: 1.5,
-          }}
-        >
-          AI ARCHITECTURE
-        </div>
-        <div
-          style={{
-            color: C.muted,
-            fontFamily: mono,
-            fontSize: 18,
-            letterSpacing: 1,
-          }}
-        >
-          SCENE 0{index + 1} / 0{video.scenes.length}
-        </div>
-      </div>
-
-      {/* Scene Title */}
-      <div
-        style={{
-          position: "absolute",
-          left: 90,
-          top: 195,
-          width: 900,
-        }}
-      >
-        <h1
-          style={{
-            margin: 0,
-            fontSize: 40,
-            fontWeight: 900,
-            color: C.text,
-            letterSpacing: "-0.5px",
-          }}
-        >
-          {scene.onScreenText[0] || scene.purpose}
-        </h1>
-      </div>
-
-      {/* Main Visual */}
-      <svg
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          width: 1080,
-          height: 1920,
-        }}
-      >
-        {scene.id === "hook" && <HookScene seconds={seconds} />}
-        {scene.id === "hallucination-problem" && <HallucinationProblemScene seconds={seconds} />}
-        {scene.id === "rag-solution" && <RagSolutionScene seconds={seconds} />}
-        {scene.id === "pipeline" && <PipelineScene seconds={seconds} />}
-        {scene.id === "grounded-answer" && <GroundedAnswerScene seconds={seconds} />}
-        {scene.id === "takeaway" && <TakeawayScene seconds={seconds} />}
+      <svg width={1080} height={1920} viewBox="0 0 1080 1920">
+        <Text y={177} size={27} fill={C.muted}>
+          AI SYSTEMS / RAG
+        </Text>
+        <Text x={900} y={177} size={27} fill={C.muted} anchor="end">
+          0{index + 1} / 06
+        </Text>
+        <Rule y={215} />
+        <Text y={335} size={scene.id === "pipeline" ? 78 : 83} weight={700}>
+          {scene.onScreenText[0]}
+        </Text>
+        <Text y={435} size={76} weight={700} fill={C.purple}>
+          {scene.onScreenText[1]}
+        </Text>
+        <Visual t={t} voice={voice} />
+        <Rule y={1313} />
+        <Text y={1580} size={23} fill={C.muted}>
+          ILLUSTRATIVE POLICY · SOURCES: LEWIS ET AL. / MICROSOFT
+        </Text>
       </svg>
-
-      {/* Karaoke Captions */}
       <div
         style={{
           position: "absolute",
           left: 90,
-          top: 1335,
+          top: 1360,
           width: 810,
-          minHeight: 220,
+          minHeight: 150,
+          fontSize: 46,
+          lineHeight: 1.22,
+          fontWeight: 600,
         }}
       >
         <KaraokeCaptions
           mode={video.captions?.mode}
           captions={voice.captions}
-          words={voice.words || []}
-          timeMs={seconds * 1000}
+          words={voice.words ?? []}
+          timeMs={t * 1000}
+          highlight={C.amber}
+          textColor={C.paper}
+          activeTextColor={C.ink}
+          pendingColor={C.muted}
         />
-      </div>
-
-      {/* Source Citation Footer */}
-      <div
-        style={{
-          position: "absolute",
-          left: 90,
-          top: 1665,
-          width: 810,
-          color: C.muted,
-          fontFamily: mono,
-          fontSize: 18,
-          letterSpacing: 1,
-        }}
-      >
-        SOURCE: IBM / DATABRICKS / BIGDATA BOUTIQUE
       </div>
     </AbsoluteFill>
   );
 };
 
-// ─── Main RAG Video Component ───────────────────────────────────────────
-export const RagVideo = ({
-  video,
-  voiceManifest,
-  assetRoot,
-}: VideoProps) => {
-  const frame = useCurrentFrame();
-  const { fps, durationInFrames } = useVideoConfig();
-
+export const RagVideo = ({ video, voiceManifest, assetRoot }: VideoProps) => {
+  const { fps } = useVideoConfig();
   return (
     <AbsoluteFill
       style={{
         backgroundColor: C.bg,
-        color: C.text,
-        fontFamily: "Inter, system-ui, sans-serif",
+        color: C.paper,
+        fontFamily: "Arial, sans-serif",
       }}
     >
-      {/* Brand Accent Left Border */}
-      <div
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          width: 12,
-          height: "100%",
-          background: `linear-gradient(180deg, ${C.purple} 0%, ${C.green} 100%)`,
-        }}
-      />
-
-      {/* Progress Bar */}
-      <div
-        style={{
-          position: "absolute",
-          left: 90,
-          top: 1610,
-          height: 5,
-          width: 810,
-          backgroundColor: "#1B2D45",
-          borderRadius: 3,
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            height: "100%",
-            width: `${(frame / durationInFrames) * 100}%`,
-            background: `linear-gradient(90deg, ${C.purple} 0%, ${C.green} 100%)`,
-          }}
-        />
-      </div>
-
       <BackgroundMusic video={video} assetRoot={assetRoot} />
-
       <Series>
         {video.scenes.map((scene, index) => {
           const voice = voiceManifest.scenes[index];
-          if (!voice) return null;
+          if (!voice || voice.id !== scene.id)
+            throw new Error(`Missing matching voice for ${scene.id}`);
           return (
             <Series.Sequence
               key={scene.id}
+              name={scene.id}
               durationInFrames={Math.ceil((voice.durationSec + 0.45) * fps)}
               premountFor={fps}
             >
-              <RagScene
+              <Scene
                 video={video}
                 scene={scene}
                 voice={voice}

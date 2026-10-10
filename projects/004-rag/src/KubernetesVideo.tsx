@@ -168,7 +168,7 @@ const Pod = ({
         opacity={0.5 + breath * 0.5}
       />
       {state === "starting" && (
-        <g transform={`rotate(${frame * 7} ${x + 101} ${y + 56})`}>
+        <g transform={`rotate(${(frame / fps) * 210} ${x + 101} ${y + 56})`}>
           <circle
             cx={x + 101}
             cy={y + 56}
@@ -690,7 +690,7 @@ const Scene = ({
           top: 169,
           width: 810,
           translate: `${(1 - entrance) * 100}px 0px`,
-          opacity: interpolate(frame, [0, 8], [0.25, 1], clamp),
+          opacity: interpolate(seconds, [0, 8 / 30], [0.25, 1], clamp),
         }}
       >
         <div
@@ -714,7 +714,7 @@ const Scene = ({
             lineHeight: 1.09,
             fontWeight: 800,
             letterSpacing: -3,
-            translate: `0px ${interpolate(frame, [0, 20], [40, 0], clamp)}px`,
+            translate: `0px ${interpolate(seconds, [0, 20 / 30], [40, 0], clamp)}px`,
           }}
         >
           <div>{title[0]}</div>
@@ -732,7 +732,7 @@ const Scene = ({
               height: 5,
               backgroundColor: C.blue,
               marginTop: 26,
-              width: interpolate(frame, [8, 35], [0, 180], clamp),
+              width: interpolate(seconds, [8 / 30, 35 / 30], [0, 180], clamp),
             }}
           />
         </div>
@@ -764,7 +764,7 @@ const Scene = ({
           left: 90,
           top: 650,
           width: 810,
-          opacity: interpolate(frame, [0, 12], [0.6, 1], clamp),
+          opacity: interpolate(seconds, [0, 12 / 30], [0.6, 1], clamp),
           translate: `0px ${(1 - entrance) * 110}px`,
           scale: 0.94 + entrance * 0.06,
           transformOrigin: "center center",

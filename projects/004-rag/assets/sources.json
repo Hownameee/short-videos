@@ -1,4 +1,30 @@
 {
   "schemaVersion": 1,
-  "assets": []
+  "assets": [
+    {
+      "id": "evidence-trail",
+      "path": "assets/music/evidence-trail.wav",
+      "type": "audio",
+      "creator": "Original procedural composition created for this project",
+      "license": "Original project-generated audio; no third-party recordings or samples",
+      "source": "compose_music.py",
+      "checksum": "sha256:a1f95d8e55c040ce77b0f91d9f1518c87ecfad5ba19237b0208019176281582c",
+      "notes": "96 BPM mallet and bass score; voiced ducking, four-bar harmony, reveal lift, final cadence; fades baked in; renderer gain 1."
+    },
+    {
+      "id": "rag-diagrams",
+      "type": "vector",
+      "source": "renderer/src/RagVideo.tsx",
+      "license": "Original project-created SVG diagrams"
+    },
+    {
+      "id": "narration",
+      "type": "voice",
+      "source": "hexgrad/Kokoro-82M",
+      "url": "https://huggingface.co/hexgrad/Kokoro-82M",
+      "license": "Kokoro model Apache-2.0; generated narration",
+      "voice": "af_heart",
+      "notes": "Exact settings, spoken text and audio checksums in voice/manifest.json"
+    }
+  ]
 }

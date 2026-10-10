@@ -2,21 +2,21 @@
   "schemaVersion": 1,
   "meta": {
     "slug": "rag",
-    "title": "Your AI is Lying — RAG Fixes It",
+    "title": "RAG: Follow the Evidence",
     "platform": "youtube_shorts",
     "language": "en",
-    "width": 1080,
-    "height": 1920,
-    "fps": 30,
+    "width": 2160,
+    "height": 3840,
+    "fps": 60,
     "renderer": "rag"
   },
   "hook": {
-    "type": "tension",
-    "text": "Your AI just made up a fact. It sounded perfect. It was completely wrong.",
-    "promise": "Show how RAG grounds LLM responses in retrievable evidence to eliminate hallucinations",
+    "type": "evidence-gap",
+    "text": "Your AI says ninety days. The policy says thirty.",
+    "promise": "Follow one policy passage through retrieval, augmentation, generation and evidence checking.",
     "durationRangeSec": {
-      "min": 4,
-      "max": 8
+      "min": 7,
+      "max": 12
     }
   },
   "captions": {
@@ -31,33 +31,32 @@
       "speed": 1
     },
     "music": {
-      "file": "assets/music/curious-tech.wav",
-      "volume": 0.12
+      "file": "assets/music/evidence-trail.wav",
+      "volume": 1,
+      "fadeInSec": 0,
+      "fadeOutSec": 0
     }
   },
   "design": {
-    "visualThesis": "RAG eliminates LLM hallucinations by connecting the model to real documents through a vector-powered retrieval pipeline.",
+    "visualThesis": "An amber policy passage is the visual thread from document to retrieved evidence to a cited answer; missing evidence leads to an explicit stop.",
     "mood": [
       "curious",
-      "technical",
-      "trustworthy",
-      "modern"
+      "precise",
+      "grounded"
     ],
     "palette": {
-      "background": "#06090F",
-      "surface": "#0D1B2A",
-      "surfaceBorder": "#1B2D45",
-      "text": "#F0F4F8",
-      "muted": "#8DA2B5",
-      "accent": "#7C3AED",
-      "secondary": "#06D6A0",
-      "warning": "#FFB703",
-      "danger": "#EF4444"
+      "background": "#131D2B",
+      "surface": "#233044",
+      "text": "#F7F2E8",
+      "muted": "#A9B8C9",
+      "accent": "#C3AFFA",
+      "secondary": "#F7C76A",
+      "warning": "#F49B88"
     },
     "typography": {
-      "display": "Inter, system-ui, sans-serif",
-      "body": "Inter, system-ui, sans-serif",
-      "code": "JetBrains Mono, Menlo, monospace"
+      "display": "Arial, sans-serif",
+      "body": "Arial, sans-serif",
+      "code": "Menlo, monospace"
     },
     "safeArea": {
       "top": 150,
@@ -65,167 +64,237 @@
       "bottom": 320,
       "left": 90
     },
-    "motionGrammar": "Clean pipeline flows, document-to-vector transformations, similarity search arcs, and confident result reveals.",
-    "assetLanguage": "Original SVG graphics, animated pipeline diagrams, vector space visualizations, and document retrieval flows."
+    "motionGrammar": "Stable amber evidence moves through the pipeline; query and document merge into a prompt; missing evidence takes a stop branch. Motion uses scene-local seconds and measured voice cues.",
+    "assetLanguage": "Original SVG document fragments, source links and diagrams; fictional log-retention example marked on screen."
   },
   "scenes": [
     {
       "id": "hook",
-      "purpose": "Hook the viewer with the AI hallucination problem",
+      "purpose": "Unsupported 90 contrasts with fictional policy 30.",
       "durationRangeSec": {
-        "min": 5,
-        "max": 9
-      },
-      "narration": "Your AI just made up a fact. It sounded perfect. It was completely wrong. In sixty seconds, I will show you the architecture that fixes this.",
-      "onScreenText": [
-        "Your AI is Lying",
-        "RAG Fixes It"
-      ],
-      "visualType": "dramatic-reveal",
-      "motion": {
-        "action": "A confident AI response with a verified badge shatters to reveal fabricated text underneath",
-        "cue": "completely wrong",
-        "settle": "Shattered badge fragments, red warning glow"
-      },
-      "sfx": [],
-      "sourceIds": [
-        "hallucination-reduction"
-      ]
-    },
-    {
-      "id": "hallucination-problem",
-      "purpose": "Explain what hallucinations are and why LLMs produce them",
-      "durationRangeSec": {
-        "min": 8,
+        "min": 6,
         "max": 13
       },
-      "narration": "Here is the problem. Large language models generate text from patterns in training data. When they hit a gap, they do not say I do not know. They fill it with something that sounds right. This is called a hallucination.",
+      "narration": "How long do we keep logs? An AI might say ninety days. But our example policy says thirty. That gap is where RAG can help.",
       "onScreenText": [
-        "The Hallucination Problem",
-        "Knowledge Gap → Fabrication"
+        "Confident answer.",
+        "Wrong number."
       ],
-      "visualType": "brain-diagram",
+      "visualType": "original-evidence-diagram",
       "motion": {
-        "action": "LLM brain icon generates text; gaps in knowledge light up with question marks morphing into fabricated confident text",
-        "cue": "hit a gap",
-        "settle": "Warning label 'HALLUCINATION' stamps onto the generated text"
-      },
-      "sfx": [],
-      "sourceIds": [
-        "hallucination-reduction",
-        "rag-definition"
-      ]
-    },
-    {
-      "id": "rag-solution",
-      "purpose": "Introduce RAG as the solution that connects LLMs to real documents",
-      "durationRangeSec": {
-        "min": 7,
-        "max": 12
-      },
-      "narration": "RAG fixes this. Retrieval-Augmented Generation connects your LLM to real documents. Instead of guessing, the model searches your actual data first, then generates an answer based only on what it found.",
-      "onScreenText": [
-        "Retrieval-Augmented Generation",
-        "Search First → Then Answer"
-      ],
-      "visualType": "connection-diagram",
-      "motion": {
-        "action": "LLM connects to a document database via animated retrieval arrows; documents flow into the prompt context window",
-        "cue": "searches your actual data",
-        "settle": "Grounded response appears with a green verified badge"
+        "action": "Cross out the unsupported 90-day answer and reveal the policy fragment with 30 days.",
+        "cue": "But",
+        "settle": "Unsupported 90 contrasts with fictional policy 30."
       },
       "pronunciation": [
         {
           "written": "RAG",
           "spoken": "rag"
+        },
+        {
+          "written": "AI",
+          "spoken": "A I"
         }
       ],
       "sfx": [],
       "sourceIds": [
-        "rag-definition",
-        "hallucination-reduction"
+        "rag-paper"
+      ]
+    },
+    {
+      "id": "hallucination-problem",
+      "purpose": "Passages indexed for search; embeddings are one option.",
+      "durationRangeSec": {
+        "min": 6,
+        "max": 13
+      },
+      "narration": "First, prepare the documents. Split them into passages and index them for search. Embeddings are one way to match meaning.",
+      "onScreenText": [
+        "Prepare the source.",
+        "Make it searchable."
+      ],
+      "visualType": "original-evidence-diagram",
+      "motion": {
+        "action": "One document separates into three passages; the retention passage stays amber and joins a search index.",
+        "cue": "Split",
+        "settle": "Passages indexed for search; embeddings are one option."
+      },
+      "pronunciation": [
+        {
+          "written": "RAG",
+          "spoken": "rag"
+        },
+        {
+          "written": "AI",
+          "spoken": "A I"
+        }
+      ],
+      "sfx": [],
+      "sourceIds": [
+        "azure-rag"
+      ]
+    },
+    {
+      "id": "rag-solution",
+      "purpose": "Relevant passage plus source metadata, not yet an answer.",
+      "durationRangeSec": {
+        "min": 6,
+        "max": 13
+      },
+      "narration": "Now ask the question. Retrieve the relevant policy passage. The search result is evidence for the model, not the final answer.",
+      "onScreenText": [
+        "Find the passage.",
+        "Keep the source."
+      ],
+      "visualType": "original-evidence-diagram",
+      "motion": {
+        "action": "The question searches three passages and selects the retention excerpt with its source ID.",
+        "cue": "Retrieve",
+        "settle": "Relevant passage plus source metadata, not yet an answer."
+      },
+      "pronunciation": [
+        {
+          "written": "RAG",
+          "spoken": "rag"
+        },
+        {
+          "written": "AI",
+          "spoken": "A I"
+        }
+      ],
+      "sfx": [],
+      "sourceIds": [
+        "azure-rag"
       ]
     },
     {
       "id": "pipeline",
-      "purpose": "Walk through the complete RAG pipeline from ingestion to generation",
+      "purpose": "Answer and source passage connected by the same reference.",
       "durationRangeSec": {
-        "min": 12,
-        "max": 18
+        "min": 6,
+        "max": 13
       },
-      "narration": "Here is how it works. First, your documents are split into chunks and converted into vector embeddings. These vectors are stored in a database. When a user asks a question, the query gets embedded too. A similarity search finds the most relevant chunks. Those chunks are injected into the prompt alongside the question. The LLM reads the evidence, then answers.",
+      "narration": "Put the question and that passage into the prompt. The model writes an answer: thirty days, with a link back to the source.",
       "onScreenText": [
-        "The RAG Pipeline",
-        "Chunk → Embed → Store → Retrieve → Generate"
+        "Question + evidence.",
+        "Then generate."
       ],
-      "visualType": "animated-pipeline",
+      "visualType": "original-evidence-diagram",
       "motion": {
-        "action": "End-to-end animated pipeline: documents split into chunks, chunks transform into vector dots, dots flow into vector DB, query arrow triggers similarity search arcs, matched chunks inject into prompt box, LLM generates grounded answer",
-        "cue": "split into chunks",
-        "settle": "Complete pipeline diagram with all stages connected"
+        "action": "Question and policy fragment move together into a prompt, then a cited 30-day answer appears.",
+        "cue": "model",
+        "settle": "Answer and source passage connected by the same reference."
       },
+      "pronunciation": [
+        {
+          "written": "RAG",
+          "spoken": "rag"
+        },
+        {
+          "written": "AI",
+          "spoken": "A I"
+        }
+      ],
       "sfx": [],
       "sourceIds": [
-        "chunking-embedding-pipeline",
-        "vector-similarity-search"
+        "foundry-rag"
       ]
     },
     {
       "id": "grounded-answer",
-      "purpose": "Show the result: grounded, citable, instantly updatable answers",
+      "purpose": "No unsupported exception invented; stop and say evidence is missing.",
       "durationRangeSec": {
-        "min": 7,
-        "max": 12
+        "min": 6,
+        "max": 13
       },
-      "narration": "Now every answer is grounded. The model cites its sources. You can verify every claim. And when your data changes, the model knows immediately. No retraining required.",
+      "narration": "That does not guarantee truth. Search can miss, documents can be outdated, and models can misread them. Missing evidence should trigger a clear refusal.",
       "onScreenText": [
-        "Grounded & Verifiable",
-        "No Retraining Required"
+        "Evidence helps.",
+        "Errors still happen."
       ],
-      "visualType": "result-panel",
+      "visualType": "original-evidence-diagram",
       "motion": {
-        "action": "Response panel with inline source citations that highlight back to original documents; a 'last updated: now' timestamp pulses green",
-        "cue": "cites its sources",
-        "settle": "Clean verified response with citation links and live update indicator"
+        "action": "A question about exceptions takes a no-evidence branch to an explicit insufficient-evidence answer.",
+        "cue": "Missing",
+        "settle": "No unsupported exception invented; stop and say evidence is missing."
       },
+      "pronunciation": [
+        {
+          "written": "RAG",
+          "spoken": "rag"
+        },
+        {
+          "written": "AI",
+          "spoken": "A I"
+        }
+      ],
       "sfx": [],
       "sourceIds": [
-        "source-citation",
-        "rag-vs-finetuning"
+        "foundry-rag"
       ]
     },
     {
       "id": "takeaway",
-      "purpose": "Deliver the one-line takeaway and engagement CTA",
+      "purpose": "A citation must support the answer; maintain the searchable index.",
       "durationRangeSec": {
-        "min": 4,
-        "max": 8
+        "min": 6,
+        "max": 13
       },
-      "narration": "That is RAG. Your LLM stops guessing and starts reading. What will you build with it?",
+      "narration": "RAG means retrieval augmented generation. Retrieve, then answer with evidence. Keep the index current, and check whether the answer really matches its source.",
       "onScreenText": [
-        "Stop Guessing. Start Reading.",
-        "What will you build?"
+        "Retrieve. Answer.",
+        "Check the evidence."
       ],
-      "visualType": "architecture-summary",
+      "visualType": "original-evidence-diagram",
       "motion": {
-        "action": "Clean architecture diagram of the complete RAG loop zooms to final state with audience prompt",
-        "cue": "stops guessing",
-        "settle": "Settled RAG architecture blueprint with CTA text"
+        "action": "Trace the amber passage through search and generation, then link answer back to its source for checking.",
+        "cue": "check",
+        "settle": "A citation must support the answer; maintain the searchable index."
       },
+      "pronunciation": [
+        {
+          "written": "RAG",
+          "spoken": "rag"
+        },
+        {
+          "written": "AI",
+          "spoken": "A I"
+        }
+      ],
       "sfx": [],
       "sourceIds": [
-        "rag-definition"
+        "rag-paper",
+        "foundry-rag"
       ]
     }
   ],
   "outro": {
-    "takeaway": "RAG grounds your LLM in real documents — it stops guessing and starts reading.",
-    "cta": "What will you build with it?"
+    "takeaway": "Retrieval supplies evidence; generation still needs checking.",
+    "cta": "Keep the index current and check each answer against its source."
   },
-  "scriptVersion": "sha256:6ae40dd1be08f9566e6065f949f6d5f61da38bfd81ed7ebddf0a89d5df3bb1c7",
+  "scriptVersion": "sha256:31f3c6ac153ec36706496eb535b20721be83c0db30a3f9354172905838e927d4",
   "approval": {
     "status": "approved",
-    "approvedAt": "2026-10-05T16:16:43.193Z",
-    "approvedScriptVersion": "sha256:6ae40dd1be08f9566e6065f949f6d5f61da38bfd81ed7ebddf0a89d5df3bb1c7"
+    "approvedAt": "2026-10-06T15:48:48.246Z",
+    "approvedScriptVersion": "sha256:31f3c6ac153ec36706496eb535b20721be83c0db30a3f9354172905838e927d4"
+  },
+  "revision": {
+    "reason": "User explicitly requested remake; editorial and production decisions delegated.",
+    "factCheck": "revision-research.md",
+    "example": "Fictional operations policy retains application logs for 30 days; not a real retention recommendation.",
+    "sources": [
+      {
+        "id": "rag-paper",
+        "url": "https://arxiv.org/abs/2005.11401"
+      },
+      {
+        "id": "azure-rag",
+        "url": "https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview"
+      },
+      {
+        "id": "foundry-rag",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/concepts/retrieval-augmented-generation"
+      }
+    ]
   }
 }
