@@ -2,11 +2,29 @@
   "schemaVersion": 1,
   "assets": [
     {
-      "id": "technical-pulse",
-      "path": "assets/music/technical-pulse.wav",
+      "id": "contract-stream",
+      "path": "assets/music/contract-stream.wav",
       "type": "audio",
-      "license": "Royalty-free repository sound asset",
-      "notes": "Rhythmic tech pulse background music for engineering pacing"
+      "creator": "Original procedural composition created for this project",
+      "license": "Original project-generated audio; no third-party recordings or samples",
+      "source": "compose_music.py",
+      "checksum": "sha256:7d1f655701c201bd92dfb6149ab6d590d2724e989994a600ad3e223e3b89c5b3",
+      "notes": "108 BPM mallet and bass score; voiced ducking, four-bar harmony, reveal lift, final cadence; fades baked in; renderer gain 1."
+    },
+    {
+      "id": "grpc-diagrams",
+      "type": "vector",
+      "source": "renderer/src/GrpcVideo.tsx",
+      "license": "Original project-created SVG diagrams"
+    },
+    {
+      "id": "narration",
+      "type": "voice",
+      "source": "hexgrad/Kokoro-82M",
+      "url": "https://huggingface.co/hexgrad/Kokoro-82M",
+      "license": "Kokoro model Apache-2.0; generated narration",
+      "voice": "af_heart",
+      "notes": "Exact settings, spoken text and audio checksums in voice/manifest.json"
     }
   ]
 }

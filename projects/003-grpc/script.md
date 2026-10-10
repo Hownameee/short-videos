@@ -1,53 +1,23 @@
-# Why Microservices Swapped REST for gRPC
+# gRPC: The Contract, the Bytes, the Streams
 
-English narration, titles and captions. Vertical 1080x1920, 30 fps. Target 50–65 seconds. Audience: backend engineers and software developers. User delegated all decisions.
+English; backend developers; approximately 60 seconds; vertical 2160x3840 at 60 fps.
 
-Promise: Explain the two architectural advantages that make gRPC up to ten times faster than REST for internal microservices: Protocol Buffers binary serialization and HTTP/2 multiplexing.
+Hook: gRPC is not a magic speed switch.
+Promise: follow the contract, bytes, and streams.
+Payoff: a concrete encoding example and a balanced protocol choice.
+Takeaway / CTA: check clients and benchmark the actual workload.
 
-## hook
+| Beat | Exact narration | Visual action / cue / settle |
+| --- | --- | --- |
+| hook | gRPC is not a magic speed switch. Its real advantage is how services agree, exchange data, and stream. | Three terms assemble into a connected system. Cue: how services agree. Settle: Contract, bytes, streams become the promise. Sources: grpc-core. |
+| rest-bottleneck | Start with a contract. A proto file defines methods and message types. Generate clients and server code from the same schema. | A shared schema branches into client and server bindings. Cue: Generate clients. Settle: Two implementations share one typed interface. Sources: grpc-core. |
+| protobuf | Then encode the message. In this tiny example, JSON takes nine bytes. Protocol Buffers takes two. That is the message body, not a speed benchmark. | The literal JSON id 42 becomes the correct two-byte Protobuf encoding. Cue: Protocol Buffers takes two. Settle: Nine UTF-8 bytes versus two binary bytes; body only. Sources: protobuf-encoding. |
+| http2-multiplex | HTTP/2 interleaves streams over one connection. But packet loss can still stall them at the TCP layer. REST can use HTTP/2 as well. | Numbered colored frames interleave, pause together at loss, then resume. Cue: packet loss. Settle: HTTP/2 multiplexes; TCP loss can still block. Sources: rfc9113. |
+| streaming | Calls can return one reply, or stream messages from either side. In a bidirectional call, both sides can keep sending independently. | A single exchange becomes repeated messages in both directions. Cue: both sides. Settle: Two independent directions plus all four method labels. Sources: grpc-core. |
+| takeaway | Choose gRPC when shared contracts and streaming fit your services. Check browser requirements, and benchmark your workload. The right protocol is a tradeoff. | Contracts and streaming connect to an explicit workload decision. Cue: benchmark your workload. Settle: Evaluate contracts, streaming, clients, measurements. Sources: grpc-core, grpc-web. |
 
-Why do high-scale microservices ditch REST and JSON for gRPC? Here is the architecture secret in sixty seconds.
+Original restrained electronic pluck and bass score: curious hook, sparse contract/byte explanation, interleaved motif for transport, brighter streaming reveal, resolved ending. Word-interval ducking; 15 dB below narration as a measured starting point. No arbitrary SFX.
 
-Visual: Split-screen comparison between REST HTTP/1.1 and gRPC HTTP/2 with latency counter.
-Sources: grpc-intro
+Kokoro af_heart, normal speed; spell gRPC and transport acronyms through the pronunciation map. Shared word-highlight captions with measured provider timestamps. Sources and correction rationale: [revision-research.md](revision-research.md). The old discovery files remain historical; this source-verified revision supersedes their performance claims.
 
-## rest-bottleneck
-
-With REST, services exchange bloated text strings. Every single request parses redundant field keys in JSON, while opening heavy new TCP handshakes.
-
-Visual: Heavy JSON payload highlighted with string overhead and connection queue.
-Sources: protobuf-binary, http2-multiplexing
-
-## protobuf
-
-gRPC replaces JSON with Protocol Buffers. Instead of sending raw text, you define a strict schema that compiles into compact binary. Payloads shrink dramatically and serialize up to ten times faster.
-
-Visual: Protocol Buffer schema compilation into tiny binary byte blocks with 10x throughput meter.
-Sources: protobuf-binary
-
-## http2-multiplex
-
-Next is the transport: HTTP/2. Instead of waiting in line, gRPC multiplexes hundreds of concurrent requests over one persistent TCP connection with zero head-of-line blocking.
-
-Visual: A single persistent network pipe multiplexing concurrent color-coded request streams.
-Pronunciation: HTTP/2 -> HTTP two
-Sources: http2-multiplexing
-
-## streaming
-
-And unlike REST, you get streaming natively. Client streaming, server streaming, and full bidirectional streams keep data flowing in real time.
-
-Visual: Interactive matrix showing real-time two-way data streaming between microservices.
-Sources: streaming-patterns
-
-## takeaway
-
-The rule of thumb: use gRPC internally between backend microservices, and keep REST for public web clients. What does your team build with?
-
-Visual: System architecture boundary showing Public REST Edge vs Internal gRPC Mesh.
-Sources: east-west-tradeoff
-
----
-Estimated total duration: ~54 seconds.
-Audio: af_heart voice, technical-pulse music at 0.12 gain.
-Captions: word-highlight karaoke.
+The user requested regeneration and delegated production decisions; no new script-approval decision is pending.
