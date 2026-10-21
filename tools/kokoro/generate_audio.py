@@ -145,9 +145,10 @@ def main() -> None:
     config = {"model": model, "langCode": lang_code, "voice": voice, "speed": speed,
               "sampleRate": sample_rate, "packageVersion": package_version("kokoro")}
     generator_version = sha256_bytes(Path(__file__).read_bytes() + Path(__file__).with_name("captions.py").read_bytes())
-    voice_dir = project / "voice"
+    voice_dir = project / "output/voice"
     voice_dir.mkdir(parents=True, exist_ok=True)
-    manifest_path = voice_dir / "manifest.json"
+    manifest_path = project / "output/docs/voice-manifest.json"
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
     previous = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
     previous_scenes = {scene["id"]: scene for scene in previous.get("scenes", [])}
     if len({scene["id"] for scene in video["scenes"]}) != len(video["scenes"]):
@@ -156,7 +157,7 @@ def main() -> None:
     reused = []
     generated = []
     # Build the complete next voice directory before replacing any usable files.
-    with tempfile.TemporaryDirectory(prefix=".voice-next-", dir=project) as staging:
+    with tempfile.TemporaryDirectory(prefix=".voice-next-", dir=project / "output") as staging:
         staged_voice = Path(staging) / "voice"
         shutil.copytree(voice_dir, staged_voice)
         build_voice(video, previous, previous_scenes, config, generator_version,
@@ -169,13 +170,27 @@ def main() -> None:
         }
         unchanged = not generated and all(previous.get(k) == v for k, v in manifest.items() if k != "generatedAt")
         if not unchanged:
-            (staged_voice / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-            backup = Path(staging) / "previous"
-            os.replace(voice_dir, backup)
+            staged_manifest = Path(staging) / "voice-manifest.json"
+            staged_manifest.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+            backup_voice = Path(staging) / "previous-voice"
+            backup_manifest = Path(staging) / "previous-manifest.json"
+            voice_backed_up = manifest_backed_up = voice_installed = False
             try:
+                os.replace(voice_dir, backup_voice)
+                voice_backed_up = True
+                if manifest_path.exists():
+                    os.replace(manifest_path, backup_manifest)
+                    manifest_backed_up = True
                 os.replace(staged_voice, voice_dir)
+                voice_installed = True
+                os.replace(staged_manifest, manifest_path)
             except BaseException:
-                os.replace(backup, voice_dir)
+                if voice_installed:
+                    shutil.rmtree(voice_dir)
+                if voice_backed_up:
+                    os.replace(backup_voice, voice_dir)
+                if manifest_backed_up:
+                    os.replace(backup_manifest, manifest_path)
                 raise
     total_duration = sum(scene["durationSec"] for scene in manifest_scenes)
     print(json.dumps({"manifest": str(manifest_path), "totalVoiceSec": round(total_duration, 3),

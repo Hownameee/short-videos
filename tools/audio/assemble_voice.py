@@ -28,7 +28,7 @@ def srt_time(milliseconds: int) -> str:
 
 def assemble(project: Path, pause_seconds: float) -> tuple[Path, Path]:
     video = json.loads((project / "video.json").read_text())
-    manifest_path = project / "voice" / "manifest.json"
+    manifest_path = project / "output/docs/voice-manifest.json"
     manifest_bytes = manifest_path.read_bytes()
     manifest = json.loads(manifest_bytes)
     fps = video["meta"]["fps"]
@@ -45,7 +45,7 @@ def assemble(project: Path, pause_seconds: float) -> tuple[Path, Path]:
     samples_per_frame = sample_rate // fps
     pause_frames = round(pause_seconds * fps)
     pause_samples = pause_frames * samples_per_frame
-    output_wav = project / "voice" / "full.wav"
+    output_wav = project / "output/voice/full.wav"
     output_json = project / "output" / "docs" / "audio-timeline.json"
     output_srt = project / "output" / "docs" / "captions.en.srt"
     output_json.parent.mkdir(parents=True, exist_ok=True)
@@ -60,7 +60,7 @@ def assemble(project: Path, pause_seconds: float) -> tuple[Path, Path]:
             combined.setsampwidth(2)
             combined.setframerate(sample_rate)
             for scene in manifest["scenes"]:
-                source = project / "voice" / scene["file"]
+                source = project / "output/voice" / scene["file"]
                 source_bytes = source.read_bytes()
                 if checksum(source_bytes) != scene["fileChecksum"]:
                     raise ValueError(f"Voice checksum mismatch: {scene['file']}")
@@ -77,7 +77,7 @@ def assemble(project: Path, pause_seconds: float) -> tuple[Path, Path]:
                 combined.writeframesraw(bytes(2 * (alignment_samples + pause_samples)))
                 scenes.append({
                     "id": scene["id"],
-                    "voiceFile": f"voice/{scene['file']}",
+                    "voiceFile": f"output/voice/{scene['file']}",
                     "voiceChecksum": scene["fileChecksum"],
                     "startFrame": cursor,
                     "startSeconds": cursor / fps,
@@ -93,7 +93,7 @@ def assemble(project: Path, pause_seconds: float) -> tuple[Path, Path]:
         audio_bytes = temporary_wav.read_bytes()
         timeline = {
             "schemaVersion": 1,
-            "audioFile": "voice/full.wav",
+            "audioFile": "output/voice/full.wav",
             "audioChecksum": checksum(audio_bytes),
             "voiceManifestChecksum": checksum(manifest_bytes),
             "scriptVersion": manifest["scriptVersion"],

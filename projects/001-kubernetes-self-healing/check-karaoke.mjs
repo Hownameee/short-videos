@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { captionWords, activeWordAt } from '../../renderer/src/karaoke.ts';
 
-const manifest = JSON.parse(await fs.readFile(new URL('./voice/manifest.json', import.meta.url), 'utf8'));
+const manifest = JSON.parse(await fs.readFile(new URL('./output/docs/voice-manifest.json', import.meta.url), 'utf8'));
 let checked = 0;
 for (const scene of manifest.scenes) {
   for (const caption of scene.captions) {

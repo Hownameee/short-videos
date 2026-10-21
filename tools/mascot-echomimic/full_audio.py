@@ -255,7 +255,7 @@ def main() -> None:
         parser.error("--steps must be positive")
     project = args.project.expanduser().resolve()
     presenter = args.presenter.expanduser().resolve()
-    source_audio = project / "voice/full.wav"
+    source_audio = project / "output/voice/full.wav"
     base = project / "output/video/final.mp4"
     for path in (presenter, source_audio, base):
         if not path.is_file():

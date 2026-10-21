@@ -47,12 +47,10 @@ Thumbs.db
 !/projects/*/output/docs/
 /projects/*/output/docs/*
 !/projects/*/output/docs/render.snapshot.json
-/projects/*/voice/*.wav
 /projects/*/assets/music/*.wav
 /projects/*/assets/music/*.mp3
 /projects/*/assets/sfx/*.wav
 /projects/*/assets/sfx/*.mp3
-/projects/*/.voice-next-*/
 
 # Downloaded library audio and transient catalog lock; retain catalog/license records
 /audio-library/files/

@@ -237,7 +237,7 @@ export const createProject = async (workspaceRoot, options) => {
       "assets/footage",
       "assets/music",
       "assets/sfx",
-      "voice",
+      "output/voice",
       "output/docs",
       "output/video",
     ]) {
@@ -592,11 +592,11 @@ export const reviseProduction = async (workspaceRoot, projectInput) => {
 
 export const renderFingerprint = async (workspaceRoot, projectDir) => {
   const entries = {};
-  for (const name of ["video.json", "script.md", "production.json", "storyboard.json", "output/docs/audio-timeline.json"]) {
+  for (const name of ["video.json", "script.md", "production.json", "storyboard.json", "output/docs/voice-manifest.json", "output/docs/audio-timeline.json"]) {
     const file = path.join(projectDir, name);
     if (await pathExists(file)) entries[name] = await fileChecksum(file);
   }
-  for (const name of ["voice", "assets"]) {
+  for (const name of ["output/voice", "assets"]) {
     const directory = path.join(projectDir, name);
     if (await pathExists(directory)) entries[name] = await directoryChecksum(directory);
   }
@@ -626,11 +626,11 @@ export const prepareRender = async (workspaceRoot, projectInput) => {
   const input = await validateProductionInput(workspaceRoot, projectInput);
   const { projectDir, video } = input;
   validateRenderConfig(video);
-  const voiceManifest = await readJson(path.join(projectDir, "voice/manifest.json"));
+  const voiceManifest = await readJson(path.join(projectDir, "output/docs/voice-manifest.json"));
   if (voiceManifest.scriptVersion !== video.scriptVersion) throw new Error("Voice manifest is stale relative to the approved script version. Run the shared voice generator.");
   validateVoiceCaptions(video, voiceManifest);
   for (const voice of voiceManifest.scenes) {
-    const file = await checkedMedia(projectDir, `voice/${voice.file}`, "voice");
+    const file = await checkedMedia(projectDir, `output/voice/${voice.file}`, "output/voice");
     if (await fileChecksum(file) !== voice.fileChecksum) throw new Error(`Voice checksum mismatch: ${voice.file}`);
     const probe = await probeMedia(file);
     if (!Number.isFinite(Number(probe.format.duration)) || Math.abs(Number(probe.format.duration) - voice.durationSec) > 0.03) throw new Error(`Voice duration mismatch: ${voice.file}`);
@@ -641,10 +641,10 @@ export const prepareRender = async (workspaceRoot, projectInput) => {
   const audioTimeline = await pathExists(audioTimelinePath) ? await readJson(audioTimelinePath) : undefined;
   if (audioTimeline) {
     if ((video.meta.renderer ?? "kubernetes") !== "kubernetes") throw new Error("Combined narration is currently supported only by the Kubernetes renderer.");
-    if (audioTimeline.schemaVersion !== 1 || audioTimeline.audioFile !== "voice/full.wav" ||
+    if (audioTimeline.schemaVersion !== 1 || audioTimeline.audioFile !== "output/voice/full.wav" ||
         audioTimeline.fps !== video.meta.fps || audioTimeline.sampleRate !== voiceManifest.sampleRate ||
         audioTimeline.scriptVersion !== video.scriptVersion ||
-        audioTimeline.voiceManifestChecksum !== await fileChecksum(path.join(projectDir, "voice/manifest.json")) ||
+        audioTimeline.voiceManifestChecksum !== await fileChecksum(path.join(projectDir, "output/docs/voice-manifest.json")) ||
         audioTimeline.scenes?.length !== voiceManifest.scenes.length) {
       throw new Error("Combined narration timeline is stale or invalid; rerun assemble_voice.py.");
     }
@@ -653,7 +653,7 @@ export const prepareRender = async (workspaceRoot, projectInput) => {
       const voice = voiceManifest.scenes[index];
       const samplesPerFrame = audioTimeline.sampleRate / audioTimeline.fps;
       if (!Number.isInteger(samplesPerFrame) || scene.id !== voice.id ||
-          scene.voiceFile !== `voice/${voice.file}` || scene.voiceChecksum !== voice.fileChecksum ||
+          scene.voiceFile !== `output/voice/${voice.file}` || scene.voiceChecksum !== voice.fileChecksum ||
           !Number.isInteger(scene.voiceSamples) || scene.voiceSamples <= 0 ||
           Math.abs(scene.voiceSamples / audioTimeline.sampleRate - voice.durationSec) > 0.001 ||
           scene.voiceFrames !== Math.ceil(scene.voiceSamples / samplesPerFrame) ||
@@ -666,7 +666,7 @@ export const prepareRender = async (workspaceRoot, projectInput) => {
     if (cursor !== audioTimeline.totalFrames || audioTimeline.totalFrames / audioTimeline.fps !== audioTimeline.durationSeconds) {
       throw new Error("Combined narration total duration is invalid; rerun assemble_voice.py.");
     }
-    const combinedFile = await checkedMedia(projectDir, audioTimeline.audioFile, "voice");
+    const combinedFile = await checkedMedia(projectDir, audioTimeline.audioFile, "output/voice");
     if (await fileChecksum(combinedFile) !== audioTimeline.audioChecksum) throw new Error("Combined narration checksum mismatch; rerun assemble_voice.py.");
     const combinedProbe = await probeMedia(combinedFile);
     if (Math.abs(Number(combinedProbe.format.duration) - audioTimeline.durationSeconds) > 1 / audioTimeline.fps ||
@@ -774,7 +774,7 @@ const stageProjectMedia = async (rendererDir, projectDir) => {
   const temporary = temporarySibling(target, "next");
   await mkdir(temporary, { recursive: true });
   try {
-    await cp(path.join(projectDir, "voice"), path.join(temporary, "voice"), {
+    await cp(path.join(projectDir, "output/voice"), path.join(temporary, "voice"), {
       recursive: true,
     });
     await cp(path.join(projectDir, "assets"), path.join(temporary, "assets"), {

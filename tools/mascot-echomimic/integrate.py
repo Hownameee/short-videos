@@ -405,7 +405,7 @@ def main() -> None:
     base = (args.base or project / "output/video/final.mp4").expanduser().resolve()
     if not presenter.is_file() or not base.is_file():
         parser.error("presenter and base video must exist")
-    manifest = json.loads((project / "voice/manifest.json").read_text())
+    manifest = json.loads((project / "output/docs/voice-manifest.json").read_text())
     video = json.loads((project / "video.json").read_text())
     base_video = video_stream(base)
     base_rate_num, base_rate_den = (
@@ -432,7 +432,7 @@ def main() -> None:
         "scenes": [
             {
                 "id": scene["id"],
-                "audio_sha256": sha256(project / "voice" / scene["file"]),
+                "audio_sha256": sha256(project / "output/voice" / scene["file"]),
             }
             for scene in manifest["scenes"]
             if scene["id"] in selected
@@ -462,7 +462,7 @@ def main() -> None:
         raw = scene_dir / "echomimic.mp4"
         alpha = scene_dir / "alpha.webm"
         if args.stage in ("generate", "all"):
-            prepare_audio(project / "voice" / scene["file"], audio, duration, frames)
+            prepare_audio(project / "output/voice" / scene["file"], audio, duration, frames)
             generate(raw, opaque, audio, frames, args.steps)
         if args.stage in ("matte", "all"):
             if not raw.is_file():

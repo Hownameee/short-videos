@@ -28,6 +28,8 @@ unchanged WAVs and timestamps survive bit-for-bit. Old verified manifests can be
 adopted once. A fully unchanged run leaves the manifest unchanged too.
 Generation stages all results before swapping the voice directory; failure
 preserves the previous set. Do not run simultaneous writers for one project.
+Generated WAVs live in `output/voice/`; their manifest lives in
+`output/docs/voice-manifest.json`.
 
 Use `--force` to deliberately regenerate all clips, including after changing
 locally cached model weights under the same model identifier (weight bytes are

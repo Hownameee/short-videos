@@ -27,7 +27,8 @@ for scene in video['scenes']:
         samples.append(audio)
         offset += len(audio) / rate
     audio = np.concatenate(samples)
-    target = p / 'voice' / (scene['id'] + '.wav')
+    target = p / 'output/voice' / (scene['id'] + '.wav')
+    target.parent.mkdir(parents=True, exist_ok=True)
     sf.write(target, audio, rate, subtype='PCM_16')
     captions, group = [], []
     for word in words:
@@ -42,5 +43,7 @@ for scene in video['scenes']:
     scenes.append({'id': scene['id'], 'file': target.name, 'text': scene['narration'], 'sourceText': scene['narration'], 'durationSec': len(audio)/rate, 'sampleRate': rate, 'captions': captions, 'words': words, 'textChecksum': checksum(scene['narration'].encode()), 'fileChecksum': checksum(target.read_bytes())})
     print(scene['id'], round(offset, 2), 'sec,', len(words), 'words', flush=True)
 manifest = {'schemaVersion': 1, 'provider': 'kokoro', 'packageVersion': '0.9.4', 'model': 'hexgrad/Kokoro-82M', 'voice': 'af_heart', 'speed': 1.02, 'langCode': 'a', 'sampleRate': rate, 'captionTiming': 'Kokoro predicted word timestamps; phrase grouping', 'generatedAt': datetime.now(UTC).isoformat(), 'scriptVersion': video['scriptVersion'], 'scenes': scenes}
-(p / 'voice/manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+manifest_path = p / 'output/docs/voice-manifest.json'
+manifest_path.parent.mkdir(parents=True, exist_ok=True)
+manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
 print('Total voice:', sum(s['durationSec'] for s in scenes), flush=True)

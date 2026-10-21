@@ -14,7 +14,8 @@ was generated.
 - `output/video/final.mp4`: latest 1080×1920, 30 fps, H.264/AAC.
 - Review preview and contact sheet: removed after final export.
 - `output/docs/captions.en.srt`: optional external captions (captions are also burned in).
-- `voice/full.wav`: one PCM narration track assembled from the seven scene WAVs.
+- `output/voice/full.wav`: one PCM narration track assembled from the seven scene WAVs.
+- `output/docs/voice-manifest.json`: scene timing, caption data and WAV checksums.
 - `output/docs/audio-timeline.json`: frame-aligned scene starts, voice lengths, and pauses.
 - `output/docs/report.json`, `output/docs/qc.json`, `output/docs/render.snapshot.json`:
   production evidence; the snapshot records the shared renderer source checksum.
@@ -45,9 +46,9 @@ The workflow normalizes final audio to a -16 LUFS target and -1.5 dBTP ceiling.
 The combined narration is a 24 kHz mono PCM WAV. Each scene starts on a video
 frame boundary; source audio is padded to the next frame, then followed by 15
 silent frames (0.5 s at 30 fps), including the final scene. The timeline lists
-the exact frame and second offsets. Remotion plays `voice/full.wav` once at frame
+the exact frame and second offsets. Remotion plays `output/voice/full.wav` once at frame
 zero, uses the timeline for visual scene lengths, and keeps scene-local word
-timestamps from `voice/manifest.json` for karaoke. Music and the recovery chime
+timestamps from `output/docs/voice-manifest.json` for karaoke. Music and the recovery chime
 remain separate tracks. Reassemble after changing any scene WAV or its manifest.
 
 ## Evidence and review
@@ -107,7 +108,7 @@ Human listening and physical phone playback have not been performed.
 ## Mascot demo
 
 The [shared EchoMimic flow](../../tools/mascot-echomimic/README.md) uses the
-first three seconds of `voice/full.wav` with the presenter PNG, then MatAnyone2
+first three seconds of `output/voice/full.wav` with the presenter PNG, then MatAnyone2
 to make a transparent VP9 WebM. FFmpeg overlays it at the lower right of the
 first three seconds of `final.mp4`; the composite keeps that video's audio.
 The demo has 75 mascot frames at 25 fps and 90 composite frames at 30 fps.

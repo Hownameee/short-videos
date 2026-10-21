@@ -86,7 +86,7 @@ bash tools/mascot-echomimic/setup-matanyone2.sh
   --project projects/001-kubernetes-self-healing
 ```
 
-`full_audio.py` reads `voice/full.wav`, the presenter PNG and a prompt, then
+`full_audio.py` reads `output/voice/full.wav`, the presenter PNG and a prompt, then
 generates the talking video in 25 fps chunks. It prepares the first-frame mask,
 runs MatAnyone2 on each chunk, joins the color and alpha videos, and overlays
 the transparent presenter on the existing `output/video/final.mp4`. Only the

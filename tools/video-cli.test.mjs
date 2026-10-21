@@ -193,7 +193,7 @@ test("createProject allocates the next NNN folder and initial state", async () =
     backgroundSound: "intentional-music",
   });
   assert.equal((await readJson(path.join(first.projectDir, "state.json"))).state, STATES.REQUEST_CREATED);
-  for (const directory of ["assets/images", "assets/footage", "assets/music", "assets/sfx", "voice", "output/docs", "output/video"]) {
+  for (const directory of ["assets/images", "assets/footage", "assets/music", "assets/sfx", "output/voice", "output/docs", "output/video"]) {
     assert.equal((await stat(path.join(first.projectDir, directory))).isDirectory(), true);
   }
 });
@@ -353,11 +353,11 @@ test("final media rejects truncation, invalid duration and wrong codecs", () => 
 test("real preflight verifies voice bytes and rejects a media symlink escaping the project", async () => {
   const root=await makeWorkspace();
   const {project,projectDir}=await prepareApprovedProject(root);
-  const file=path.join(projectDir,"voice/hook.wav");
+  const file=path.join(projectDir,"output/voice/hook.wav");
   await promisify(execFile)("ffmpeg",["-v","error","-f","lavfi","-i","sine=frequency=440:sample_rate=24000:duration=1",file]);
   const video=await readJson(path.join(projectDir,"video.json"));
   const manifest={scriptVersion:video.scriptVersion,sampleRate:24000,scenes:[{id:"hook",file:"hook.wav",durationSec:1,fileChecksum:await fileChecksum(file)}]};
-  await writeFile(path.join(projectDir,"voice/manifest.json"),JSON.stringify(manifest));
+  await writeFile(path.join(projectDir,"output/docs/voice-manifest.json"),JSON.stringify(manifest));
   assert.equal((await prepareRender(root,project)).expectedDurationSec,2);
   const outside=path.join(root,"external.wav");
   await rename(file,outside);

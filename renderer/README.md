@@ -67,9 +67,9 @@ npm run video -- render --project projects/001-kubernetes-self-healing --preview
 npm run video -- render --project projects/001-kubernetes-self-healing --final
 ```
 
-The CLI stages `assets/` and `voice/` under `public/workflow/`, rejects a stale
+The CLI stages `assets/` and `output/voice/` under `public/workflow/`, rejects a stale
 voice manifest, and normalizes the rendered audio to -16 LUFS / -1.5 dBTP.
-Project 001 also uses `voice/full.wav` as a single narration track and
+Project 001 also uses `output/voice/full.wav` as a single narration track and
 `output/docs/audio-timeline.json` for frame-aligned scene and pause lengths.
 After changing its scene WAVs, regenerate both from the workspace root:
 

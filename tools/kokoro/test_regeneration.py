@@ -41,11 +41,12 @@ class RegenerationTests(unittest.TestCase):
             generator.main()
 
     def hashes(self):
-        return {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (self.project / 'voice').iterdir()}
+        files = [* (self.project / 'output/voice').iterdir(), self.project / 'output/docs/voice-manifest.json']
+        return {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
 
     def test_noop_keeps_wavs_timings_and_manifest_bytes(self):
         self.run_generator()
-        (self.project / 'voice/notes.txt').write_text('Retain unrelated voice notes.')
+        (self.project / 'output/voice/notes.txt').write_text('Retain unrelated voice notes.')
         before = self.hashes()
         self.run_generator()
         self.assertEqual(self.calls, ['Hello world.', 'Clear ideas.'])
@@ -70,7 +71,7 @@ class RegenerationTests(unittest.TestCase):
 
     def test_corrupt_wav_regenerates_only_that_scene(self):
         self.run_generator()
-        (self.project / 'voice/hook.wav').write_bytes(b'broken')
+        (self.project / 'output/voice/hook.wav').write_bytes(b'broken')
         self.run_generator()
         self.assertEqual(self.calls, ['Hello world.', 'Clear ideas.', 'Hello world.'])
 
@@ -84,7 +85,7 @@ class RegenerationTests(unittest.TestCase):
 
     def test_generator_version_and_bad_captions_invalidate_cache(self):
         self.run_generator()
-        manifest_path = self.project / 'voice/manifest.json'
+        manifest_path = self.project / 'output/docs/voice-manifest.json'
         manifest = json.loads(manifest_path.read_text())
         manifest['scenes'][0]['captions'][0]['text'] = 'Missing words'
         manifest_path.write_text(json.dumps(manifest))
@@ -102,12 +103,27 @@ class RegenerationTests(unittest.TestCase):
         replace = generator.os.replace
 
         def fail_install(source, target):
-            if Path(source).name == 'voice' and Path(target).resolve() == (self.project / 'voice').resolve():
+            if Path(source).name == 'voice' and Path(target).resolve() == (self.project / 'output/voice').resolve():
                 raise OSError('Simulated install failure')
             return replace(source, target)
 
         with patch.object(generator.os, 'replace', side_effect=fail_install):
             with self.assertRaisesRegex(OSError, 'Simulated install failure'):
+                self.run_generator('--force')
+        self.assertEqual(self.hashes(), before)
+
+    def test_failed_manifest_install_restores_previous_voice_set(self):
+        self.run_generator()
+        before = self.hashes()
+        replace = generator.os.replace
+
+        def fail_install(source, target):
+            if Path(source).name == 'voice-manifest.json' and Path(target).resolve() == (self.project / 'output/docs/voice-manifest.json').resolve():
+                raise OSError('Simulated manifest install failure')
+            return replace(source, target)
+
+        with patch.object(generator.os, 'replace', side_effect=fail_install):
+            with self.assertRaisesRegex(OSError, 'Simulated manifest install failure'):
                 self.run_generator('--force')
         self.assertEqual(self.hashes(), before)
 

@@ -115,7 +115,8 @@ always make and review a fresh preview.
 | `request.json`, `research.json`, `directions.json` | Topic, factual sources, and proposed directions |
 | `script.md`, `video.json` | Readable script and approved scene/audio/visual configuration |
 | `production.json` | Optional music, SFX, and caption overrides layered over `video.json` |
-| `voice/manifest.json` | Generated scene timing, caption data, and audio checksums |
+| `output/voice/` | Generated scene and assembled narration WAVs |
+| `output/docs/voice-manifest.json` | Generated scene timing, caption data, and audio checksums |
 | `state.json` | Workflow progress and recorded versions |
 | `assets/sources.json` | Asset sources and licensing records |
 | `output/docs/render.snapshot.json` | Input, renderer, dependency, and final-video checksums from the latest successful final render |

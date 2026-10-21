@@ -21,14 +21,14 @@ projects/<nnn>-<slug>/
 │   ├── footage/
 │   ├── music/
 │   └── sfx/
-├── voice/
-│   ├── manifest.json
-│   ├── <scene-id>.wav
-│   └── full.wav              # Optional assembled narration
 ├── output/
+│   ├── voice/
+│   │   ├── <scene-id>.wav
+│   │   └── full.wav          # Optional assembled narration
 │   ├── video/
 │   │   └── final.mp4
 │   └── docs/
+│       ├── voice-manifest.json
 │       ├── report.json
 │       ├── automated-qc.json
 │       ├── qc.json          # Agent-owned visual/audio review evidence
@@ -281,7 +281,7 @@ for the full reasoning and review gate.
 
 ## Approval and validation
 
-For default karaoke, `voice/manifest.json.scenes[]` includes `words[]` and phrase
+For default karaoke, `output/docs/voice-manifest.json.scenes[]` includes `words[]` and phrase
 `captions[]`, each with `text`, `startMs`, `endMs`, `timestampMs` and `confidence`.
 Times are milliseconds local to that scene's WAV. The shared helper merges
 punctuation and retains actual Kokoro token timings with audio-chunk offsets;

@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 
 p = Path(__file__).parent
-manifest_path = p / 'voice/manifest.json'
+manifest_path = p / 'output/docs/voice-manifest.json'
 manifest = json.loads(manifest_path.read_text())
 srt = []
 offset = 0.0
