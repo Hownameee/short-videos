@@ -58,6 +58,13 @@ The shared generator expects `.venv-kokoro/bin/python` in the commands below.
 Initial model downloads require network access; subsequent generation can reuse
 the local model cache.
 
+For a reusable talking presenter, follow the [EchoMimic setup](tools/mascot-echomimic/README.md).
+It uses `.venv-mascot` and a 384×672 presenter image. The full-WAV flow
+generates talking video in chunks, mattes it with MatAnyone2, and uses FFmpeg
+to overlay it on an existing render while keeping that render's audio. The
+current presenter image is in `tools/mascot-echomimic/assets/`. This optional
+path is separate from the default narration and Remotion workflow.
+
 Start a new project:
 
 ```bash

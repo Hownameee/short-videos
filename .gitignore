@@ -57,3 +57,11 @@ Thumbs.db
 # Downloaded library audio and transient catalog lock; retain catalog/license records
 /audio-library/files/
 /audio-library/.catalog.lock
+
+research/
+
+# Shared EchoMimic weights and generated previews
+/tools/mascot-echomimic/models/
+/tools/mascot-echomimic/output/
+/tools/mascot-echomimic/source/
+/tools/mascot-echomimic/matanyone2-source/

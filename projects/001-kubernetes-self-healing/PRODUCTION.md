@@ -18,6 +18,8 @@ was generated.
 - `output/docs/audio-timeline.json`: frame-aligned scene starts, voice lengths, and pauses.
 - `output/docs/report.json`, `output/docs/qc.json`, `output/docs/render.snapshot.json`:
   production evidence; the snapshot records the shared renderer source checksum.
+- `output/mascot/mascot.mp4`, `mascot-transparent-bg.webm`, and
+  `output/video/final-mascot.mp4`: current three-second mascot demo outputs.
 
 ## Reproduce
 
@@ -101,3 +103,16 @@ match the combined track sample for sample, and the inserted frame alignment and
 pause samples are silent. `output/docs/qc.json` records the current final's
 checksum, automated media checks, contact-sheet review and karaoke frame checks.
 Human listening and physical phone playback have not been performed.
+
+## Mascot demo
+
+The [shared EchoMimic flow](../../tools/mascot-echomimic/README.md) uses the
+first three seconds of `voice/full.wav` with the presenter PNG, then MatAnyone2
+to make a transparent VP9 WebM. FFmpeg overlays it at the lower right of the
+first three seconds of `final.mp4`; the composite keeps that video's audio.
+The demo has 75 mascot frames at 25 fps and 90 composite frames at 30 fps.
+`output/docs/mascot-integration.json` records the prompt, source paths, and
+placement. Omit `--seconds 3` in the same command to process the full WAV and
+replace the three demo outputs; finished chunks are reused. The rendered demo
+was decoded and its alpha channel was checked. Human lip-sync and listening
+review remain to be done.
