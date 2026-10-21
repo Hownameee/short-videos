@@ -5,6 +5,8 @@ behavior while fixing revision handling and adding stronger validation. Narratio
 reuse is substantially faster; stronger preview QC has a small measured cost.
 Independent dry-run comparisons completed; grading was performed by the parent
 agent after the separate grader hit a usage limit. AI token usage is unmeasured.
+This is historical evidence: the eclipse example project and its media have
+since been removed, so its measurements cannot be rerun from the current checkout.
 
 ## What changed
 

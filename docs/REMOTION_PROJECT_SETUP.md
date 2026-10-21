@@ -1,8 +1,8 @@
 # Shared renderer and Kokoro setup
 
 Each `projects/NNN-topic/` contains content and media. The workspace shares
-`renderer/`, its dependency tree and `.venv-kokoro/`; project `src/` archives
-the exact source of its latest valid final. Do not edit that archive directly.
+`renderer/`, its dependency tree and `.venv-kokoro/`. Projects do not copy
+renderer source; their final render snapshots record its checksum.
 
 Prerequisites: Node >=20, npm, FFmpeg/ffprobe; Python/Kokoro only for narration.
 This checkout uses Node 24.21.0 and Remotion 4.0.532. Reuse installed runtimes;
@@ -40,7 +40,7 @@ npm run video -- render --project projects/NNN-topic --final
 
 Research, scriptwriting, asset preparation and new scene implementation remain
 agent/user tasks. Kokoro produces narration, not music or visuals. The renderer
-currently implements Kubernetes, eclipses, gRPC, RAG and income; set `meta.renderer` explicitly
+currently implements Kubernetes only; set `meta.renderer` explicitly
 for new data. An unknown renderer fails instead of silently selecting Kubernetes.
 
 New projects default to **2160×3840 at 60 fps**, from
@@ -65,7 +65,7 @@ duration, dimensions/FPS, H.264/AAC, full decode and encoded audio measurements.
 Normalization targets -16 LUFS / -1.5 dBTP. Reports include audio/asset/input hashes.
 Editorial listening, visual review and rights still require evidence.
 
-The CLI atomically installs final, report, automated QC, source archive, snapshot
+The CLI atomically installs final, report, automated QC, snapshot
 and state after validation. A failed replacement preserves the prior deliverable.
 Nonempty storyboard overrides are unsupported; edit the topic renderer for visuals.
 

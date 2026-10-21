@@ -99,6 +99,15 @@ layout, typography, color, diagram, caption, motion, or transition behavior, rea
 `../short-video-visual-design/SKILL.md`. Keep visual planning at an editorial level
 in Phase 2; detailed JSX remains Phase 3 work.
 
+When a scene depends on real 3D, hybrid 2D/3D, a spatial camera journey,
+GLB/glTF, or a Blender pass, also read `../short-video-hybrid-3d/SKILL.md` and
+record its spatial purpose, hero object, world, camera, action, lighting, layer
+split, transition, asset provenance, and proof frames. This is production
+planning; the script skill still owns the approval gate. After approval, a
+future hybrid renderer may turn these decisions into a consumed
+`visual-map.json`; do not let a production map silently change the approved
+narration claim. The current renderer has no such consumer.
+
 Treat pronunciation spellings as candidates to audition, not authoritative
 render instructions. This matters when the script language lacks an official
 voice in the selected TTS provider.

@@ -7,18 +7,17 @@ illustration of a deleted managed Pod, not a recording of a running cluster.
 The user delegated editorial decisions and final production, then clarified that
 only English is supported. The first bilingual draft was invalidated; the reason
 and superseded script checksum are retained in `state.json`. No bilingual media
-was generated. `revise_english.py` is the historical one-time migration and should
-not be rerun on the current approved project.
+was generated.
 
 ## Outputs
 
-- `output/final.mp4`: latest 1080×1920, 30 fps, H.264/AAC.
-- `output/kubernetes-motion-karaoke.mp4`: named copy of the latest animated revision.
-- `output/final-v1.mp4`: preserved original before the motion/karaoke revision.
-- `output/preview.mp4` and `output/contact-sheet.png`: review copies.
-- `output/captions.en.srt`: optional external captions (captions are also burned in).
-- `output/report.json`, `output/qc.json`, `render.snapshot.json`: technical evidence.
-- `src/`: exact renderer source archived by the final-render workflow.
+- `output/video/final.mp4`: latest 1080×1920, 30 fps, H.264/AAC.
+- Review preview and contact sheet: removed after final export.
+- `output/docs/captions.en.srt`: optional external captions (captions are also burned in).
+- `voice/full.wav`: one PCM narration track assembled from the seven scene WAVs.
+- `output/docs/audio-timeline.json`: frame-aligned scene starts, voice lengths, and pauses.
+- `output/docs/report.json`, `output/docs/qc.json`, `output/docs/render.snapshot.json`:
+  production evidence; the snapshot records the shared renderer source checksum.
 
 ## Reproduce
 
@@ -28,6 +27,7 @@ Python 3.12 `.venv-kokoro`. FFmpeg and ffprobe must be on PATH. The model is cac
 ```bash
 HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false .venv-kokoro/bin/python projects/001-kubernetes-self-healing/generate_voice.py
 .venv-kokoro/bin/python projects/001-kubernetes-self-healing/refine_captions.py
+python3 tools/audio/assemble_voice.py --project projects/001-kubernetes-self-healing --pause 0.5
 .venv-kokoro/bin/python tools/audio/generate_soundtrack.py --project projects/001-kubernetes-self-healing --duration 90
 npm --prefix renderer run lint
 node projects/001-kubernetes-self-healing/check-karaoke.mjs
@@ -39,6 +39,14 @@ The shared renderer must still contain this project's scene implementation.
 Chromium needs permission to launch; the macOS sandbox rejected Mach-port access
 in the first attempt. Rendering succeeded after permission to run outside it.
 The workflow normalizes final audio to a -16 LUFS target and -1.5 dBTP ceiling.
+
+The combined narration is a 24 kHz mono PCM WAV. Each scene starts on a video
+frame boundary; source audio is padded to the next frame, then followed by 15
+silent frames (0.5 s at 30 fps), including the final scene. The timeline lists
+the exact frame and second offsets. Remotion plays `voice/full.wav` once at frame
+zero, uses the timeline for visual scene lengths, and keeps scene-local word
+timestamps from `voice/manifest.json` for karaoke. Music and the recovery chime
+remain separate tracks. Reassemble after changing any scene WAV or its manifest.
 
 ## Evidence and review
 
@@ -82,6 +90,14 @@ Verification: `check-karaoke.mjs` checks all 133 spoken words, phrase coverage,
 and start/mid/end highlighting boundaries. Rendered frames at 0.50, 0.70 and
 1.00 seconds visibly highlight Delete, one and Pod respectively. Additional
 frame sequences cover deletion, replacement, scheduler/kubelet progress and
-Service traffic. Review sheets are `output/karaoke-motion-review.png` and
-`output/recovery-motion-review.png`. Integrated scene review uses the new
-contact sheet. Final revision evidence is in `output/qc-v2.json`.
+Service traffic. Review sheets and the contact sheet were inspected during
+production and later removed. Current final evidence is in `output/docs/qc.json`.
+
+## Single-track narration pilot
+
+The current final uses the combined narration and 0.5-second scene pauses above.
+It has 1,711 frames at 30 fps (57.03 seconds of video). The seven source WAVs
+match the combined track sample for sample, and the inserted frame alignment and
+pause samples are silent. `output/docs/qc.json` records the current final's
+checksum, automated media checks, contact-sheet review and karaoke frame checks.
+Human listening and physical phone playback have not been performed.

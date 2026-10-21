@@ -49,6 +49,19 @@ export type VoiceManifest = {
   scenes: VoiceScene[];
 };
 
+export type AudioTimeline = {
+  audioFile: string;
+  fps: number;
+  totalFrames: number;
+  scenes: {
+    id: string;
+    startFrame: number;
+    voiceFrames: number;
+    pauseFrames: number;
+    endFrame: number;
+  }[];
+};
+
 export type VideoProps = {
   projectDir?: string;
   videoJson?: string;
@@ -56,6 +69,7 @@ export type VideoProps = {
   assetRoot: string;
   video: VideoData;
   voiceManifest: VoiceManifest;
+  audioTimeline?: AudioTimeline;
   storyboard?: Storyboard;
 };
 

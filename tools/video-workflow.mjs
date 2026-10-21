@@ -238,7 +238,8 @@ export const createProject = async (workspaceRoot, options) => {
       "assets/music",
       "assets/sfx",
       "voice",
-      "output",
+      "output/docs",
+      "output/video",
     ]) {
       await mkdir(path.join(projectDir, directory), { recursive: true });
     }
@@ -591,7 +592,7 @@ export const reviseProduction = async (workspaceRoot, projectInput) => {
 
 export const renderFingerprint = async (workspaceRoot, projectDir) => {
   const entries = {};
-  for (const name of ["video.json", "script.md", "production.json", "storyboard.json"]) {
+  for (const name of ["video.json", "script.md", "production.json", "storyboard.json", "output/docs/audio-timeline.json"]) {
     const file = path.join(projectDir, name);
     if (await pathExists(file)) entries[name] = await fileChecksum(file);
   }
@@ -636,6 +637,43 @@ export const prepareRender = async (workspaceRoot, projectInput) => {
     const audioStream = probe.streams?.find((stream) => stream.codec_type === "audio");
     if (Number(audioStream?.sample_rate) !== Number(voiceManifest.sampleRate ?? 24000)) throw new Error(`Voice sample rate mismatch: ${voice.file}`);
   }
+  const audioTimelinePath = path.join(projectDir, "output/docs/audio-timeline.json");
+  const audioTimeline = await pathExists(audioTimelinePath) ? await readJson(audioTimelinePath) : undefined;
+  if (audioTimeline) {
+    if ((video.meta.renderer ?? "kubernetes") !== "kubernetes") throw new Error("Combined narration is currently supported only by the Kubernetes renderer.");
+    if (audioTimeline.schemaVersion !== 1 || audioTimeline.audioFile !== "voice/full.wav" ||
+        audioTimeline.fps !== video.meta.fps || audioTimeline.sampleRate !== voiceManifest.sampleRate ||
+        audioTimeline.scriptVersion !== video.scriptVersion ||
+        audioTimeline.voiceManifestChecksum !== await fileChecksum(path.join(projectDir, "voice/manifest.json")) ||
+        audioTimeline.scenes?.length !== voiceManifest.scenes.length) {
+      throw new Error("Combined narration timeline is stale or invalid; rerun assemble_voice.py.");
+    }
+    let cursor = 0;
+    for (const [index, scene] of audioTimeline.scenes.entries()) {
+      const voice = voiceManifest.scenes[index];
+      const samplesPerFrame = audioTimeline.sampleRate / audioTimeline.fps;
+      if (!Number.isInteger(samplesPerFrame) || scene.id !== voice.id ||
+          scene.voiceFile !== `voice/${voice.file}` || scene.voiceChecksum !== voice.fileChecksum ||
+          !Number.isInteger(scene.voiceSamples) || scene.voiceSamples <= 0 ||
+          Math.abs(scene.voiceSamples / audioTimeline.sampleRate - voice.durationSec) > 0.001 ||
+          scene.voiceFrames !== Math.ceil(scene.voiceSamples / samplesPerFrame) ||
+          !Number.isInteger(scene.pauseFrames) || scene.pauseFrames < 0 ||
+          scene.startFrame !== cursor || scene.endFrame !== cursor + scene.voiceFrames + scene.pauseFrames) {
+        throw new Error(`Combined narration timing is invalid at scene ${voice.id}; rerun assemble_voice.py.`);
+      }
+      cursor = scene.endFrame;
+    }
+    if (cursor !== audioTimeline.totalFrames || audioTimeline.totalFrames / audioTimeline.fps !== audioTimeline.durationSeconds) {
+      throw new Error("Combined narration total duration is invalid; rerun assemble_voice.py.");
+    }
+    const combinedFile = await checkedMedia(projectDir, audioTimeline.audioFile, "voice");
+    if (await fileChecksum(combinedFile) !== audioTimeline.audioChecksum) throw new Error("Combined narration checksum mismatch; rerun assemble_voice.py.");
+    const combinedProbe = await probeMedia(combinedFile);
+    if (Math.abs(Number(combinedProbe.format.duration) - audioTimeline.durationSeconds) > 1 / audioTimeline.fps ||
+        Number(combinedProbe.streams?.find((stream) => stream.codec_type === "audio")?.sample_rate) !== audioTimeline.sampleRate) {
+      throw new Error("Combined narration media duration or sample rate is invalid; rerun assemble_voice.py.");
+    }
+  }
   const storyboardPath = path.join(projectDir, "storyboard.json");
   const storyboard = await pathExists(storyboardPath) ? await readJson(storyboardPath) : undefined;
   if (storyboard && storyboard.scriptVersion !== video.scriptVersion) throw new Error("Storyboard is stale relative to the approved script version.");
@@ -648,21 +686,21 @@ export const prepareRender = async (workspaceRoot, projectInput) => {
     music.effectiveLufsBeforeAutomation = music.integratedLufs + 20 * Math.log10(video.audio.music.volume);
     if (!Number.isFinite(music.integratedLufs) || music.effectiveLufsBeforeAutomation < -60) throw new Error("Background music is silent or effectively inaudible; fix the track/gain or record a sound override.");
     const probe = await probeMedia(file);
-    if (Number(probe.format.duration) + 1 / video.meta.fps < expectedDuration(video, voiceManifest)) throw new Error("Background track is shorter than the video; prepare its loop/fade before rendering.");
+    if (Number(probe.format.duration) + 1 / video.meta.fps < expectedDuration(video, voiceManifest, audioTimeline)) throw new Error("Background track is shorter than the video; prepare its loop/fade before rendering.");
   }
   if ((video.meta.renderer ?? "kubernetes") === "kubernetes" && video.audio !== null && video.audio?.sfx !== false && video.scenes.some((s) => s.id === "replace")) {
     await checkedMedia(projectDir, "assets/sfx/success-chime.wav", "assets");
   }
   const fingerprint = await renderFingerprint(workspaceRoot, projectDir);
-  return { ...input, voiceManifest, fingerprint, music, expectedDurationSec: expectedDuration(video, voiceManifest), reviewTimes: reviewTimes(video, voiceManifest) };
+  return { ...input, voiceManifest, audioTimeline, fingerprint, music, expectedDurationSec: expectedDuration(video, voiceManifest, audioTimeline), reviewTimes: reviewTimes(video, voiceManifest, audioTimeline) };
 };
 
 export const requireCurrentPreview = async (workspaceRoot, projectDir, fingerprint) => {
   const state = await readState(projectDir);
   const preview = state.outputs?.preview;
   if (preview?.inputFingerprint !== fingerprint.checksum ||
-      await fileChecksum(path.join(projectDir, "output/preview.mp4")).catch(() => null) !== preview?.checksum ||
-      await fileChecksum(path.join(projectDir, "output/contact-sheet.png")).catch(() => null) !== state.outputs?.contactSheet?.checksum) {
+      await fileChecksum(path.join(projectDir, ".cache/review/preview.mp4")).catch(() => null) !== preview?.checksum ||
+      await fileChecksum(path.join(projectDir, ".cache/review/contact-sheet.png")).catch(() => null) !== state.outputs?.contactSheet?.checksum) {
     throw new Error("Preview is missing or stale for current inputs. Render --preview and review it before --final.");
   }
 };
@@ -710,7 +748,7 @@ export const renderWithRemotion = async ({
     throw new Error("Remotion is not installed. Run npm install inside renderer/.");
   }
 
-  const { video, voiceManifest } = prepared ?? await prepareRender(workspaceRoot, projectDir);
+  const { video, voiceManifest, audioTimeline } = prepared ?? await prepareRender(workspaceRoot, projectDir);
   const assetRoot = await stageProjectMedia(rendererDir, projectDir);
 
   const props = JSON.stringify({
@@ -720,6 +758,7 @@ export const renderWithRemotion = async ({
     assetRoot,
     video,
     voiceManifest,
+    audioTimeline,
   });
   const args = ["render", composition, output, "--overwrite", "--props", props];
   if (kind === "preview") args.push("--scale", "0.5", "--crf", "28");
@@ -906,9 +945,10 @@ export const recordPreview = async ({
   probe,
   prepared,
 }) => {
-  const outputDir = path.join(projectDir, "output");
-  const previewPath = path.join(outputDir, "preview.mp4");
-  const contactSheetPath = path.join(outputDir, "contact-sheet.png");
+  const reviewDir = path.join(projectDir, ".cache", "review");
+  await mkdir(reviewDir, { recursive: true });
+  const previewPath = path.join(reviewDir, "preview.mp4");
+  const contactSheetPath = path.join(reviewDir, "contact-sheet.png");
   const statePath = path.join(projectDir, "state.json");
   const temporaryContactSheet = temporarySibling(contactSheetPath, "next");
   const temporaryState = temporarySibling(statePath, "next");
@@ -955,12 +995,6 @@ export const recordPreview = async ({
   }
 };
 
-const copyRendererSource = async (workspaceRoot, target) => {
-  const source = path.join(workspaceRoot, "renderer", "src");
-  if (!(await pathExists(source))) throw new Error("renderer/src does not exist.");
-  await cp(source, target, { recursive: true, errorOnExist: true });
-};
-
 export const finalizeFinalRender = async ({
   workspaceRoot,
   projectDir,
@@ -974,38 +1008,38 @@ export const finalizeFinalRender = async ({
   validateFinalMedia(probe, video, prepared.expectedDurationSec);
   if ((await renderFingerprint(workspaceRoot, projectDir)).checksum !== prepared.fingerprint.checksum) throw new Error("Inputs changed during final rendering; render a new preview.");
   await requireCurrentPreview(workspaceRoot, projectDir, prepared.fingerprint);
-  const outputDir = path.join(projectDir, "output");
-  const previewPath = path.join(outputDir, "preview.mp4");
-  const contactSheetPath = path.join(outputDir, "contact-sheet.png");
+  const reviewDir = path.join(projectDir, ".cache", "review");
+  const previewPath = path.join(reviewDir, "preview.mp4");
+  const contactSheetPath = path.join(reviewDir, "contact-sheet.png");
   if (!(await pathExists(previewPath)) || !(await pathExists(contactSheetPath))) {
     throw new Error("Final render requires preview.mp4 and contact-sheet.png first.");
   }
 
-  const finalPath = path.join(outputDir, "final.mp4");
-  const sourcePath = path.join(projectDir, "src");
-  const reportPath = path.join(outputDir, "report.json");
-  const snapshotPath = path.join(projectDir, "render.snapshot.json");
+  const videoDir = path.join(projectDir, "output", "video");
+  const docsDir = path.join(projectDir, "output", "docs");
+  await mkdir(videoDir, { recursive: true });
+  await mkdir(docsDir, { recursive: true });
+  const finalPath = path.join(videoDir, "final.mp4");
+  const reportPath = path.join(docsDir, "report.json");
+  const snapshotPath = path.join(docsDir, "render.snapshot.json");
   const statePath = path.join(projectDir, "state.json");
-  const temporarySource = temporarySibling(sourcePath, "next");
   const temporaryReport = temporarySibling(reportPath, "next");
   const temporarySnapshot = temporarySibling(snapshotPath, "next");
   const temporaryState = temporarySibling(statePath, "next");
-  const qcPath = path.join(outputDir, "automated-qc.json");
+  const qcPath = path.join(docsDir, "automated-qc.json");
   const temporaryQc = temporarySibling(qcPath, "next");
   let checksums;
   try {
-    await copyRendererSource(workspaceRoot, temporarySource);
-
     const rendererPackage = await readJson(path.join(workspaceRoot, "renderer/package.json"));
     const lockfilePath = path.join(workspaceRoot, "renderer/package-lock.json");
     checksums = {
       videoJson: await fileChecksum(path.join(projectDir, "video.json")),
-      rendererSrc: await directoryChecksum(temporarySource),
+      rendererSrc: prepared.fingerprint.inputs.renderer,
       dependencyLockfile: await fileChecksum(lockfilePath),
       finalMp4: await fileChecksum(temporaryOutput),
       renderInputs: prepared.fingerprint.checksum,
     };
-    if (checksums.rendererSrc !== prepared.fingerprint.inputs.renderer) throw new Error("Renderer source changed while archiving; render a fresh preview.");
+    if (await directoryChecksum(path.join(workspaceRoot, "renderer/src")) !== checksums.rendererSrc) throw new Error("Renderer source changed during finalization; render a fresh preview.");
     const storyboardPath = path.join(projectDir, "storyboard.json");
     if (await pathExists(storyboardPath)) {
       checksums.storyboard = await fileChecksum(storyboardPath);
@@ -1052,23 +1086,23 @@ export const finalizeFinalRender = async ({
     });
 
     const stateBefore = await readState(projectDir);
+    const retainedOutputs = { ...stateBefore.outputs };
+    delete retainedOutputs.preview;
+    delete retainedOutputs.contactSheet;
+    delete retainedOutputs.sourceSnapshot;
     await writeTemporaryJson(
       temporaryState,
       nextState(stateBefore, {
         state: STATES.PRODUCED,
         versions: { render: checksums.finalMp4 },
         outputs: {
-          ...stateBefore.outputs,
+          ...retainedOutputs,
           final: {
             path: relativeOutput(workspaceRoot, finalPath),
             checksum: checksums.finalMp4,
             createdAt,
           },
           report: { path: relativeOutput(workspaceRoot, reportPath) },
-          sourceSnapshot: {
-            path: projectRelativePath(workspaceRoot, sourcePath),
-            checksum: checksums.rendererSrc,
-          },
         },
         lastError: null,
       }),
@@ -1076,16 +1110,15 @@ export const finalizeFinalRender = async ({
 
     await replaceTargets([
       { source: temporaryOutput, target: finalPath },
-      { source: temporarySource, target: sourcePath },
       { source: temporaryReport, target: reportPath },
       { source: temporarySnapshot, target: snapshotPath },
       { source: temporaryState, target: statePath },
       { source: temporaryQc, target: qcPath },
     ]);
+    await rm(reviewDir, { recursive: true, force: true });
     return { finalPath, reportPath, snapshotPath, checksums };
   } catch (error) {
     await rm(temporaryOutput, { force: true });
-    await rm(temporarySource, { recursive: true, force: true });
     await rm(temporaryReport, { force: true });
     await rm(temporarySnapshot, { force: true });
     await rm(temporaryState, { force: true });

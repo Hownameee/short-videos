@@ -11,6 +11,11 @@ skill it selects. For a clear existing-video production correction, go directly
 to production below. These repository-local skills must be read by path even when
 they are absent from the host's installed-skill list.
 
+For a selected or approved direction involving real 3D, hybrid 2D/3D,
+Three.js/R3F, GLB/glTF, or Blender passes, also read
+[short-video-hybrid-3d](.agent/skills/short-video-hybrid-3d/SKILL.md). It is a
+production specialization and does not replace the normal phase gates.
+
 For an existing video's background sound, music, mood, mix or export correction,
 read [short-video-production](.agent/skills/short-video-production/SKILL.md) and
 the [production defaults](docs/VIDEO_PRODUCTION_DEFAULTS.md) before editing.
@@ -25,8 +30,8 @@ routine skill discovery and document scans unless investigating a benchmark.
 
 ## Source and verification
 
-- Keep project content under `projects/NNN-topic/`; use the shared `renderer/`.
-  Project `src/` is a final-render archive, updated by the workflow CLI.
+- Keep project content under `projects/NNN-topic/`; use the shared `renderer/src/`.
+  Final renders record its checksum in each project's render snapshot.
 - Use the [existing commands](renderer/README.md). Run `npm run test:video` for
   workflow changes and `npm --prefix renderer run lint` for renderer changes.
 - Record mix evidence and listening limitations as required by production

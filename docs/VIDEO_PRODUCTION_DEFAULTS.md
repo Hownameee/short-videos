@@ -19,7 +19,7 @@ New requests record its width, height and fps in `productionDefaults`. When
 recording `script --draft`, missing `video.meta` format fields inherit the
 request defaults, or the shared defaults for older requests, before hashing and
 approval. Explicit `video.meta.width`, `height` and `fps` override these values.
-Existing approved projects and historical render archives retain their settings;
+Existing approved projects and historical render snapshots retain their settings;
 changing them requires a new draft/approval and fresh preview.
 
 Render SVG, text and diagrams at the target resolution. If authoring on a
@@ -53,7 +53,7 @@ meaningful transformation, process, comparison or movement within each scene.
 A progress bar, title fade or decorative pulse alone is insufficient. Use
 Remotion frame time, not CSS animation clocks. Inspect playback or consecutive
 frames through each main action. New topics need their own visuals; existing
-Kubernetes and eclipse diagrams are topic-specific.
+Kubernetes diagrams are topic-specific.
 
 ## Background sound
 
@@ -70,7 +70,7 @@ A music file or audio stream cannot prove audibility, clarity or emotional fit.
 
 The CLI validates data, current preview/input checksums, expected duration,
 codecs, dimensions/FPS, full decode and final audio measurements. It saves
-`output/automated-qc.json`; this does not overwrite `output/qc.json` editorial
+`output/docs/automated-qc.json`; this does not overwrite `output/docs/qc.json` editorial
 evidence. `produced` means technical export passed.
 
 Agents still review factual claims, mobile readability, motion, caption pixels,

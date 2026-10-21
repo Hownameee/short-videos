@@ -5,9 +5,8 @@ export const BackgroundMusic = ({ video, assetRoot }: { video: VideoData; assetR
   const { fps, durationInFrames } = useVideoConfig();
   const music = video.audio?.music;
   if (!music) return null;
-  const legacyKubernetes = (video.meta.renderer ?? "kubernetes") === "kubernetes";
-  const fadeIn = (music.fadeInSec ?? (legacyKubernetes ? 25 / 30 : 0)) * fps;
-  const fadeOut = (music.fadeOutSec ?? (legacyKubernetes ? 2 : 0)) * fps;
+  const fadeIn = (music.fadeInSec ?? 25 / 30) * fps;
+  const fadeOut = (music.fadeOutSec ?? 2) * fps;
   return <Audio
     src={staticFile(`${assetRoot}/${music.file}`)}
     volume={(frame) => music.volume *

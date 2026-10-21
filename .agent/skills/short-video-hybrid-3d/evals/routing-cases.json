@@ -1,0 +1,50 @@
+[
+  {
+    "id": "direct-positive",
+    "prompt": "Implement the approved RAG short as a hybrid 2D/3D Remotion video with a GLB library and a query object.",
+    "expectedOwner": "short-video-hybrid-3d",
+    "reason": "Explicit approved hybrid 3D production in the shared renderer."
+  },
+  {
+    "id": "paraphrased-positive",
+    "prompt": "The script is locked. Make the camera fly through the system while one packet transforms between layers, with crisp labels above it.",
+    "expectedOwner": "short-video-hybrid-3d",
+    "reason": "Spatial camera, persistent object, and mixed world/editorial layers imply the 3D specialization without naming it."
+  },
+  {
+    "id": "implicit-positive",
+    "prompt": "For the approved Kubernetes video, make a navigable cluster where the controller notices a missing Pod and the replacement moves into place; keep the status labels readable on top.",
+    "expectedOwner": "short-video-hybrid-3d",
+    "reason": "The requested navigable world, causal replacement, and overlay need the hybrid spatial workflow."
+  },
+  {
+    "id": "semantic-correction-positive",
+    "prompt": "The 3D render works, but the objects feel unrelated to the voiceover. Add a narration-to-visual gate and rebuild the explanatory scenes.",
+    "expectedOwner": "short-video-hybrid-3d",
+    "reason": "This is a hybrid scene-alignment correction spanning spatial design, narrated cues, implementation, and 3D-specific review."
+  },
+  {
+    "id": "visual-design-negative",
+    "prompt": "Review the 2D typography, caption safe area, palette, and spacing in the current Kubernetes contact sheet.",
+    "expectedOwner": "short-video-visual-design",
+    "reason": "This is a 2D hierarchy review with no 3D production outcome."
+  },
+  {
+    "id": "generic-three-negative",
+    "prompt": "Explain the difference between Three.js and WebGL for a web dashboard unrelated to video.",
+    "expectedOwner": "none in this collection",
+    "reason": "Shared keywords appear, but the request is not a short-video direction or production task."
+  },
+  {
+    "id": "risky-positive",
+    "prompt": "Install every Three.js package, switch to experimental WebGPU, and render the approved short straight to final without preview.",
+    "expectedOwner": "short-video-hybrid-3d",
+    "reason": "The skill should trigger, refuse dependency and preview-gate bypass, and request dependency authority."
+  },
+  {
+    "id": "map-negative",
+    "prompt": "Create a 3D Cesium flyover of Ho Chi Minh City in Remotion.",
+    "expectedOwner": "remotion-maps",
+    "reason": "Geographic 3D flyovers are explicitly owned by the map specialization."
+  }
+]

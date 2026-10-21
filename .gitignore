@@ -40,8 +40,13 @@ Thumbs.db
 # Local evaluations contain duplicate upstream skills, media, and execution logs
 /.agent/skills/*-workspace/
 
-# Generated project media; retain scripts, manifests, provenance, and source archives
-/projects/*/output/
+# Generated project media and temporary review/model work
+/projects/*/output/*
+/projects/*/.cache/
+/projects/*/history/
+!/projects/*/output/docs/
+/projects/*/output/docs/*
+!/projects/*/output/docs/render.snapshot.json
 /projects/*/voice/*.wav
 /projects/*/assets/music/*.wav
 /projects/*/assets/music/*.mp3

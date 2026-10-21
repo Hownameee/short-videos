@@ -652,12 +652,14 @@ const Scene = ({
   index,
   assetRoot,
   video,
+  useCombinedVoice,
 }: {
   scene: VideoScene;
   voice: VoiceScene;
   index: number;
   assetRoot: string;
   video: VideoProps["video"];
+  useCombinedVoice: boolean;
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -670,7 +672,7 @@ const Scene = ({
   });
   return (
     <AbsoluteFill>
-      {video.audio !== null && <Audio src={staticFile(`${assetRoot}/voice/${voice.file}`)} />}
+      {video.audio !== null && !useCombinedVoice && <Audio src={staticFile(`${assetRoot}/voice/${voice.file}`)} />}
       {video.audio !== null && video.audio?.sfx !== false && scene.id === "replace" && (
         <Sequence
           from={Math.round(6 * fps)}
@@ -827,6 +829,7 @@ export const KubernetesVideo = ({
   video,
   voiceManifest,
   assetRoot,
+  audioTimeline,
 }: VideoProps) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
@@ -867,6 +870,9 @@ export const KubernetesVideo = ({
         />
       </div>
       <BackgroundMusic video={video} assetRoot={assetRoot} />
+      {video.audio !== null && audioTimeline && (
+        <Audio src={staticFile(`${assetRoot}/${audioTimeline.audioFile}`)} />
+      )}
       <Series>
         {video.scenes.map((scene, index) => {
           const voice = voiceManifest.scenes[index];
@@ -874,7 +880,9 @@ export const KubernetesVideo = ({
           return (
             <Series.Sequence
               key={scene.id}
-              durationInFrames={Math.ceil((voice.durationSec + 0.45) * fps)}
+              durationInFrames={audioTimeline?.scenes[index]
+                ? audioTimeline.scenes[index].voiceFrames + audioTimeline.scenes[index].pauseFrames
+                : Math.ceil((voice.durationSec + 0.45) * fps)}
               premountFor={fps}
             >
               <Scene
@@ -883,6 +891,7 @@ export const KubernetesVideo = ({
                 voice={voice}
                 index={index}
                 assetRoot={assetRoot}
+                useCombinedVoice={Boolean(audioTimeline)}
               />
             </Series.Sequence>
           );

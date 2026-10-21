@@ -14,6 +14,12 @@ Inspect the request and existing project state, then read only the needed phase:
 | Chosen direction, script draft or narration revision | [Script](../short-video-script/SKILL.md) |
 | Approved preview/final, existing sound, caption or export correction | [Production](../short-video-production/SKILL.md) |
 
+When a selected direction, approved script, or production request calls for real
+3D, hybrid 2D/3D, Three.js/R3F, GLB/glTF, or Blender passes, read
+[Hybrid 3D](../short-video-hybrid-3d/SKILL.md) as the specialization after the
+owning phase skill. It does not replace direction choice, script approval,
+production request, or final QC.
+
 Reuse an existing project; new workflows allocate `projects/NNN-topic/` through
 `npm run video -- discover --prompt "…"`. Do not allocate a project for read-only advice.
 
@@ -51,8 +57,8 @@ provider/Remotion packages. Imported skills remain unchanged.
 
 Changes invalidate downstream work: research → directions/script; direction →
 script; narration/voice config → affected WAVs/captions; production config, voice,
-assets or renderer → preview/final. Preserve previous valid outputs and the
-project `src/` archive on failure. The CLI checks current preview fingerprints.
+assets or renderer → preview/final. Preserve previous valid
+outputs on failure. The CLI checks current preview fingerprints.
 
 Report the phase, concrete artifacts, validation and any remaining decision.
 `produced` certifies technical checks, not subjective emotional fit. Never claim

@@ -20,6 +20,11 @@ This skill decides composition, hierarchy, art direction, and motion intent. The
 imported Remotion skills remain authoritative for JSX structure, APIs, timing,
 media handling, Studio, and rendering.
 
+For real 3D or hybrid 2D/3D work, this skill continues to own phone-scale
+hierarchy, typography, palette, captions, and safe areas; route spatial
+cinematography, model/Blender flow, deterministic Three.js behavior, and
+3D-specific QC to `../short-video-hybrid-3d/SKILL.md`.
+
 ## Define the visual system before JSX
 
 Write a compact `design` block in `video.json`, or record the same decisions in the
@@ -143,7 +148,7 @@ motion relationship. It does not require maximal decoration.
 Before approving visual QC, read
 [`references/visual-review-checklist.md`](references/visual-review-checklist.md).
 Render or capture the first frame, hook end, midpoint of each major beat, payoff,
-and CTA as `output/contact-sheet.png`. Inspect the actual preview at full resolution
+and CTA as `.cache/review/contact-sheet.png`. Inspect the actual preview at full resolution
 and at phone scale; a TypeScript build or isolated component screenshot is
 insufficient. Also inspect playback or consecutive frames through each important
 movement and at successive word boundaries. Retain this sequence evidence with

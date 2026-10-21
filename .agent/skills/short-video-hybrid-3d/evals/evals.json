@@ -1,0 +1,44 @@
+{
+  "skill_name": "short-video-hybrid-3d",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "A new RAG script is approved. Design a premium hybrid 3D implementation in the existing Remotion renderer: follow a query through chunks, retrieval, prompt assembly, and a grounded answer. Give the scene architecture, asset plan, deterministic timing rules, render setup, and QC. Do not render yet.",
+      "expected_output": "A gate-aware hybrid design with a persistent query object, spatial cause-and-effect, stable 2D evidence/captions, Remotion frame-driven Three.js behavior, local asset provenance, GL backend guidance, and 3D-specific QC.",
+      "files": [],
+      "expectations": [
+        "The plan uses a persistent query or evidence object through chunks, retrieval, prompt assembly, and grounded answer rather than unrelated 3D scenes.",
+        "The architecture separates a 3D world/action layer from stable 2D captions, labels, evidence, and source UI.",
+        "Animation and camera time are derived from useCurrentFrame and fps, with useFrame or autonomous time explicitly rejected.",
+        "The plan covers local GLB or procedural assets, provenance or licensing, an appropriate Remotion 4 GL backend, and exact Remotion package compatibility.",
+        "QC includes consecutive-frame or playback review, repeat-frame determinism, phone-size legibility, and a current preview rather than relying on a contact sheet or TypeScript build."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Convert the next approved short into full 3D. Install whatever Remotion and Three.js packages are needed, use WebGPU because it sounds newer, and skip preview if the TypeScript build passes. Give me the implementation plan.",
+      "expected_output": "The response pauses before adding production dependencies, rejects WebGPU-by-novelty and preview bypass, recommends a justified stable ThreeCanvas baseline, and preserves script, preview, and final QC gates.",
+      "files": [],
+      "expectations": [
+        "The plan does not install production dependencies and identifies explicit approval as required before changing the dependency graph.",
+        "The plan rejects choosing WebGPU merely because it is newer and recommends stable ThreeCanvas unless a tested WebGPU-specific need exists.",
+        "The plan rejects skipping preview and explains that a TypeScript build does not verify rendered 3D, motion, captions, or mobile composition.",
+        "The plan preserves script approval, explicit production request, current preview fingerprint, editorial QC, and final export gates.",
+        "The render plan accounts for Remotion 4 GL configuration, repeatable frame-driven animation, and a conservative reference render before increasing concurrency."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "A new hybrid RAG preview renders cleanly, but reviewers say the glowing nodes and camera fly-through do not match the narration. Improve the workflow and redesign the scenes before another final render.",
+      "expected_output": "A content-first correction that maps every narrated claim to a domain object, causal action, voice cue, and final state; prototypes representative frames; removes decorative 3D; and treats semantic alignment separately from render correctness.",
+      "files": [],
+      "expectations": [
+        "The response identifies semantic alignment as a failed gate even though technical rendering passed.",
+        "The workflow creates or updates a consumed scene-level visual map tied to the approved script rather than relying on an informal aesthetic note.",
+        "Each scene maps narration to domain-specific objects, causal action, action/reveal/settle narration cues, stable DOM support, and a visible final state.",
+        "The plan prototypes the hook, hardest explanatory beat, and payoff before committing to a full render.",
+        "The review separates content alignment, caption-independent comprehension, aesthetic preference, render determinism, and later audience metrics."
+      ]
+    }
+  ]
+}

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {resolveProductionVideo, validateRenderConfig, expectedDuration, reviewTimes} from './production-config.mjs';
 
-const base = () => ({scriptVersion:'v1',meta:{renderer:'eclipses',width:1080,height:1920,fps:30},audio:{music:{file:'assets/music/score.wav',volume:0.2}},scenes:[{id:'hook',onScreenText:['Hook']},{id:'solar',onScreenText:['Solar']}]});
+const base = () => ({scriptVersion:'v1',meta:{renderer:'kubernetes',width:1080,height:1920,fps:30},audio:{music:{file:'assets/music/score.wav',volume:0.2}},scenes:[{id:'hook',onScreenText:['Hook']},{id:'declare',onScreenText:['Declare']}]});
 
 test('production overlays cannot alter approved narrative and reject unknown/stale settings', () => {
   const video = base();

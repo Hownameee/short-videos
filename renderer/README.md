@@ -1,7 +1,7 @@
 # Shared Remotion renderer
 
 This is the workspace's single Remotion application. Video-specific research,
-scripts, assets, narration, outputs, and final source snapshots belong under
+scripts, assets, narration, outputs, and render snapshots belong under
 `../projects/<nnn>-<slug>/`.
 
 The composition is `ShortVideo`. The workflow CLI passes parsed `video.json`, a
@@ -20,34 +20,22 @@ metadata takes precedence. The workflow fills missing format fields when a
 script draft is recorded, before approval. A default review preview is 1080×1920
 at 60 fps; final rendering uses the full canvas.
 
-The older topic routes use a shared 1080×1920 design canvas scaled uniformly to
-the output size in `Composition.tsx`; `IncomeVideo.tsx` owns its equivalent
-scaling. New routes must implement target-resolution layout or join that shared
-canvas, without applying both scaling strategies. Use configured fps for
-timelines and seconds for animation speeds; project audio generators must follow
-the same frame-rounded scene boundaries. Existing project metadata and archived
-sources are preserved.
-
-`video.meta.renderer: "eclipses"` selects `EclipseVideo.tsx` for
-`../projects/002-lunar-solar-eclipses/`. The Kubernetes composition remains
-available through the existing default route. Both use the shared karaoke component.
-
-`video.meta.renderer: "income"` selects `IncomeVideo.tsx` for
-`../projects/005-nominal-vs-real-income/`: a hypothetical pay raise and inflation
-example using animated pay slips, a shopping basket, an inflation-adjustment
-calculation, and indexed nominal/real income bars. It uses shared word-highlight
-captions and a project-generated musical score. Reproduction and asset details
-are in [the project's production notes](../projects/005-nominal-vs-real-income/PRODUCTION.md).
+`Composition.tsx` scales the Kubernetes 1080×1920 design canvas uniformly to
+the output size. New topics need their own renderer route and target-resolution
+layout. Use configured fps for timelines and seconds for animation speeds;
+project audio generators must follow the same frame-rounded scene boundaries.
+`video.meta.renderer: "kubernetes"` is the only current route; omission retains
+that default for the existing project.
 
 For future videos, reuse `src/KaraokeCaptions.tsx` and the shared
 `../tools/kokoro/generate_audio.py` generator. Apply
 [production defaults](../docs/VIDEO_PRODUCTION_DEFAULTS.md) for word timing,
-scene motion and review. Final project `src/` snapshots remain immutable evidence
-of their rendered MP4; shared renderer changes for future work do not update
-those snapshots until that project is rendered again.
+scene motion and review. Each final render records a checksum of the shared
+renderer source; the current source may differ from the version used for an
+earlier MP4.
 `production.json` overrides music/SFX and caption mode without changing script
-approval. Nonempty `storyboard.json` overrides are rejected: these topic
-compositions do not implement them. New topics need a new composition.
+approval. Nonempty `storyboard.json` overrides are rejected: the Kubernetes
+composition does not implement them. New topics need a new composition.
 
 ## Run locally
 
@@ -81,11 +69,21 @@ npm run video -- render --project projects/001-kubernetes-self-healing --final
 
 The CLI stages `assets/` and `voice/` under `public/workflow/`, rejects a stale
 voice manifest, and normalizes the rendered audio to -16 LUFS / -1.5 dBTP.
+Project 001 also uses `voice/full.wav` as a single narration track and
+`output/docs/audio-timeline.json` for frame-aligned scene and pause lengths.
+After changing its scene WAVs, regenerate both from the workspace root:
+
+```bash
+python3 tools/audio/assemble_voice.py --project projects/001-kubernetes-self-healing --pause 0.5
+```
+
 Final requires a preview fingerprint matching current script, production config,
 voice, assets, renderer, lockfile and workflow code. It validates expected duration,
 full decode, H.264/AAC and encoded loudness/true peak. Contact sheets cover every
-scene plus opening/ending. Automated evidence is in `output/automated-qc.json`;
-editorial/listening evidence remains separate in `output/qc.json`.
+scene plus opening/ending. The preview and contact sheet are temporary files in
+`.cache/review/` and are removed after a successful final export. Final media is
+in `output/video/`; automated evidence is in `output/docs/automated-qc.json`,
+and editorial/listening evidence remains in `output/docs/qc.json`.
 
 For a music/caption correction, run `npm run video -- revise --project …`, edit
 `production.json`, then preflight and render preview/final. The voice generator
@@ -99,6 +97,6 @@ npm run test:video
 npm --prefix renderer run lint
 ```
 
-After final media validation, the CLI copies this renderer's exact `src/` into
-the project and records source/input/lockfile/MP4 checksums in
-`render.snapshot.json`.
+After final media validation, the CLI records the shared `renderer/src/`
+checksum, plus input, lockfile, and MP4 checksums, in
+`output/docs/render.snapshot.json`.

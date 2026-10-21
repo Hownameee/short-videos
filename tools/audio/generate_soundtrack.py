@@ -4,7 +4,6 @@ import argparse
 import hashlib
 import json
 import math
-import random
 import struct
 import wave
 from pathlib import Path
@@ -51,26 +50,6 @@ def music_sample(time_sec: float, duration: float) -> float:
     return (bass + fifth + pulse + pluck) * fade
 
 
-def impact_sample(time_sec: float) -> float:
-    return math.exp(-time_sec * 10) * (
-        math.sin(2 * math.pi * (72 - time_sec * 22) * time_sec) * 0.65
-        + math.sin(2 * math.pi * 190 * time_sec) * 0.15
-    )
-
-
-def copy_sample(time_sec: float) -> float:
-    envelope = math.exp(-time_sec * 12)
-    return envelope * (
-        math.sin(2 * math.pi * 540 * time_sec) * 0.32
-        + math.sin(2 * math.pi * 810 * time_sec) * 0.18
-    )
-
-
-def switch_sample(time_sec: float) -> float:
-    frequency = 220 + 900 * min(time_sec / 0.45, 1)
-    return math.exp(-time_sec * 5) * math.sin(2 * math.pi * frequency * time_sec) * 0.42
-
-
 def success_sample(time_sec: float) -> float:
     notes = [523.25, 659.25, 783.99]
     index = min(int(time_sec / 0.16), len(notes) - 1)
@@ -90,9 +69,6 @@ def main() -> None:
     project = args.project.resolve()
     music = project / "assets/music/technical-pulse.wav"
     sfx = {
-        "impact-soft": (project / "assets/sfx/impact-soft.wav", 0.8, impact_sample),
-        "copy-pop": (project / "assets/sfx/copy-pop.wav", 0.55, copy_sample),
-        "route-switch-clean": (project / "assets/sfx/route-switch-clean.wav", 0.7, switch_sample),
         "success-chime": (project / "assets/sfx/success-chime.wav", 0.7, success_sample),
     }
 
@@ -116,5 +92,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    random.seed(0)
     main()

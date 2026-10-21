@@ -193,7 +193,7 @@ test("createProject allocates the next NNN folder and initial state", async () =
     backgroundSound: "intentional-music",
   });
   assert.equal((await readJson(path.join(first.projectDir, "state.json"))).state, STATES.REQUEST_CREATED);
-  for (const directory of ["assets/images", "assets/footage", "assets/music", "assets/sfx", "voice", "output"]) {
+  for (const directory of ["assets/images", "assets/footage", "assets/music", "assets/sfx", "voice", "output/docs", "output/video"]) {
     assert.equal((await stat(path.join(first.projectDir, directory))).isDirectory(), true);
   }
 });
@@ -211,12 +211,14 @@ test("phase gates version research, direction, and approved script", async () =>
   );
 });
 
-test("finalization snapshots renderer source, writes checksums, and updates state", async () => {
+test("finalization records renderer checksum without copying source into projects", async () => {
   const workspaceRoot = await makeWorkspace();
   const created = await prepareApprovedProject(workspaceRoot);
   const outputDir = path.join(created.projectDir, "output");
-  await writeFile(path.join(outputDir, "preview.mp4"), "preview");
-  await writeFile(path.join(outputDir, "contact-sheet.png"), "contact-sheet");
+  const reviewDir = path.join(created.projectDir, ".cache", "review");
+  await mkdir(reviewDir, { recursive: true });
+  await writeFile(path.join(reviewDir, "preview.mp4"), "preview");
+  await writeFile(path.join(reviewDir, "contact-sheet.png"), "contact-sheet");
   const temporaryOutput = path.join(outputDir, ".final-fixture.mp4");
   await writeFile(temporaryOutput, "final-video");
   const video = await readJson(path.join(created.projectDir, "video.json"));
@@ -249,16 +251,24 @@ test("finalization snapshots renderer source, writes checksums, and updates stat
   const report = await readJson(result.reportPath);
 
   assert.equal(state.state, STATES.PRODUCED);
+  assert.equal(result.finalPath, path.join(outputDir, "video", "final.mp4"));
+  assert.equal(result.reportPath, path.join(outputDir, "docs", "report.json"));
+  assert.equal(result.snapshotPath, path.join(outputDir, "docs", "render.snapshot.json"));
+  assert.equal(state.outputs.preview, undefined);
+  assert.equal(state.outputs.contactSheet, undefined);
   assert.equal(state.versions.render, result.checksums.finalMp4);
   assert.deepEqual(snapshot.checksums, result.checksums);
   assert.deepEqual(report.checksums, result.checksums);
   assert.equal(result.checksums.storyboard, await fileChecksum(storyboardPath));
   assert.equal(
     result.checksums.rendererSrc,
-    await directoryChecksum(path.join(created.projectDir, "src")),
+    await directoryChecksum(path.join(workspaceRoot, "renderer", "src")),
   );
+  assert.equal(state.outputs.sourceSnapshot, undefined);
+  await assert.rejects(stat(path.join(created.projectDir, "src")));
   assert.equal(await readFile(result.finalPath, "utf8"), "final-video");
-  assert.equal((await readJson(path.join(outputDir, "automated-qc.json"))).backgroundSound.listening, "not-performed");
+  assert.equal((await readJson(path.join(outputDir, "docs", "automated-qc.json"))).backgroundSound.listening, "not-performed");
+  await assert.rejects(stat(reviewDir));
   await writeFile(temporaryOutput, "bad-new-final");
   await assert.rejects(finalizeFinalRender({
     workspaceRoot, projectDir: created.projectDir, temporaryOutput, video,
@@ -267,7 +277,7 @@ test("finalization snapshots renderer source, writes checksums, and updates stat
     mediaQc: {decode: "passed", audio: null},
   }), /duration/);
   assert.equal(await fileChecksum(result.finalPath), result.checksums.finalMp4);
-  assert.equal(await directoryChecksum(path.join(created.projectDir,"src")), result.checksums.rendererSrc);
+  await assert.rejects(stat(path.join(created.projectDir, "src")));
 });
 
 const registerPreview = async (root, project) => {
@@ -275,8 +285,8 @@ const registerPreview = async (root, project) => {
   const state = await readJson(path.join(project, "state.json"));
   state.outputs = {
     ...state.outputs,
-    preview: { inputFingerprint: fingerprint.checksum, checksum: await fileChecksum(path.join(project, "output/preview.mp4")) },
-    contactSheet: { checksum: await fileChecksum(path.join(project, "output/contact-sheet.png")) },
+    preview: { inputFingerprint: fingerprint.checksum, checksum: await fileChecksum(path.join(project, ".cache/review/preview.mp4")) },
+    contactSheet: { checksum: await fileChecksum(path.join(project, ".cache/review/contact-sheet.png")) },
   };
   await writeFile(path.join(project, "state.json"), JSON.stringify(state));
   return fingerprint;
@@ -309,8 +319,9 @@ test("production correction retains approval; narration revision invalidates app
 test("preview detects changed assets, source and contact sheet", async () => {
   const root = await makeWorkspace();
   const {projectDir} = await prepareApprovedProject(root);
-  await writeFile(path.join(projectDir, "output/preview.mp4"), "preview");
-  await writeFile(path.join(projectDir, "output/contact-sheet.png"), "sheet");
+  await mkdir(path.join(projectDir, ".cache", "review"), { recursive: true });
+  await writeFile(path.join(projectDir, ".cache/review/preview.mp4"), "preview");
+  await writeFile(path.join(projectDir, ".cache/review/contact-sheet.png"), "sheet");
   let fingerprint = await registerPreview(root, projectDir);
   await requireCurrentPreview(root, projectDir, fingerprint);
   await writeFile(path.join(projectDir, "assets/music/track.wav"), "changed");
@@ -324,7 +335,7 @@ test("preview detects changed assets, source and contact sheet", async () => {
   await writeFile(path.join(root,"renderer/remotion.config.ts"),"// Changed render config\n");
   await assert.rejects(requireCurrentPreview(root,projectDir,await renderFingerprint(root,projectDir)), /stale/);
   fingerprint = await registerPreview(root, projectDir);
-  await writeFile(path.join(projectDir, "output/contact-sheet.png"), "changed");
+  await writeFile(path.join(projectDir, ".cache/review/contact-sheet.png"), "changed");
   await assert.rejects(requireCurrentPreview(root, projectDir, fingerprint), /stale/);
 });
 

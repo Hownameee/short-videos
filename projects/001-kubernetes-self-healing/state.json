@@ -1,40 +1,27 @@
 {
   "schemaVersion": 1,
   "state": "produced",
-  "updatedAt": "2026-10-04T17:34:45.375Z",
+  "updatedAt": "2026-10-21T17:06:50.303Z",
   "versions": {
     "request": "sha256:bd45c0ce2887b5319c4904dae46eeb94cd19171f6ec18daad664562d25411b15",
     "research": "sha256:7613449e547e9eab590ccd049023585427a6c8a9f9e98d2ec648d7b7ded1999d",
     "directions": "sha256:0a12c3ff25d28071dcf93886cb3817a448361a421738ea526c548e7f948235a8",
     "direction": "sha256:ad6099088d2bd92355fc095ca67d45c2b6612926978060a2a7d77a2f3b450679",
     "script": "sha256:c5a84059ebd72ce5c0daaacbdb24d2d09437002f4b3fa5db2c0dfaeef08a42f8",
-    "render": "sha256:86d004c2b8467e2f7f5e677f21bc65fd6cb3bae8f87f4c40077c79d4ee93d288"
+    "render": "sha256:9d6ef6fadc530e9e4d9aad7a62aeed4f7fedbf45d53735caa9aaa304d59790ba"
   },
   "productionRequest": {
     "kind": "final",
-    "requestedAt": "2026-10-04T17:34:22.208Z"
+    "requestedAt": "2026-10-21T17:05:46.246Z"
   },
   "outputs": {
-    "preview": {
-      "path": "projects/001-kubernetes-self-healing/output/preview.mp4",
-      "checksum": "sha256:5c31e24132c3579c4cbbaf3a59c90611992238b5e1c21a68e6e39f659c1039f6",
-      "createdAt": "2026-10-04T17:30:32.627Z"
-    },
-    "contactSheet": {
-      "path": "projects/001-kubernetes-self-healing/output/contact-sheet.png",
-      "checksum": "sha256:594038707c83a2e95c2c5cd6492833f58c5d90072f1efe65f72939fe48d379e0"
-    },
     "final": {
-      "path": "projects/001-kubernetes-self-healing/output/final.mp4",
-      "checksum": "sha256:86d004c2b8467e2f7f5e677f21bc65fd6cb3bae8f87f4c40077c79d4ee93d288",
-      "createdAt": "2026-10-04T17:34:45.372Z"
+      "path": "projects/001-kubernetes-self-healing/output/video/final.mp4",
+      "checksum": "sha256:9d6ef6fadc530e9e4d9aad7a62aeed4f7fedbf45d53735caa9aaa304d59790ba",
+      "createdAt": "2026-10-21T17:06:50.301Z"
     },
     "report": {
-      "path": "projects/001-kubernetes-self-healing/output/report.json"
-    },
-    "sourceSnapshot": {
-      "path": "projects/001-kubernetes-self-healing/src",
-      "checksum": "sha256:3c4435657055143266ad57fd505711df507e81a0fe98ec282412e0174b0c412f"
+      "path": "projects/001-kubernetes-self-healing/output/docs/report.json"
     }
   },
   "lastError": null,

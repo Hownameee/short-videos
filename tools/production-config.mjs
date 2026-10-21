@@ -1,10 +1,6 @@
 const captionModes = ["word-highlight", "phrase", "none"];
 const sceneIds = {
   kubernetes: ["hook", "declare", "observe", "replace", "service", "limits", "takeaway"],
-  eclipses: ["hook", "solar", "totality", "lunar", "red", "tilt", "recap"],
-  grpc: ["hook", "rest-bottleneck", "protobuf", "http2-multiplex", "streaming", "takeaway"],
-  rag: ["hook", "hallucination-problem", "rag-solution", "pipeline", "grounded-answer", "takeaway"],
-  income: ["hook", "nominal", "prices", "real", "reveal", "takeaway"],
 };
 
 export const assertLocalMediaPath = (file, prefix) => {
@@ -69,7 +65,12 @@ export const validateRenderConfig = (video) => {
   if (video.audio?.sfx !== undefined && typeof video.audio.sfx !== "boolean") throw new Error("audio.sfx must be a boolean.");
 };
 
-export const sceneTimeline = (video, manifest) => {
+export const sceneTimeline = (video, manifest, audioTimeline) => {
+  if (audioTimeline) return audioTimeline.scenes.map((scene) => ({
+    id: scene.id,
+    fromFrame: scene.startFrame,
+    durationInFrames: scene.voiceFrames + scene.pauseFrames,
+  }));
   let fromFrame = 0;
   return manifest.scenes.map((voice, index) => {
     const durationInFrames = Math.ceil((voice.durationSec + 0.45) * video.meta.fps);
@@ -79,11 +80,11 @@ export const sceneTimeline = (video, manifest) => {
   });
 };
 
-export const expectedDuration = (video, manifest) =>
-  Math.max(60, sceneTimeline(video, manifest).reduce((total, s) => total + s.durationInFrames, 0)) / video.meta.fps;
+export const expectedDuration = (video, manifest, audioTimeline) =>
+  Math.max(60, sceneTimeline(video, manifest, audioTimeline).reduce((total, s) => total + s.durationInFrames, 0)) / video.meta.fps;
 
-export const reviewTimes = (video, manifest) => {
-  const timeline = sceneTimeline(video, manifest);
+export const reviewTimes = (video, manifest, audioTimeline) => {
+  const timeline = sceneTimeline(video, manifest, audioTimeline);
   const lastFrame = timeline.at(-1).fromFrame + timeline.at(-1).durationInFrames - 1;
   return [...new Set([0, ...timeline.map((s) => s.fromFrame + Math.floor(s.durationInFrames / 2)), lastFrame])]
     .map((frame) => frame / video.meta.fps);

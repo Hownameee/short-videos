@@ -16,8 +16,8 @@ publish videos.
 ## What is included
 
 - A three-phase workflow: discover → script → produce.
-- Example projects about Kubernetes self-healing, lunar/solar eclipses, and gRPC.
-- A shared React/Remotion renderer with topic-specific compositions.
+- One example project about Kubernetes self-healing.
+- A shared React/Remotion renderer with a Kubernetes composition.
 - Local narration generation that reuses verified, unchanged scene audio.
 - Production-only revisions for music, SFX, and captions without reapproving an
   unchanged script.
@@ -27,7 +27,7 @@ publish videos.
 
 Generated audio, videos, render logs, local environments, and raw benchmark
 workspaces are excluded from Git. The example scripts, asset provenance,
-manifests, and archived renderer source remain available; their historical state
+manifests, and renderer checksums remain available; their historical state
 does not mean the corresponding media exists in a fresh clone.
 
 ## Quick start
@@ -69,7 +69,7 @@ direction artifacts, select a direction, then draft and approve its script.
 Follow the [workflow skill](.agent/skills/short-video-workflow/SKILL.md) and
 [phase commands](docs/REMOTION_PROJECT_SETUP.md) for those steps. New topics also
 need a composition in `renderer/src/` and a matching `video.meta.renderer` route;
-the existing routes are `kubernetes`, `eclipses`, `grpc`, `rag`, and `income`.
+the only current route is `kubernetes`.
 
 New requests record the shared format from `renderer/src/video-format.json`.
 `script --draft` fills missing `video.meta.width`, `height` and `fps` from those
@@ -87,12 +87,16 @@ npm run video -- render --project projects/NNN-topic --preview
 npm run video -- render --project projects/NNN-topic --final
 ```
 
-Final export requires a preview matching the current inputs. Outputs are written
-to the project's `output/` directory, including `final.mp4`, `report.json`, and
-`automated-qc.json`. Record editorial/listening evidence separately in `qc.json`.
-Successful final rendering updates the project's source archive and snapshot.
+Final export requires a preview matching the current inputs. The review video
+and contact sheet live temporarily in `.cache/review/` and are removed after a
+successful final export. Each project keeps one delivered video at
+`output/video/final.mp4`; reports,
+QC records, and `render.snapshot.json` are in `output/docs/`. Record
+editorial/listening evidence separately in `output/docs/qc.json`. Successful
+final rendering updates the project's render snapshot with the shared renderer
+checksum.
 
-For the included examples, first regenerate missing narration and music from
+For the included example, first regenerate missing narration and music from
 their source records and generators; do not expect a fresh clone to render from
 the retained manifests alone. Regeneration can change hashes or timings, so
 always make and review a fresh preview.
@@ -107,7 +111,7 @@ always make and review a fresh preview.
 | `voice/manifest.json` | Generated scene timing, caption data, and audio checksums |
 | `state.json` | Workflow progress and recorded versions |
 | `assets/sources.json` | Asset sources and licensing records |
-| `render.snapshot.json`, `src/` | Evidence and source archive from the latest successful final render |
+| `output/docs/render.snapshot.json` | Input, renderer, dependency, and final-video checksums from the latest successful final render |
 
 For a sound or caption correction, run `npm run video -- revise --project
 projects/NNN-topic`, edit `production.json`, then preflight and render a fresh
@@ -124,7 +128,7 @@ implemented; change the relevant composition for visual revisions.
 | Path | Contents |
 | --- | --- |
 | `.agent/skills/` | First-party workflow, visual-design, and narration skills |
-| `projects/` | Per-video research, scripts, configuration, provenance, and source archives |
+| `projects/` | Per-video research, scripts, configuration, provenance, and outputs |
 | `renderer/` | Shared Remotion application and npm lockfile |
 | `tools/` | Workflow CLI, QC, configuration validation, tests, and audio generators |
 | `audio-library/` | Curated catalog, attribution records, and audition guides; audio files are local |
@@ -148,8 +152,8 @@ npm --prefix renderer run lint
 .venv-kokoro/bin/python -m unittest discover -s tools/kokoro -p 'test_*.py' -v
 ```
 
-Edit shared implementation in `tools/` and `renderer/src/`; project `src/`
-directories are render archives. Follow [AGENTS.md](AGENTS.md), keep changes
+Edit shared implementation in `tools/` and `renderer/src/`. Projects do not
+contain renderer source copies. Follow [AGENTS.md](AGENTS.md), keep changes
 scoped, and run the relevant checks above. A technical QC pass does not certify
 the video's factual accuracy, rights clearance, or emotional impact.
 
@@ -158,6 +162,7 @@ Further reading:
 - [Production defaults](docs/VIDEO_PRODUCTION_DEFAULTS.md)
 - [Sound QC](docs/VIDEO_SOUND_QC.md)
 - [Workflow design](docs/VIDEO_WORKFLOW_BLUEPRINT.md)
+- [Hybrid 2D/3D production guide](docs/HYBRID_3D_VIDEO_GUIDE.md)
 - [Implementation map](docs/VIDEO_WORKFLOW_IMPLEMENTATION_PLAN.md)
 - [Benchmark results and limitations](docs/WORKFLOW_BENCHMARK.md) — raw evaluation workspaces remain local.
 - [Audio library and attribution](audio-library/README.md)

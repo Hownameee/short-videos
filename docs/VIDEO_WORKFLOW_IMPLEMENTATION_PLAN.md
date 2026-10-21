@@ -40,7 +40,8 @@ Changes during rendering also abort installation. Final duration must match the
 voice-driven frame timeline; H.264/AAC, dimensions/FPS, full decode, final LUFS
 and true peak are checked. Contact sheets cover opening/every scene/ending.
 Reports and snapshots retain input checksums; automated QC never overwrites
-editorial listening evidence. A transaction replaces output/source/state together.
+editorial listening evidence. A transaction replaces final, report, snapshot,
+automated QC, and state together; it records the shared renderer source checksum.
 
 The voice cache validates per-scene content and configuration plus generator code,
 WAV integrity and timing coverage. Changed scenes regenerate; no-op runs preserve

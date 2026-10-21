@@ -6,10 +6,6 @@ import {
 } from "remotion";
 import defaultVideoFormat from "./video-format.json";
 import { KubernetesVideo } from "./KubernetesVideo";
-import { EclipseVideo } from "./EclipseVideo";
-import { GrpcVideo } from "./GrpcVideo";
-import { RagVideo } from "./RagVideo";
-import { IncomeVideo } from "./IncomeVideo";
 import type { VideoProps } from "./video-types";
 
 const defaultProps: VideoProps = {
@@ -42,14 +38,12 @@ const defaultProps: VideoProps = {
 const calculateMetadata: CalculateMetadataFunction<VideoProps> = ({
   props,
 }) => ({
-  durationInFrames: Math.max(
-    60,
+  durationInFrames: Math.max(60, props.audioTimeline?.totalFrames ??
     props.voiceManifest.scenes.reduce(
       (total, scene) =>
         total + Math.ceil((scene.durationSec + 0.45) * props.video.meta.fps),
       0,
-    ),
-  ),
+    )),
   fps: props.video.meta.fps,
   width: props.video.meta.width,
   height: props.video.meta.height,
@@ -74,19 +68,7 @@ export const MyComposition = () => {
 const ProjectVideo = (props: VideoProps) => {
   const { width, height } = useVideoConfig();
   const renderer = props.video.meta.renderer ?? "kubernetes";
-  // Income owns its scaling; older topics share a fixed 1080x1920 design canvas.
-  if (renderer === "income") return <IncomeVideo {...props} />;
-  const topic =
-    renderer === "eclipses" ? (
-      <EclipseVideo {...props} />
-    ) : renderer === "kubernetes" ? (
-      <KubernetesVideo {...props} />
-    ) : renderer === "grpc" ? (
-      <GrpcVideo {...props} />
-    ) : renderer === "rag" ? (
-      <RagVideo {...props} />
-    ) : null;
-  if (!topic) throw new Error(`Unsupported renderer: ${renderer}`);
+  if (renderer !== "kubernetes") throw new Error(`Unsupported renderer: ${renderer}`);
   const scale = Math.min(width / 1080, height / 1920);
   return (
     <AbsoluteFill
@@ -103,7 +85,7 @@ const ProjectVideo = (props: VideoProps) => {
           transformOrigin: "top left",
         }}
       >
-        {topic}
+        <KubernetesVideo {...props} />
       </div>
     </AbsoluteFill>
   );

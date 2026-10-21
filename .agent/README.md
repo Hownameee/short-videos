@@ -10,8 +10,9 @@ under `short-video-research/`.
 | `short-video-workflow`      | Route work through Discover, Script, and Produce without skipping user review gates |
 | `short-video-discovery`     | Research a prompt and present 2–4 evidence-backed video directions                  |
 | `short-video-script`        | Turn an approved direction into a readable script and machine-ready scene plan      |
-| `short-video-production`    | Generate media, render, run QC, and archive the final renderer source               |
+| `short-video-production`    | Generate media, render, run QC, and record renderer checksums                       |
 | `short-video-visual-design` | Define and review art direction, video UI, typography, layout, and motion            |
+| `short-video-hybrid-3d`     | Plan and review approved 3D scenes; add renderer support when needed                 |
 | `kokoro-tts`                | Set up and use Kokoro safely for scene-level narration                              |
 
 The workflow skills treat [`../docs/VIDEO_WORKFLOW_BLUEPRINT.md`](../docs/VIDEO_WORKFLOW_BLUEPRINT.md)

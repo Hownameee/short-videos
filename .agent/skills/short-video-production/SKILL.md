@@ -29,7 +29,7 @@ the previous deliverable. Run `revise` after reapproval if an overlay exists.
 Never manually rewrite approval hashes. Consult
 [contracts](../short-video-workflow/references/artifact-contracts.md) when writing
 an overlay or changing structured fields. Storyboard overrides are not implemented
-by the two topic renderers and are rejected rather than silently ignored.
+by the current Kubernetes renderer and are rejected rather than silently ignored.
 
 ## Focused reading
 
@@ -38,6 +38,7 @@ by the two topic renderers and are rejected rather than silently ignored.
 | Sound selection, mood or mix | [Sound QC](../../../docs/VIDEO_SOUND_QC.md); relevant background-guide section |
 | Generate/change narration | [Kokoro](../kokoro-tts/SKILL.md) |
 | Change art direction, layout, scene motion or caption UI | [Visual design](../short-video-visual-design/SKILL.md) |
+| Build or revise real 3D, hybrid 2D/3D, GLB/glTF or Blender-pass scenes | [Hybrid 3D](../short-video-hybrid-3d/SKILL.md) |
 | Change Remotion code | [Remotion practices](../remotion-best-practices/SKILL.md), then only relevant API/rule reference |
 
 Do not load voice setup, visual design, the blueprint or all Remotion packages for
@@ -50,6 +51,8 @@ List guidance actually used in the work report.
 1. Preserve the approved promise, claim evidence, payoff and contextual CTA.
    Record a visual thesis and action/cue/settle for new scenes. New topics need
    their own renderer; never disguise Kubernetes diagrams as generic output.
+   A new hybrid renderer needs a validated scene map and narration cues before
+   JSX; the current Kubernetes renderer does not consume `visual-map.json`.
 2. Use the shared voice generator when narration needs updating. It verifies and
    reuses unchanged WAVs and timing; changes regenerate affected scenes. Measure
    duration, retain provider-predicted word timestamps, and review pronunciation.
@@ -66,15 +69,15 @@ List guidance actually used in the work report.
 6. Check at least three successive word highlights and a later scene/chunk;
    record frame times and timing source. Check missing/repeated/mispronounced
    words, speech intelligibility, music arc, fades, loops and phone/mono playback.
-   Save editorial evidence in `output/qc.json`, tied to asset/output checksums.
+   Save editorial evidence in `output/docs/qc.json`, tied to asset/output checksums.
    Fix demonstrated defects and regenerate the affected work and preview.
 7. Render `--final` from the current preview. The CLI checks fingerprint,
    timeline duration, dimensions/FPS, H.264/AAC, full decode, loudness and true
-   peak. It writes `output/automated-qc.json` separately from editorial QC.
+   peak. It writes `output/docs/automated-qc.json` separately from editorial QC.
 8. Deliver the actual final, report and snapshot. The CLI atomically replaces
-   final/report/snapshot/state and archives exact shared `renderer/src/` only
-   after checks; failures preserve the previous final. Verify the requested
-   named copy matches the final checksum if making one.
+   final/report/snapshot/state after checks; failures preserve the previous
+   final. The snapshot records the shared renderer checksum. Keep only
+   `output/video/final.mp4` as the project's delivered video.
 
 No black/missing frames, obscured payoff, secrets or internal prompts in output.
 Retain asset rights records; purchasing or publishing is separate authorization.

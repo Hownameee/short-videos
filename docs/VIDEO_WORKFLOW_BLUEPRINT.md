@@ -87,8 +87,9 @@ CLI hiện tại:
 ```console
 npm run video -- discover --prompt "Docker giải quyết works on my machine ra sao?"
 # Agent/người viết điền research.md, research.json, directions.json
-npm run video -- discover --project projects/001-docker-giai-quyet-works-on-my-machine-ra-sao --complete
-npm run video -- script --project projects/001-docker-giai-quyet-works-on-my-machine-ra-sao --direction 1
+# Thay projects/NNN-topic bằng đường dẫn project vừa được CLI tạo.
+npm run video -- discover --project projects/NNN-topic --complete
+npm run video -- script --project projects/NNN-topic --direction 1
 ```
 
 `discover --prompt` hiện tạo project và file mẫu; nó chưa tự gọi search hay LLM.
@@ -121,8 +122,8 @@ duyệt trong hai file này làm approval cũ hết hiệu lực. Sửa music/SF
 dùng `video revise` và `production.json`, không sửa dữ liệu script đã duyệt.
 
 ```console
-npm run video -- script --project projects/001-... --draft
-npm run video -- script --project projects/001-... --approve
+npm run video -- script --project projects/NNN-topic --draft
+npm run video -- script --project projects/NNN-topic --approve
 ```
 
 CLI hiện validate script tối thiểu, `meta`, `design`, scene ID/narration/duration
@@ -142,12 +143,12 @@ và approval version; nó chưa tự viết beat sheet hoặc script.
    script đã approve, không dùng voice audition làm audio scene.
 3. Remotion dựng caption, animation, transition và audio mix.
 4. Render preview nhẹ và contact sheet để review.
-5. Render final, kiểm tra media, snapshot source và cập nhật state.
+5. Render final, kiểm tra media, ghi checksum source vào snapshot và cập nhật state.
 
 ```console
-npm run video -- render --project projects/001-... --preview
-npm run video -- render --project projects/001-... --final
-npm run video -- status --project projects/001-...
+npm run video -- render --project projects/NNN-topic --preview
+npm run video -- render --project projects/NNN-topic --final
+npm run video -- status --project projects/NNN-topic
 ```
 
 CLI hiện gọi Remotion, `ffprobe` và `ffmpeg`; preview tạo `preview.mp4` cùng
@@ -156,15 +157,14 @@ khớp fingerprint input hiện tại, kiểm tra dimensions/FPS/duration theo t
 H.264/AAC, full decode và loudness/true peak thực tế. CLI stage project
 media, truyền video/voice manifest vào renderer và chuẩn hóa audio trước khi tạo:
 
-- `output/final.mp4` và `output/report.json`;
-- `src/`, snapshot chính xác của `renderer/src/` dùng cho final;
-- `render.snapshot.json` chứa runtime và checksum của `video.json`, source,
+- `output/video/final.mp4` và `output/docs/report.json`;
+- `output/docs/render.snapshot.json` chứa runtime và checksum của `video.json`, `renderer/src/`,
   lockfile và MP4;
 - state `produced` chỉ sau khi các artifact trên được thay thành công.
 
 Renderer nhận video config đã resolve với production override và voice manifest.
-Storyboard override chưa được hỗ trợ và bị chặn. Renderer hiện có Kubernetes và
-eclipses với animation và component karaoke dùng chung.
+Storyboard override chưa được hỗ trợ và bị chặn. Renderer hiện chỉ có
+Kubernetes với animation và component karaoke dùng chung.
 `tools/kokoro/generate_audio.py` tạo WAV, word timestamps và phrase captions theo
 scene nhưng chưa được `npm run video` gọi tự động. Render preflight chặn karaoke
 thiếu timestamp hoặc caption sai nội dung. Với chủ đề mới, agent vẫn cần triển
@@ -227,7 +227,7 @@ phù hợp theo production defaults. CLI tự thêm `scriptVersion` và approval
 - **Âm thanh:** không lặp/cắt từ; voice rõ hơn music/SFX; loop/fade không lộ.
 - **Kỹ thuật:** mặc định 2160×3840 ở 60 fps; kiểm tra dimensions/FPS/duration theo cấu hình đã duyệt; có audio khi manifest khai báo.
 - **Quyền dùng:** asset, music và SFX có source/license metadata.
-- **Archive:** source snapshot và checksum khớp final mới nhất.
+- **Render snapshot:** checksum của source, input và final khớp bản render mới nhất.
 
 ## Nguồn tham khảo
 

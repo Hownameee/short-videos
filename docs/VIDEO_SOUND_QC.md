@@ -38,7 +38,7 @@ record the preference in `soundOverride`.
    captions off. Check music is audible, fits the intended arc and leaves speech
    clear. Compare background on/off where useful. Check phone/mono for vanishing
    bass/pads, harsh accents, exposed loops and abrupt cuts.
-5. Save `output/qc.json.backgroundSound`: intent/override; asset and final SHA-256;
+5. Save `output/docs/qc.json.backgroundSound`: intent/override; asset and final SHA-256;
    cues and review times; voice/background interval levels and method; final LUFS
    and true peak; fixes; separate automated and listening status.
    Refresh evidence when voice, music, mix or final changes.

@@ -23,22 +23,24 @@ projects/<nnn>-<slug>/
 │   └── sfx/
 ├── voice/
 │   ├── manifest.json
-│   └── <scene-id>.wav
+│   ├── <scene-id>.wav
+│   └── full.wav              # Optional assembled narration
 ├── output/
-│   ├── preview.mp4
-│   ├── final.mp4
-│   ├── contact-sheet.png
-│   ├── report.json
-│   └── qc.json              # Agent-owned visual/audio review evidence
-├── src/
-│   └── ...                   # Atomic snapshot of shared renderer/src for final
-└── render.snapshot.json
+│   ├── video/
+│   │   └── final.mp4
+│   └── docs/
+│       ├── report.json
+│       ├── automated-qc.json
+│       ├── qc.json          # Agent-owned visual/audio review evidence
+│       ├── audio-timeline.json # Optional scene and pause timing for full.wav
+│       └── render.snapshot.json
+└── .cache/review/           # Temporary preview and contact sheet; removed after final
 ```
 
 Allocate `<nnn>` when a new workflow receives its prompt, starting at `001` and
 using the next existing number. Create `request.json` and `state.json` before
-research or brainstorming. `src/` is created or replaced only after a final render
-passes QC; previews do not modify it.
+research or brainstorming. Renderer source stays in `renderer/src/`; final
+renders record its checksum without copying the source into a project.
 
 ## `state.json`
 
@@ -224,13 +226,13 @@ mix. `music: null` requires a recorded user override or an explicit alternate
 background-sound plan. Omission is not evidence of voice-only intent.
 
 Record the editorial sound plan in `script.md` or existing-project production
-notes. Before delivery, record `output/qc.json.backgroundSound` as specified in
+notes. Before delivery, record `output/docs/qc.json.backgroundSound` as specified in
 [sound QC](../../../../docs/VIDEO_SOUND_QC.md).
 These are agent-owned review records; the current CLI does not validate their
 schema or infer audibility from them. Preserve an existing QC file's other fields.
 
 The example is an editorial plan, not an implemented Docker renderer. Current
-render routes are `meta.renderer: "kubernetes" | "eclipses" | "grpc" | "rag" | "income"`; omitted renderer
+render routes currently support `meta.renderer: "kubernetes"`; omitted renderer
 retains legacy Kubernetes compatibility. Unsupported routes or scene IDs fail.
 
 ## Production-only revisions
@@ -259,6 +261,24 @@ approved configuration. Music objects replace the complete music setting; use
 Nonempty storyboard overrides are rejected because the topic renderers do not
 consume them. Implement visual changes in the shared renderer.
 
+## `visual-map.json`
+
+Future hybrid renderers may consume a scene-level semantic map between the
+approved script and JSX. No current renderer consumes `visual-map.json`; adding
+one requires a validator, fingerprint entry, and composition input.
+
+Each map uses `schemaVersion: 1`, the approved `scriptVersion`, an approved
+status, and exactly one ordered entry per video scene. Entries declare `mode`,
+`narrationClaim`, `visualClaim`, `why3d`, `heroObject`, `action`, narrated
+`cueWords` for action/reveal/settle, two to four `processSteps`, `finalState`,
+`domSupport`, and `proofFrames`. A future implementation should validate scene
+coverage and narrated cue words, then include this file in the renderer input
+fingerprint so changes invalidate the preview.
+
+See the hybrid 3D skill's
+[`content-alignment.md`](../../short-video-hybrid-3d/references/content-alignment.md)
+for the full reasoning and review gate.
+
 ## Approval and validation
 
 For default karaoke, `voice/manifest.json.scenes[]` includes `words[]` and phrase
@@ -269,7 +289,7 @@ punctuation and retains actual Kokoro token timings with audio-chunk offsets;
 requires ordered, in-range words covering the approved spoken text and phrase
 boundaries that do not cut words. Explicit `captions.mode: "phrase" | "none"`
 opts out of word highlighting; phrase timing/coverage and scene identity/duration
-are still validated, and both topic renderers implement these modes.
+are still validated, and the Kubernetes renderer implements these modes.
 See [production defaults](../../../../docs/VIDEO_PRODUCTION_DEFAULTS.md).
 
 - `direction.json` records the Phase 1 choice.
@@ -290,9 +310,11 @@ workflow code (excluding tests/unrelated helpers). Final
 requires that fingerprint plus unchanged preview/contact-sheet hashes. Changed
 inputs require a fresh preview. Contact-sheet times include opening, all scene
 midpoints and ending. Final checks timeline duration, H.264/AAC, dimensions/FPS,
-full decode and encoded loudness/true peak. `output/automated-qc.json` records these
-measurements and missing listening; it never overwrites agent-owned `qc.json`.
+full decode and encoded loudness/true peak. `output/docs/automated-qc.json` records these
+measurements and missing listening; it never overwrites agent-owned `output/docs/qc.json`.
 Reports/snapshots include `inputs` hashes and `checksums.renderInputs`.
+The preview and contact sheet are deleted from `.cache/review/` after successful
+final export. A later final render requires a fresh preview.
 
 ## `render.snapshot.json`
 
@@ -313,6 +335,6 @@ Reports/snapshots include `inputs` hashes and `checksums.renderInputs`.
 }
 ```
 
-Write this manifest after final QC and an atomic source copy. State `produced`
-requires a final MP4, `report.json`, archived `src/`, and matching checksums. If a
-new final render or copy fails, preserve the previous valid snapshot.
+Write this manifest after final QC. State `produced` requires a final MP4,
+`report.json`, and matching checksums. If a new final render fails, preserve the
+previous valid snapshot.

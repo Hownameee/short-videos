@@ -40,5 +40,5 @@ for scene in manifest['scenes']:
     scene['captions'] = captions
     offset += math.ceil((scene['durationSec']+0.45)*30)/30
 manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
-(p / 'output/captions.en.srt').write_text('\n'.join(srt))
+(p / 'output/docs/captions.en.srt').write_text('\n'.join(srt))
 print(f'{len(srt)} caption phrases; total timeline {offset:.3f}s')
