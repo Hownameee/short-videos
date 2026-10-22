@@ -62,4 +62,6 @@ research/
 /tools/mascot-echomimic/models/
 /tools/mascot-echomimic/output/
 /tools/mascot-echomimic/source/
+/tools/mascot-echomimic/source-mlx/
+/tools/mascot-echomimic/source-cuda/
 /tools/mascot-echomimic/matanyone2-source/

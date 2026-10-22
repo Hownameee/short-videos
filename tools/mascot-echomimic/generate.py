@@ -1,14 +1,20 @@
-"""Generate a talking presenter with the shared EchoMimic MLX environment."""
+"""Generate a talking presenter with EchoMimic V3 Flash on MLX or CUDA."""
 
 from __future__ import annotations
 
 import argparse
+import platform
+import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
+
+from PIL import Image, ImageOps
 
 ROOT = Path(__file__).resolve().parents[2]
 MODELS = Path(__file__).resolve().parent / "models"
+CUDA_SOURCE = Path(__file__).resolve().parent / "source-cuda"
 DEFAULT_PROMPT = (
     "A presenter speaks naturally to the camera. Preserve the reference face, "
     "clothing, and background. Use subtle head, eye, and mouth movements."
@@ -33,6 +39,7 @@ def main() -> None:
     )
     parser.add_argument("--steps", type=int, default=8)
     parser.add_argument("--seed", type=int, default=43)
+    parser.add_argument("--backend", choices=("auto", "mlx", "cuda"), default="auto")
     parser.add_argument(
         "--dry-run", action="store_true", help="Validate inputs and print the command"
     )
@@ -73,39 +80,104 @@ def main() -> None:
         parser.error(f"output already exists: {output}")
     if Path(sys.prefix).resolve() != (ROOT / ".venv-mascot").resolve():
         parser.error("run this script with .venv-mascot/bin/python")
-    command = [
-        sys.executable,
-        "-m",
-        "echomimic_mlx.cli",
-        "--image",
-        str(args.image),
-        "--audio",
-        str(args.audio),
-        "--prompt",
-        args.prompt,
-        "--output",
-        str(output),
-        "--width",
-        str(args.width),
-        "--height",
-        str(args.height),
-        "--frames",
-        str(args.frames),
-        "--steps",
-        str(args.steps),
-        "--fps",
-        "25",
-        "--seed",
-        str(args.seed),
-    ]
-    for name, path in required.items():
-        command.extend((f"--{name}", str(path)))
-    if args.dry_run:
-        import shlex
+    backend = args.backend
+    if backend == "auto":
+        if sys.platform == "darwin" and platform.machine() == "arm64":
+            backend = "mlx"
+        elif sys.platform.startswith("linux"):
+            backend = "cuda"
+        else:
+            parser.error("use Apple Silicon macOS or Linux/WSL2 with NVIDIA CUDA")
+    if backend == "mlx" and (
+        sys.platform != "darwin" or platform.machine() != "arm64"
+    ):
+        parser.error("MLX requires Apple Silicon macOS")
+    if backend == "cuda" and not sys.platform.startswith("linux"):
+        parser.error("CUDA requires Linux or WSL2")
+    if backend == "cuda" and not (CUDA_SOURCE / "infer_flash.py").is_file():
+        parser.error("CUDA source missing; run tools/mascot-echomimic/setup.sh cuda")
+    if backend == "mlx":
+        command = [
+            sys.executable,
+            "-m",
+            "echomimic_mlx.cli",
+            "--image",
+            str(args.image),
+            "--audio",
+            str(args.audio),
+            "--prompt",
+            args.prompt,
+            "--output",
+            str(output),
+            "--width",
+            str(args.width),
+            "--height",
+            str(args.height),
+            "--frames",
+            str(args.frames),
+            "--steps",
+            str(args.steps),
+            "--fps",
+            "25",
+            "--seed",
+            str(args.seed),
+        ]
+        for name, path in required.items():
+            command.extend((f"--{name}", str(path)))
+        if args.dry_run:
+            import shlex
 
-        print(shlex.join(command))
+            print(shlex.join(command))
+            return
+        output.parent.mkdir(parents=True, exist_ok=True)
+        subprocess.run(command, check=True)
         return
-    subprocess.run(command, check=True)
+
+    import torch
+
+    if not torch.cuda.is_available():
+        parser.error("PyTorch cannot see an NVIDIA GPU")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="echomimic-", dir=output.parent) as temporary:
+        scratch = Path(temporary)
+        normalized = scratch / "presenter.png"
+        with Image.open(args.image) as image:
+            ImageOps.fit(image.convert("RGB"), (args.width, args.height)).save(normalized)
+        command = [
+            sys.executable, str(CUDA_SOURCE / "infer_flash.py"),
+            "--image_path", str(normalized), "--audio_path", str(args.audio),
+            "--prompt", args.prompt, "--num_inference_steps", str(args.steps),
+            "--config_path", str(CUDA_SOURCE / "config/config.yaml"),
+            "--model_name", str(MODELS / "wan-fun"),
+            "--transformer_path", str(required["transformer"]),
+            "--wav2vec_model_dir", str(required["wav2vec"]),
+            "--save_path", str(scratch), "--video_length", str(args.frames),
+            "--sample_size", str(args.height), str(args.width),
+            "--fps", "25", "--seed", str(args.seed),
+            "--sampler_name", "Flow_Unipc", "--weight_dtype", "bfloat16",
+        ]
+        if args.dry_run:
+            import shlex
+
+            print(shlex.join(command))
+            return
+        subprocess.run(command, cwd=CUDA_SOURCE, check=True)
+        generated = scratch / "presenter_output.mp4"
+        if not generated.is_file() or generated.stat().st_size == 0:
+            raise RuntimeError(f"CUDA inference did not create {generated}")
+        checked = subprocess.run(
+            [
+                "ffprobe", "-v", "error", "-count_frames", "-select_streams", "v:0",
+                "-show_entries", "stream=nb_read_frames,width,height",
+                "-of", "csv=p=0", str(generated),
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip().split(",")
+        if tuple(map(int, checked)) != (args.width, args.height, args.frames):
+            raise RuntimeError(f"CUDA output has unexpected width, height or frame count: {checked}")
+        shutil.move(generated, output)
 
 
 if __name__ == "__main__":

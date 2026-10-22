@@ -59,7 +59,8 @@ Initial model downloads require network access; subsequent generation can reuse
 the local model cache.
 
 For a reusable talking presenter, follow the [EchoMimic setup](tools/mascot-echomimic/README.md).
-It uses `.venv-mascot` and a 384×672 presenter image. The full-WAV flow
+It uses `.venv-mascot` on Apple Silicon macOS (MLX) or Linux/WSL2 with NVIDIA
+CUDA (official PyTorch backend), plus a 384×672 presenter image. The full-WAV flow
 generates talking video in chunks, mattes it with MatAnyone2, and uses FFmpeg
 to overlay it on an existing render while keeping that render's audio. The
 current presenter image is in `tools/mascot-echomimic/assets/`. This optional

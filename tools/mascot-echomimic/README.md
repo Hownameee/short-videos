@@ -1,144 +1,183 @@
-# Shared EchoMimic presenter generator
+# EchoMimic V3 Flash presenter setup
 
-Use this Apple Silicon MLX setup to animate a portrait from speech audio. It
-uses one repository-wide `.venv-mascot` environment and local model weights
-copied from the pinned experiment in `research/mascot/echomimic/`. The source
-port is [`guilhermesilveira/echomimic-v3-mlx`](https://github.com/guilhermesilveira/echomimic-v3-mlx)
-at commit `5e2595f1735f4a5e66ed27ac10326ac2e5b39e9b`.
+This optional pipeline turns a portrait plus speech WAV into a talking MP4,
+extracts the presenter with MatAnyone2, and overlays it on a project's
+`output/video/final.mp4`. Run all commands from the **repository root**. The
+shared environment is `.venv-mascot`; no `research/` directory is required.
 
-## Set up once
+## Choose a backend
 
-From the repository root on Apple Silicon macOS, with the existing research
-checkout and weights in place:
+| Host | Backend | Source | Validation |
+| --- | --- | --- | --- |
+| Apple Silicon macOS | MLX/Metal | [community MLX port](https://github.com/guilhermesilveira/echomimic-v3-mlx), commit `5e2595f` | 384×672 and 512×512 generation completed on an M5 Pro with 48 GB unified memory |
+| Linux with NVIDIA CUDA, including WSL2 | PyTorch/CUDA | [official EchoMimic V3](https://github.com/antgroup/echomimic_v3), commit `7e89489` | Installer and CLI argument mapping inspected against pinned upstream source; **no Linux GPU end-to-end run yet** |
+| Native Windows, Intel Mac, Linux without CUDA | — | — | No supported inference backend in this workspace |
+
+The official Flash release reports a **12 GB VRAM** path, but this workspace's
+Linux configuration has not been measured at that limit. Start at 384×672 and
+check an actual short render before planning longer work. The MLX port reported
+21.83 GiB peak Metal allocation for a short 512×512 test; a 48 GB M5 Pro ran
+the local workload. Common model weights occupy about 19–20 GB. CUDA also
+downloads the Wan base transformer. Budget at least **40 GB free disk** for
+weights, environments, downloads and intermediate files; long clips require
+more temporary disk space. GPU driver and CUDA access must work
+before Linux setup; `nvidia-smi` and `torch.cuda.is_available()` are separate
+checks. CPU-only generation is not supported.
+
+### Prerequisites
+
+- `git`, `uv`, `ffmpeg`, and `ffprobe` on `PATH`; `uv` must be able to obtain
+  Python 3.11. Install these using your OS package manager and the
+  [official uv instructions](https://docs.astral.sh/uv/getting-started/installation/).
+- Network access to GitHub, Hugging Face, ModelScope, PyPI and, on Linux,
+  the PyTorch CUDA wheel index. The first install downloads large weights.
+- On Linux or WSL2, an NVIDIA driver visible through `nvidia-smi`. WSL2 also
+  needs the Windows host NVIDIA driver with CUDA support.
+- A presenter image and speech WAV. Project 001 has an example at
+  `tools/mascot-echomimic/assets/presenter.png` and
+  `projects/001-kubernetes-self-healing/output/voice/full.wav` when generated.
+  The project integration requires a **384×672 RGBA presenter PNG**.
+
+## Install EchoMimic
+
+From the repository root:
 
 ```bash
 bash tools/mascot-echomimic/setup.sh
-.venv-mascot/bin/python -m echomimic_mlx.cli --help
+.venv-mascot/bin/python tools/mascot-echomimic/download_models.py --verify-only
 ```
 
-The setup creates `.venv-mascot` from the tested Python 3.11 environment and
-uses APFS copy-on-write clones for its installed packages, source package, and
-approximately 19 GB of weights. It does not contact the network. Clones
-initially share disk blocks, but later edits to either copy can consume more
-space. The shared environment imports the local source copy in this directory;
-the research checkout is needed for setup, not for later generation.
+`setup.sh` chooses MLX on Apple Silicon and CUDA on Linux. Pass `mlx` or `cuda`
+to select explicitly. It creates `.venv-mascot` with Python 3.11, installs the
+appropriate source at the pinned revision, and downloads the shared Flash,
+Wan base and Wav2Vec weights. Existing complete model files are reused. The
+MLX source lives in ignored `tools/mascot-echomimic/source-mlx/`, or the
+preserved local `source/` snapshot when present. CUDA source lives in ignored
+`source-cuda/`. Weights live in ignored `models/`. No generated media or large
+weights are committed.
 
-Put presenter portraits in `tools/mascot-echomimic/assets/` or pass any existing image path.
-The current project 001 presenter is `tools/mascot-echomimic/assets/presenter.png`.
-The script accepts any existing
-image and audio file. EchoMimic converts input to RGB, center crops it, and
-exports H.264 MP4 without transparency. The shared `presenter.png` is RGBA
-with black RGB values in its clear pixels; use `integrate.py` to composite it
-over an opaque background before generation. Keep the face away from the edges.
+The weight downloader pins the Hugging Face revisions of
+`alibaba-pai/Wan2.1-Fun-V1.1-1.3B-InP` and `BadToBest/EchoMimicV3`, plus the
+ModelScope revision of `TencentGameMate/chinese-wav2vec2-base`. It checks
+presence and nonzero file size; it does **not** authenticate every weight byte.
+If a download was interrupted, rerun setup. A stale nonzero partial file
+should be removed manually after checking it against the upstream source.
 
-## Generate
+Check the selected runtime:
 
-Replace the example paths with files that exist. The default is **384×672**,
-25 fps, 17 frames (0.68 seconds), eight inference steps.
+```bash
+# Apple Silicon
+.venv-mascot/bin/python -c 'import mlx.core, echomimic_mlx; print("MLX ready")'
+
+# Linux / WSL2
+.venv-mascot/bin/python -c 'import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0))'
+```
+
+The Linux command must print `True` and the GPU name. Run only the command for
+your host. The installer reuses an existing `.venv-mascot` when its imports
+pass; recreate the environment intentionally if changing backends or Python
+versions.
+
+## Generate a short talking clip
+
+The standalone generator defaults to **384×672, 25 fps, 17 frames (0.68 s),
+eight denoising steps**. It accepts `--backend auto|mlx|cuda`, `--prompt`,
+`--width`, `--height`, `--frames`, `--steps`, and `--seed`. Width and height
+must be multiples of 16; frames must equal `1 + 4N`. It refuses to overwrite
+an existing output. CUDA first center-crops/resizes the input to the requested
+dimensions; the MLX port does its own center crop. Neither writes alpha.
 
 ```bash
 .venv-mascot/bin/python tools/mascot-echomimic/generate.py \
-  --image path/to/opaque-portrait.png \
-  --audio path/to/speech.wav \
-  --output tools/mascot-echomimic/output/presenter-sample.mp4
+  --image tools/mascot-echomimic/assets/presenter.png \
+  --audio projects/001-kubernetes-self-healing/output/voice/full.wav \
+  --output projects/001-kubernetes-self-healing/.cache/mascot/smoke.mp4 \
+  --frames 17
+
+ffprobe -v error -select_streams v:0 \
+  -show_entries stream=width,height,r_frame_rate,nb_frames \
+  -of default=noprint_wrappers=1 \
+  projects/001-kubernetes-self-healing/.cache/mascot/smoke.mp4
 ```
 
-For a longer clip, set `--frames` to `1 + 4N` and provide audio at least as
-long as the intended duration. For example, `--frames 125` targets five
-seconds. The upstream FFmpeg mux uses the shorter of video and audio, so
-shorter audio truncates the MP4. Use `--prompt`, `--steps`, and `--seed` to
-control generation. `--dry-run` validates paths and prints the command without
-running inference. The generator refuses to overwrite an existing MP4.
-It writes a JSON generation report beside the MP4.
+The CUDA adapter invokes the pinned official `infer_flash.py` with its Wan
+base, Flash transformer and Chinese Wav2Vec paths, then moves the verified
+result to the requested output. The released Flash implementation has limited
+text conditioning; prompt wording cannot reliably change the presenter or
+direct novel motion. The portrait is the main visual reference. For the local
+MLX 384×672 smoke, 17 frames took 102.6 seconds; runtime depends on hardware.
 
-The released Flash implementation uses the image and audio, but its text
-conditioning path is limited; a prompt cannot reliably direct new motion or
-change the portrait. The requested 384×672 setting completed a local technical
-smoke test on 2026-10-21 using an existing research portrait and audio. It took
-102.6 seconds for 17 frames; `ffprobe` reported H.264 at 384×672, 25 fps,
-0.68 seconds, and an AAC audio stream. This verifies that the resolution runs,
-not the visual quality or lip sync of a future presenter image. The older
-experiment also verified 512×512 at 17 and 125 frames; see its
-[research notes](../../research/mascot/echomimic/README.md).
+## Make the transparent presenter and project composite
 
-If setup reports a missing research environment or model, restore the pinned
-research experiment first. If generation fails on Metal inside a sandbox, run
-the same command in a normal macOS Terminal. `ffprobe -v error -show_entries
-stream=width,height,nb_frames -of default=noprint_wrappers=1 OUTPUT.mp4`
-checks the encoded dimensions and frame count.
-
-## Add the presenter to an existing project video
-
-Run `setup-matanyone2.sh` once after `setup.sh`. It restores the preserved
-MatAnyone2 source snapshot, installs seven pinned packages into the same
-`.venv-mascot`, downloads and checks the model checkpoint, and places a link
-where the upstream inference script expects it.
+MatAnyone2 is a **separate** matting model. Its source is pinned to commit
+`0079197`; the checkpoint is verified by SHA-256. Run this once after the
+EchoMimic setup:
 
 ```bash
 bash tools/mascot-echomimic/setup-matanyone2.sh
+```
 
-# Three-second demo of the same full-WAV flow:
+MatAnyone2's S-Lab License 1.0 permits ordinary **non-commercial** use only;
+commercial use needs separate permission. Do not treat the resulting alpha
+video as commercially cleared just because EchoMimic weights are Apache-2.0.
+
+For the included project, generate a short check first:
+
+```bash
 .venv-mascot/bin/python tools/mascot-echomimic/full_audio.py \
   --project projects/001-kubernetes-self-healing --seconds 3
+```
 
-# Full duration later (the first chunk is reused):
+The script reads the project's `output/voice/full.wav`, its
+`output/video/final.mp4`, and the presenter PNG. It prepares an opaque input
+and first-frame mask, generates 25 fps EchoMimic chunks, mattes them, and
+overlays the result at `video.design.presenterOverlay` while keeping the base
+video's audio. The demo and full run write the same three paths:
+
+- `output/mascot/mascot.mp4` — talking presenter with an audio excerpt;
+- `output/mascot/mascot-transparent-bg.webm` — VP9 with alpha;
+- `output/video/final-mascot.mp4` — overlay on the existing final video.
+
+The manifest is `output/docs/mascot-integration.json`. The base video remains
+`output/video/final.mp4`. Check full decode, audio, lip sync, alpha edges and
+caption visibility in the combined video. The current `full_audio.py` starts
+each chunk from the **original presenter image**. The separate six-second
+experiment documented in [project 001's production notes](../../projects/001-kubernetes-self-healing/PRODUCTION.md)
+instead used the previous chunk's last frame; that continuation method is
+**not automated by the full runner**.
+
+When the three-second gate passes, omit `--seconds` for the full WAV:
+
+```bash
 .venv-mascot/bin/python tools/mascot-echomimic/full_audio.py \
   --project projects/001-kubernetes-self-healing
 ```
 
-`full_audio.py` reads `output/voice/full.wav`, the presenter PNG and a prompt, then
-generates the talking video in 25 fps chunks. It prepares the first-frame mask,
-runs MatAnyone2 on each chunk, joins the color and alpha videos, and overlays
-the transparent presenter on the existing `output/video/final.mp4`. Only the
-`--seconds` limit differs between the demo and full run; `--prompt`, `--presenter`,
-`--steps`, and `--chunk-seconds` are optional controls. The cache under
-`.cache/mascot/full-wav/` lets a full run reuse finished demo chunks when the
-inputs and settings match. A changed input or setting in an existing chunk
-requires clearing that chunk's cache or using the original settings.
-The presenter PNG must be 384×672 for this flow. Chunk boundaries can produce
-small motion jumps; inspect the full render before publishing.
+Intermediate files are cached under the project's `.cache/mascot/full-wav/`.
+The cache is keyed to presenter/audio hashes and settings; changing inputs
+inside an existing chunk produces an error rather than silently reusing it.
+Use a fresh cache or remove only the affected cached chunk after checking it.
+Chunk joins can show slight motion jumps. Review them before publishing.
 
-Outputs are `output/mascot/mascot.mp4` (with the full WAV or its demo excerpt),
-`output/mascot/mascot-transparent-bg.webm` (VP9 alpha), and
-`output/video/final-mascot.mp4`. The composite keeps the original final video's
-audio, including narration and music. A demo uses the first three seconds of
-both input media and replaces these same three output filenames; the full run
-later replaces them with full-duration results. See
-`output/docs/mascot-integration.json` for measured dimensions, duration and
-placement. The mascot is placed at the lower right of project 001 to avoid
-the central karaoke caption.
-
-The earlier scene-WAV workflow remains available when scene-by-scene generation
-is needed:
+The older scene-WAV runner remains available:
 
 ```bash
-# All scene WAVs over the existing final video:
 .venv-mascot/bin/python tools/mascot-echomimic/integrate.py \
   --project projects/001-kubernetes-self-healing
 ```
 
-The integration script prepares the opaque portrait and a first-frame seed
-mask, pads copies of each scene WAV to a valid EchoMimic frame count, generates
-25 fps clips, runs MatAnyone2 per scene, joins the original RGB frames with
-the model's `pha/` masks at **25 fps**, and overlays the alpha clips on the
-existing video with FFmpeg. It keeps the original video's audio, including
-voice and music; the generated clips' audio is never mixed in. Scene starts
-follow the same `ceil((voice.durationSec + 0.45) × video FPS)` rule as Remotion.
+## Troubleshooting
 
-Intermediate files are under `projects/NNN-topic/.cache/mascot/RUN_NAME/`.
-The composite is `output/video/final-with-mascot.mp4`, and its JSON report is
-`output/docs/mascot-RUN_NAME-integration.json`. The original
-`output/video/final.mp4` stays intact. Run `--stage generate`, `--stage matte`,
-or `--stage compose` to resume one phase. Existing clips with the expected
-frame count are reused. Use a new
-`--run-name` when changing the portrait, audio, prompt, steps, or pilot length.
-Position is adjustable with `--width-fraction`, `--x-fraction`, and
-`--y-fraction` relative to the base video's dimensions. The default
-places a quarter-width presenter in the upper right (`0.25`, `0.72`,
-`0.21`) to keep the RAG project's central diagram labels and captions clear.
-The default `--bottom-feather 40` softens the horizontal crop at the portrait's
-lower edge.
+| Symptom | Check and action |
+| --- | --- |
+| `source` or weights missing | Rerun `setup.sh`; run `download_models.py --verify-only` to list missing files. The deleted `research/` tree is not a prerequisite. |
+| CUDA unavailable | Run `nvidia-smi` and the PyTorch check above; repair host driver, WSL2 GPU access or the CUDA wheel before inference. |
+| Metal unavailable in an agent sandbox | Run from a normal macOS terminal or authorize GPU access for the command. |
+| OOM during inference | Try the 17-frame 384×672 smoke first, reduce frame count or image dimensions, and inspect the failing backend's log. Do not assume the official 12 GB claim applies to this exact integration. |
+| Wrong frame count or duration | Confirm enough source audio and use `1 + 4N` frames. The official CUDA script caps frames to available audio. |
+| Matting source or checkpoint missing | Rerun `setup-matanyone2.sh`; its checkpoint hash check must pass. |
+| Output already exists | Choose a new output name for a standalone test; the project runner manages its own cached outputs. |
 
-The MatAnyone2 snapshot uses S-Lab License 1.0, whose ordinary grant is for
-non-commercial use. Check rights before commercial publication; the local
-integration is a research render.
+The Linux CUDA install, full video generation and MatAnyone2 integration need
+an end-to-end run on actual Linux GPU hardware before being described as
+validated there. The existing Mac demo verifies this project's MLX path.
