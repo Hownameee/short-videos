@@ -50,6 +50,12 @@
       "bottom": 330,
       "left": 90
     },
+    "presenterOverlay": {
+      "x": 790,
+      "y": 1210,
+      "width": 260,
+      "height": 456
+    },
     "motionGrammar": "Stable diagram positions, short eased entrances, single purposeful change per beat.",
     "assetLanguage": "Original SVG/HTML schematics. No screenshots or simulated terminal presented as live evidence."
   },
@@ -264,10 +270,10 @@
     "quote": "bạn tự quyết định tất cả, khi nào hoàn thành xong video thì dừng.",
     "scope": "Agent selects direction, approves script, produces preview and final."
   },
-  "scriptVersion": "sha256:c5a84059ebd72ce5c0daaacbdb24d2d09437002f4b3fa5db2c0dfaeef08a42f8",
+  "scriptVersion": "sha256:429edb6b71dd8e6c948e297eb4c242e5af7b22bf0bfea600a1cf6e06c1891a8e",
   "approval": {
     "status": "approved",
-    "approvedAt": "2026-10-04T17:14:29.562Z",
-    "approvedScriptVersion": "sha256:c5a84059ebd72ce5c0daaacbdb24d2d09437002f4b3fa5db2c0dfaeef08a42f8"
+    "approvedAt": "2026-10-22T00:08:31.569Z",
+    "approvedScriptVersion": "sha256:429edb6b71dd8e6c948e297eb4c242e5af7b22bf0bfea600a1cf6e06c1891a8e"
   }
 }

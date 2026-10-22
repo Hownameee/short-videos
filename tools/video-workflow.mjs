@@ -450,6 +450,14 @@ const validateVideo = (video) => {
   if (!video.design || typeof video.design !== "object") {
     throw new Error("video.json requires a design block before production.");
   }
+  const overlay = video.design.presenterOverlay;
+  if (overlay !== undefined && (
+    !overlay || ["x", "y", "width", "height"].some((key) => !Number.isInteger(overlay[key])) ||
+    overlay.x < 220 || overlay.y < 0 || overlay.width <= 0 || overlay.height <= 0 ||
+    overlay.x + overlay.width > 1080 || overlay.y + overlay.height > 1920
+  )) {
+    throw new Error("design.presenterOverlay must fit the 1080x1920 layout with room for captions.");
+  }
   if (!Array.isArray(video.scenes) || video.scenes.length === 0) {
     throw new Error("video.json requires at least one scene.");
   }
@@ -774,7 +782,8 @@ const stageProjectMedia = async (rendererDir, projectDir) => {
   const temporary = temporarySibling(target, "next");
   await mkdir(temporary, { recursive: true });
   try {
-    await cp(path.join(projectDir, "output/voice"), path.join(temporary, "voice"), {
+    await mkdir(path.join(temporary, "output"), { recursive: true });
+    await cp(path.join(projectDir, "output/voice"), path.join(temporary, "output/voice"), {
       recursive: true,
     });
     await cp(path.join(projectDir, "assets"), path.join(temporary, "assets"), {

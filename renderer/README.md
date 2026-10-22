@@ -36,6 +36,11 @@ earlier MP4.
 `production.json` overrides music/SFX and caption mode without changing script
 approval. Nonempty `storyboard.json` overrides are rejected: the Kubernetes
 composition does not implement them. New topics need a new composition.
+For a later transparent presenter overlay, set `design.presenterOverlay` in
+`video.json` using 1080×1920 logical coordinates. The Kubernetes renderer keeps
+the lower captions, progress line, and source label to the left of that region;
+the EchoMimic compositor reads the same placement. A changed `video.json` needs
+a new draft, approval, voice manifest, preview, and final render.
 
 ## Run locally
 

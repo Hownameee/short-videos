@@ -20,7 +20,7 @@ was generated.
 - `output/docs/report.json`, `output/docs/qc.json`, `output/docs/render.snapshot.json`:
   production evidence; the snapshot records the shared renderer source checksum.
 - `output/mascot/mascot.mp4`, `mascot-transparent-bg.webm`, and
-  `output/video/final-mascot.mp4`: current three-second mascot demo outputs.
+  `output/video/final-mascot.mp4`: current six-second mascot continuation demo outputs.
 
 ## Reproduce
 
@@ -28,8 +28,7 @@ Run from the workspace root using the existing Node 24.21.0 environment and
 Python 3.12 `.venv-kokoro`. FFmpeg and ffprobe must be on PATH. The model is cached.
 
 ```bash
-HF_HUB_OFFLINE=1 TOKENIZERS_PARALLELISM=false .venv-kokoro/bin/python projects/001-kubernetes-self-healing/generate_voice.py
-.venv-kokoro/bin/python projects/001-kubernetes-self-healing/refine_captions.py
+.venv-kokoro/bin/python tools/kokoro/generate_audio.py --project projects/001-kubernetes-self-healing
 python3 tools/audio/assemble_voice.py --project projects/001-kubernetes-self-healing --pause 0.5
 .venv-kokoro/bin/python tools/audio/generate_soundtrack.py --project projects/001-kubernetes-self-healing --duration 90
 npm --prefix renderer run lint
@@ -107,13 +106,23 @@ Human listening and physical phone playback have not been performed.
 
 ## Mascot demo
 
-The [shared EchoMimic flow](../../tools/mascot-echomimic/README.md) uses the
-first three seconds of `output/voice/full.wav` with the presenter PNG, then MatAnyone2
-to make a transparent VP9 WebM. FFmpeg overlays it at the lower right of the
-first three seconds of `final.mp4`; the composite keeps that video's audio.
-The demo has 75 mascot frames at 25 fps and 90 composite frames at 30 fps.
+The [shared EchoMimic flow](../../tools/mascot-echomimic/README.md) generated
+the first three seconds from the presenter PNG and `output/voice/full.wav`.
+For this continuation experiment, the final RGB frame at 2.96 seconds became
+the image input for another 3.08-second EchoMimic generation, with audio starting
+at 2.96 seconds. MatAnyone2 used the final transparent frame as its seed.
+FFmpeg joined the first 75 frames to frames 1–75 of the new clip, skipping its
+duplicate conditioning frame 0. The same trim was applied to the transparent
+VP9 WebM. FFmpeg overlays the joined mascot at the lower right of the first six
+seconds of `final.mp4`; the composite keeps that video's audio.
+`video.json` declares a 260×456 presenter region at (790, 1210) on the
+1080×1920 canvas. Remotion narrows captions, progress and source text to the
+left of that region; FFmpeg reads the same placement when compositing.
+The demo has 150 mascot frames at 25 fps and 180 composite frames at 30 fps.
 `output/docs/mascot-integration.json` records the prompt, source paths, and
-placement. Omit `--seconds 3` in the same command to process the full WAV and
-replace the three demo outputs; finished chunks are reused. The rendered demo
-was decoded and its alpha channel was checked. Human lip-sync and listening
-review remain to be done.
+placement. The rendered demo was decoded and its alpha channel was checked.
+Junction frames were inspected; a slight facial change is visible between the
+last frame of the first segment and the first retained frame of the second.
+The current `full_audio.py` uses the original presenter for each chunk, so its
+full run does not automatically repeat this last-frame continuation method.
+Human lip-sync, continuous-motion, and listening review remain to be done.

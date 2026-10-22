@@ -665,6 +665,9 @@ const Scene = ({
   const { fps } = useVideoConfig();
   const seconds = frame / fps;
   const title = scene.onScreenText;
+  const lowerContentWidth = video.design.presenterOverlay
+    ? Math.min(810, video.design.presenterOverlay.x - 130)
+    : 810;
   const entrance = spring({
     frame,
     fps,
@@ -672,7 +675,7 @@ const Scene = ({
   });
   return (
     <AbsoluteFill>
-      {video.audio !== null && !useCombinedVoice && <Audio src={staticFile(`${assetRoot}/voice/${voice.file}`)} />}
+      {video.audio !== null && !useCombinedVoice && <Audio src={staticFile(`${assetRoot}/output/voice/${voice.file}`)} />}
       {video.audio !== null && video.audio?.sfx !== false && scene.id === "replace" && (
         <Sequence
           from={Math.round(6 * fps)}
@@ -787,7 +790,7 @@ const Scene = ({
           position: "absolute",
           left: 90,
           top: 1435,
-          width: 810,
+          width: lowerContentWidth,
           height: 155,
           display: "flex",
           alignItems: "center",
@@ -811,7 +814,7 @@ const Scene = ({
           position: "absolute",
           left: 90,
           top: 1665,
-          width: 810,
+          width: lowerContentWidth,
           color: C.muted,
           fontFamily: mono,
           fontSize: 20,
@@ -833,6 +836,9 @@ export const KubernetesVideo = ({
 }: VideoProps) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
+  const lowerContentWidth = video.design.presenterOverlay
+    ? Math.min(810, video.design.presenterOverlay.x - 130)
+    : 810;
   return (
     <AbsoluteFill
       style={{
@@ -857,7 +863,7 @@ export const KubernetesVideo = ({
           left: 90,
           top: 1605,
           height: 4,
-          width: 810,
+          width: lowerContentWidth,
           backgroundColor: "#20384A",
         }}
       >

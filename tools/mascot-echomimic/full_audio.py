@@ -185,9 +185,15 @@ def create_outputs(
 
     base_video = video_stream(base)
     width, height = int(base_video["width"]), int(base_video["height"])
-    mascot_width = 2 * round(width * 0.17 / 2)
-    mascot_height = 2 * round(mascot_width * 672 / 384 / 2)
-    x, y = round(width * 0.81), round(height * 0.67)
+    video = json.loads((project / "video.json").read_text())
+    placement = video.get("design", {}).get("presenterOverlay")
+    if not placement:
+        raise ValueError("Set design.presenterOverlay in video.json before compositing the mascot")
+    scale = min(width / 1080, height / 1920)
+    x = round((width - 1080 * scale) / 2 + placement["x"] * scale)
+    y = round((height - 1920 * scale) / 2 + placement["y"] * scale)
+    mascot_width = round(placement["width"] * scale)
+    mascot_height = round(placement["height"] * scale)
     if x + mascot_width > width or y + mascot_height > height:
         raise ValueError("Mascot placement exceeds the base frame")
     output_seconds = min(duration(base), demo_seconds or duration(base))

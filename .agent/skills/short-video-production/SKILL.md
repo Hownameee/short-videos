@@ -53,6 +53,10 @@ List guidance actually used in the work report.
    their own renderer; never disguise Kubernetes diagrams as generic output.
    A new hybrid renderer needs a validated scene map and narration cues before
    JSX; the current Kubernetes renderer does not consume `visual-map.json`.
+   When a transparent presenter will be composited later, record its placement
+   in `design.presenterOverlay` and reserve that rectangle in the Remotion
+   layout before rendering. Check captions and scene content against the
+   composited preview.
 2. Use the shared voice generator when narration needs updating. It verifies and
    reuses unchanged WAVs and timing; changes regenerate affected scenes. Measure
    duration, retain provider-predicted word timestamps, and review pronunciation.

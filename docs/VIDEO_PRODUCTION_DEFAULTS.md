@@ -33,6 +33,12 @@ the same timeline rate. Keep provider word timings in milliseconds. Review
 consecutive 60 fps frames, safe areas and captions before the full-resolution
 final. Preview scale affects resolution only, not frame rate or timing.
 
+For a separately composited transparent presenter, set
+`video.design.presenterOverlay` to its `{x, y, width, height}` rectangle in the
+1080×1920 logical layout. The renderer reserves that area for lower text and
+captions; the mascot compositing script uses the same rectangle. Verify the
+combined video because a platform safe area does not account for the presenter.
+
 ## Narration and captions
 
 Use the shared Kokoro generator at 24 kHz with a matching American/British voice.

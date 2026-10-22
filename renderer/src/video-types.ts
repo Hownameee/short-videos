@@ -32,6 +32,7 @@ export type VideoData = {
   };
   design: {
     palette: Record<string, string>;
+    presenterOverlay?: { x: number; y: number; width: number; height: number };
   };
   scenes: VideoScene[];
 };

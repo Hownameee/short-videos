@@ -65,6 +65,9 @@ smallest system that fits the audience and subject and record the assumption.
   output frames as well as phone-size previews.
 - Reserve negative space around the focal point. Empty space is part of hierarchy,
   not an area that must be filled with particles, cards, badges, or icons.
+- For a planned transparent presenter, include its final overlay rectangle in
+  `design.presenterOverlay` and lay out text, captions, and diagrams around it.
+  A platform safe area alone does not reserve room for the presenter.
 - Use depth intentionally: background establishes context, middle ground carries
   the explanation, and foreground holds the current emphasis or caption.
 - Keep spatial relationships stable across related scenes so the viewer does not
