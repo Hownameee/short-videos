@@ -146,7 +146,26 @@ experiment documented in [project 001's production notes](../../projects/001-kub
 instead used the previous chunk's last frame; that continuation method is
 **not automated by the full runner**.
 
-When the three-second gate passes, omit `--seconds` for the full WAV:
+To extend an existing **last-frame continuation** demo such as project 001's
+six-second clip, run:
+
+```bash
+.venv-mascot/bin/python -u tools/mascot-echomimic/continue_full.py \
+  --project projects/001-kubernetes-self-healing
+```
+
+This keeps the existing mascot as a prefix. Each next chunk uses the prior
+chunk's final RGB frame as its portrait and the final alpha frame as the
+MatAnyone2 seed. Audio starts at the time of that final frame; generated frame
+zero is discarded to avoid duplicating it. Finished chunks remain under
+`.cache/mascot/continuation-full/` so a failed run can resume. The three
+delivered files are replaced only after all chunks and the composite pass
+validation. The final `output/docs/mascot-integration.json` records the chunk
+sizes and continuation method. Check the joins and lip sync during playback;
+conditioning on the last frame does not guarantee seamless motion.
+
+For a fresh run that starts every chunk from the original presenter, omit
+`--seconds` from `full_audio.py`:
 
 ```bash
 .venv-mascot/bin/python tools/mascot-echomimic/full_audio.py \

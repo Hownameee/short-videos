@@ -20,7 +20,7 @@ was generated.
 - `output/docs/report.json`, `output/docs/qc.json`, `output/docs/render.snapshot.json`:
   production evidence; the snapshot records the shared renderer source checksum.
 - `output/mascot/mascot.mp4`, `mascot-transparent-bg.webm`, and
-  `output/video/final-mascot.mp4`: current six-second mascot continuation demo outputs.
+  `output/video/final-mascot.mp4`: current full-length mascot continuation outputs.
 
 ## Reproduce
 
@@ -118,11 +118,32 @@ seconds of `final.mp4`; the composite keeps that video's audio.
 `video.json` declares a 260×456 presenter region at (790, 1210) on the
 1080×1920 canvas. Remotion narrows captions, progress and source text to the
 left of that region; FFmpeg reads the same placement when compositing.
-The demo has 150 mascot frames at 25 fps and 180 composite frames at 30 fps.
+The six-second demo had 150 mascot frames at 25 fps and 180 composite frames at
+30 fps. It has since been replaced by the full-length outputs below.
 `output/docs/mascot-integration.json` records the prompt, source paths, and
-placement. The rendered demo was decoded and its alpha channel was checked.
+placement. The six-second demo was decoded and its alpha channel was checked.
 Junction frames were inspected; a slight facial change is visible between the
 last frame of the first segment and the first retained frame of the second.
 The current `full_audio.py` uses the original presenter for each chunk, so its
 full run does not automatically repeat this last-frame continuation method.
 Human lip-sync, continuous-motion, and listening review remain to be done.
+
+## Full mascot continuation
+
+The [continuation runner](../../tools/mascot-echomimic/continue_full.py) kept
+the six-second mascot as the first 150 frames, then generated 17 more segments
+from the previous segment's final RGB frame and alpha seed. Audio for each
+segment starts at that final frame's time; generated frame zero is dropped.
+The completed `mascot.mp4` and transparent WebM each contain **1,426 frames at
+25 fps (57.04 seconds)**. The composite contains **1,711 frames at 30 fps**
+on the original 1080×1920 canvas; its container duration is 57.10 seconds.
+Full decode succeeded for all three files. Alpha ranged from 0 to 255 in
+samples at 1, 30 and 54 seconds. Decoded audio MD5 of `final-mascot.mp4`
+matched `final.mp4`, so the composite retained the original mix.
+
+This is a technical experiment, not a publish-ready presenter. Repeatedly
+feeding generated frames back into EchoMimic visibly increases outlines,
+changes skin and clothing colors, and degrades the background by about 30
+seconds; the effect is severe near 54 seconds. Human lip-sync and listening
+checks were not performed. The full outputs remain available for review and
+comparison with other continuity methods.
