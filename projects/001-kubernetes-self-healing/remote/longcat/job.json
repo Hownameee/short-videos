@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "model": "LongCat-Video-Avatar-1.5",
+  "project": "projects/001-kubernetes-self-healing",
+  "audioSeconds": 57.033333,
+  "inputs": {
+    "image": {
+      "path": "presenter.png",
+      "sha256": "5f6e5937709b1c90a5e35558297ee5e037731834b33f6155fb6477e4e6ed2b59"
+    },
+    "audio": {
+      "path": "full.wav",
+      "sha256": "db4b041880120d85ce6ada9761960938ffc4e73eed59eda96b77fccde84ed5d3"
+    },
+    "prompt": {
+      "path": "prompt.txt",
+      "sha256": "c4f17fa820bcf175e562274b8f304a1de6aee59b23e30895f20de5472ad07827"
+    }
+  },
+  "sourcePresenterSha256": "92aa2cdb2494c9a68f4841f0c3151be88213525600d9030a4d1867825ada732a",
+  "settings": {
+    "resolution": "480p",
+    "steps": 8,
+    "int8": true,
+    "lowVram": true,
+    "vramReserveGb": 9.5
+  }
+}

@@ -1,0 +1,249 @@
+{
+  "schemaVersion": 1,
+  "talker": {
+    "repo": "https://github.com/palamedes/talker.git",
+    "revision": "7e6de7d0054575ae4eefbbf63c2469346b822765"
+  },
+  "upstream": {
+    "repo": "https://github.com/meituan-longcat/LongCat-Video.git",
+    "revision": "6b3f4b8582a8bc3f20f795735f5383716c4ba794"
+  },
+  "runtime": {
+    "python": "3.10",
+    "torch": "2.6.0+cu124",
+    "torchvision": "0.21.0+cu124",
+    "torchaudio": "2.6.0+cu124",
+    "torchIndex": "https://download.pytorch.org/whl/cu124",
+    "flashAttention": "2.7.4.post1",
+    "flashWheel": "https://github.com/Dao-AILab/flash-attention/releases/download/v2.7.4.post1/flash_attn-2.7.4.post1%2Bcu12torch2.6cxx11abiFALSE-cp310-cp310-linux_x86_64.whl",
+    "huggingfaceHub": "0.36.0",
+    "accelerate": "1.6.0",
+    "onnxruntime": "1.22.1"
+  },
+  "profile": {
+    "resolution": "480p",
+    "lowVram": "1",
+    "vramReserveGb": "9.5"
+  },
+  "models": [
+    {
+      "repo": "meituan-longcat/LongCat-Video-Avatar-1.5",
+      "revision": "92016c71d5d318d0f5d84e4db30015a571484ab6",
+      "directory": "LongCat-Video-Avatar-1.5",
+      "files": [
+        {
+          "path": "base_model_int8/config.json",
+          "size": 853
+        },
+        {
+          "path": "base_model_int8/quantization_config.json",
+          "size": 193
+        },
+        {
+          "path": "base_model_int8/quantized_model-00001-of-00004.safetensors",
+          "size": 4264635792,
+          "sha256": "ccf575d8cdf8e762272e2d4e52ae1a7c0b5d1fa81e26dfa4592867de4dd9a4fd"
+        },
+        {
+          "path": "base_model_int8/quantized_model-00002-of-00004.safetensors",
+          "size": 4275232472,
+          "sha256": "af6ddb737ad66d12fd5892adee568c14314143ebd4388d3ab9cc6065754b3688"
+        },
+        {
+          "path": "base_model_int8/quantized_model-00003-of-00004.safetensors",
+          "size": 4275232472,
+          "sha256": "6a349b76592b4752c2967235af457824d8938e3514bad8e78cfa86009e8a9bf5"
+        },
+        {
+          "path": "base_model_int8/quantized_model-00004-of-00004.safetensors",
+          "size": 3065282200,
+          "sha256": "ab54b648a3f6a53946f07dd0a21441e2a8cb1aa8da17996b5f3f7f2e1370705b"
+        },
+        {
+          "path": "base_model_int8/quantized_model.safetensors.index.json",
+          "size": 201884
+        },
+        {
+          "path": "config.json",
+          "size": 48
+        },
+        {
+          "path": "lora/dmd_lora.safetensors",
+          "size": 2523077984,
+          "sha256": "d969115a7f3fbc212a277ed4399f77a1a065d170148c6d4bc272e980cd3e907a"
+        },
+        {
+          "path": "model_index.json",
+          "size": 48
+        },
+        {
+          "path": "scheduler/scheduler_config.json",
+          "size": 213
+        },
+        {
+          "path": "vocal_separator/Kim_Vocal_2.onnx",
+          "size": 66759214,
+          "sha256": "ce74ef3b6a6024ce44211a07be9cf8bc6d87728cc852a68ab34eb8e58cde9c8b"
+        },
+        {
+          "path": "vocal_separator/download_checks.json",
+          "size": 17194
+        },
+        {
+          "path": "vocal_separator/mdx_model_data.json",
+          "size": 11975
+        },
+        {
+          "path": "vocal_separator/vr_model_data.json",
+          "size": 4380
+        },
+        {
+          "path": "whisper-large-v3/added_tokens.json",
+          "size": 34648
+        },
+        {
+          "path": "whisper-large-v3/config.json",
+          "size": 1272
+        },
+        {
+          "path": "whisper-large-v3/generation_config.json",
+          "size": 3903
+        },
+        {
+          "path": "whisper-large-v3/merges.txt",
+          "size": 493869
+        },
+        {
+          "path": "whisper-large-v3/model.safetensors",
+          "size": 3087130976,
+          "sha256": "a8e94b85976e5864ba3e9525c7e6c83b2a1eca42d4b797a0c7c24d778e40fd95"
+        },
+        {
+          "path": "whisper-large-v3/normalizer.json",
+          "size": 52666
+        },
+        {
+          "path": "whisper-large-v3/preprocessor_config.json",
+          "size": 340
+        },
+        {
+          "path": "whisper-large-v3/special_tokens_map.json",
+          "size": 2072
+        },
+        {
+          "path": "whisper-large-v3/tokenizer.json",
+          "size": 2480617
+        },
+        {
+          "path": "whisper-large-v3/tokenizer_config.json",
+          "size": 282843
+        },
+        {
+          "path": "whisper-large-v3/vocab.json",
+          "size": 1036558
+        }
+      ]
+    },
+    {
+      "repo": "meituan-longcat/LongCat-Video",
+      "revision": "03b55529b1d1d4045f5fbe14d65c8c6e8116b278",
+      "directory": "LongCat-Video",
+      "files": [
+        {
+          "path": "text_encoder/config.json",
+          "size": 854
+        },
+        {
+          "path": "text_encoder/model-00001-of-00005.safetensors",
+          "size": 4972389712,
+          "sha256": "c0ef3a140898e228a3520c9adec60743d2e8e5b3d229651bb37f1a3921919f99"
+        },
+        {
+          "path": "text_encoder/model-00002-of-00005.safetensors",
+          "size": 4899225672,
+          "sha256": "481c7b2b39771c44df6dd8d13ee12ed072d731b4a650bd092885d4d52db229ad"
+        },
+        {
+          "path": "text_encoder/model-00003-of-00005.safetensors",
+          "size": 4966309504,
+          "sha256": "f93148bcc04052a169e1e49bfcf6125df6cf9bf243cb9c627da75266cf8e35c3"
+        },
+        {
+          "path": "text_encoder/model-00004-of-00005.safetensors",
+          "size": 4999880704,
+          "sha256": "a451792c739c05bca4606190cc2dd16731411bac03b4cf6aacc5767321f857c9"
+        },
+        {
+          "path": "text_encoder/model-00005-of-00005.safetensors",
+          "size": 2885866152,
+          "sha256": "7e76e18d224531b8197a46231cb53daf7f2f6ca707130252becf933026ac4eea"
+        },
+        {
+          "path": "text_encoder/model.safetensors.index.json",
+          "size": 22476
+        },
+        {
+          "path": "tokenizer/special_tokens_map.json",
+          "size": 7079
+        },
+        {
+          "path": "tokenizer/spiece.model",
+          "size": 4548313,
+          "sha256": "e3909a67b780650b35cf529ac782ad2b6b26e6d1f849d3fbb6a872905f452458"
+        },
+        {
+          "path": "tokenizer/tokenizer.json",
+          "size": 16837459,
+          "sha256": "20a46ac256746594ed7e1e3ef733b83fbc5a6f0922aa7480eda961743de080ef"
+        },
+        {
+          "path": "tokenizer/tokenizer_config.json",
+          "size": 61758
+        },
+        {
+          "path": "vae/config.json",
+          "size": 724
+        },
+        {
+          "path": "vae/diffusion_pytorch_model.safetensors",
+          "size": 507591892,
+          "sha256": "d6e524b3fffede1787a74e81b30976dce5400c4439ba64222168e607ed19e793"
+        }
+      ]
+    }
+  ],
+  "dependencies": {
+    "file": "requirements.txt",
+    "sha256": "442d5c2163fc6bdf599766d06ade81e83b48ca8b27a5d9051a8d4d21e2ea1490",
+    "resolver": "uv pip compile",
+    "pythonVersion": "3.10",
+    "platform": "x86_64-unknown-linux-gnu",
+    "sources": [
+      "LongCat-Video/requirements.txt",
+      "LongCat-Video/requirements_avatar.txt"
+    ],
+    "excludedUpstreamPackages": [
+      "torch",
+      "torchvision",
+      "torchaudio",
+      "flash-attn",
+      "libsndfile1",
+      "tritonserverclient",
+      "sympy",
+      "onnxruntime"
+    ],
+    "additionalPins": [
+      "accelerate==1.6.0",
+      "huggingface-hub==0.36.0",
+      "onnxruntime==1.22.1"
+    ],
+    "constraints": [
+      "torch==2.6.0+cu124",
+      "torchvision==0.21.0+cu124",
+      "torchaudio==2.6.0+cu124"
+    ],
+    "flashWheelBytes": 187815087,
+    "flashWheelDigest": "not-published-by-official-release",
+    "resolverVersion": "uv 0.13.5 (Homebrew 2026-10-22 aarch64-apple-darwin)"
+  }
+}

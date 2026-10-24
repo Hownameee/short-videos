@@ -25,8 +25,11 @@ publish videos.
   duration, loudness, and true peak. Emotional fit and visual quality still need
   human review.
 
-Generated audio, videos, render logs, local environments, and raw benchmark
-workspaces are excluded from Git. The example scripts, asset provenance,
+Generated output folders, render logs, local environments, and raw benchmark
+workspaces are excluded from Git. Prepared remote job inputs under each project's
+`remote/longcat/` and `remote/longcat-vi/` folders can be versioned for
+clone-and-run GPU jobs.
+The example scripts, asset provenance,
 manifests, and renderer checksums remain available; their historical state
 does not mean the corresponding media exists in a fresh clone.
 
@@ -65,6 +68,11 @@ generates talking video in chunks, mattes it with MatAnyone2, and uses FFmpeg
 to overlay it on an existing render while keeping that render's audio. The
 current presenter image is in `tools/mascot-echomimic/assets/`. This optional
 path is separate from the default narration and Remotion workflow.
+
+For a rented RTX 3090 Ti, use the [remote LongCat setup](tools/mascot-longcat/README.md).
+It prepares a small Git-trackable full-WAV job locally, overlaps remote package
+and model downloads, generates the mascot in one full-audio invocation, and
+returns the MP4 plus diagnostics for local background removal and compositing.
 
 Start a new project:
 

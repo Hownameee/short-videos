@@ -1,0 +1,13 @@
+Xóa một Pod. Ai đưa ứng dụng của bạn trở lại? Đây là cách Kubernetes tự phục hồi, trong một phút.
+
+Giả sử ứng dụng web cần ba bản sao. Bạn khai báo ba replica trong một Deployment. Mỗi bản sao chạy trong một Pod, chứa container của ứng dụng.
+
+Bây giờ một Pod bị xóa. ReplicaSet phát hiện số lượng thực tế chỉ còn hai, trong khi trạng thái mong muốn là ba.
+
+Nó tạo một Pod thay thế. Scheduler chọn một node phù hợp, rồi kubelet khởi chạy các container. Vòng lặp liên tục so sánh thực tế với mục tiêu này gọi là reconciliation.
+
+Nhưng người dùng cần một địa chỉ ổn định. Service chuyển lưu lượng đến các Pod đã sẵn sàng. Pod mới chỉ nhận lưu lượng khi vượt qua kiểm tra sẵn sàng.
+
+Việc phục hồi cần thời gian và tài nguyên còn trống. Kubernetes cũng không tự sửa được lỗi trong mã ứng dụng.
+
+Bạn khai báo trạng thái mong muốn, Kubernetes liên tục thu hẹp chênh lệch. Hãy thử tạo ba replica trong cụm thử nghiệm, xóa một Pod, rồi quan sát nó được thay thế.
