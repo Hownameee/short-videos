@@ -39,6 +39,42 @@
         "The plan prototypes the hook, hardest explanatory beat, and payoff before committing to a full render.",
         "The review separates content alignment, caption-independent comprehension, aesthetic preference, render determinism, and later audience metrics."
       ]
+    },
+    {
+      "id": 4,
+      "prompt": "The approved 48-second 3D explainer has good materials, but repeats a wide view of three objects. Actions occur at seconds 1, 14 and 32; the rest holds. Keep the voice and style. Give a concrete motion revision plan, not code or a render. Explain how to review whether it is less static.",
+      "expected_output": "Timecoded shot plan with purposeful subject action, framing variation, justified holds, representative timed animatic before polish, and separate pacing versus frame-integrity checks.",
+      "files": [],
+      "expectations": [
+        "Provides a shot timeline with intervals, subject actions, framing, camera or lock, holds and transitions; unverified cue times are labeled estimates.",
+        "Uses a representative narration-timed animatic before full polish and compares the same old/new interval.",
+        "Requires normal-speed playback for pacing and distinguishes adjacent frames from pacing evidence.",
+        "Preserves useful holds and rejects perpetual camera motion or fixed cut quotas."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "The 3D data pipeline has a dense equation that needs a five-second reading hold. Make it more engaging: orbit constantly and cut every two seconds. Only contact sheets and adjacent frames are available; can we mark pacing passed? Dependencies and this motion correction are already authorized. Give a brief production decision, without editing or rendering.",
+      "expected_output": "Protect the justified hold, reject arbitrary motion, mark pacing review unavailable, reuse authority and preserve determinism.",
+      "files": [],
+      "expectations": [
+        "Retains the five-second hold when needed for comprehension rather than imposing a cut quota.",
+        "Does not accept a constant orbit as sufficient explanatory motion.",
+        "Marks normal-speed pacing not performed because only still/adjacent evidence is available.",
+        "Reuses explicit authorization without a redundant dependency or motion approval request."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Plan an impressive 3D short explaining a fair coin and why ten flips need not give five heads. Think beyond generic cubes; propose distinct visual ideas and a reference-research strategy. No browsing tools or media are available in this evaluation. Do not render.",
+      "expected_output": "Distinct visual concepts, accurate metaphor limits, concrete art direction and reveal, honest research limits, and timed animatic validation.",
+      "files": [],
+      "expectations": [
+        "Explores at least three distinct mechanisms or visual associations, rather than only palette variants.",
+        "Explicitly distinguishes per-flip 50/50 probability from guaranteed five heads in ten flips.",
+        "Selects a direction with concrete silhouette/material/light/composition and a motivated visual reveal.",
+        "Gives a reference-research strategy without claiming unavailable browsing, image inspection, or playback."
+      ]
     }
   ]
 }

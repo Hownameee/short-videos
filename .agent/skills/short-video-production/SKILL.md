@@ -38,7 +38,7 @@ by the current Kubernetes renderer and are rejected rather than silently ignored
 | Sound selection, mood or mix | [Sound QC](../../../docs/VIDEO_SOUND_QC.md); relevant background-guide section |
 | Generate/change narration | [Kokoro](../kokoro-tts/SKILL.md) |
 | Change art direction, layout, scene motion or caption UI | [Visual design](../short-video-visual-design/SKILL.md) |
-| Build or revise real 3D, hybrid 2D/3D, GLB/glTF or Blender-pass scenes | [Hybrid 3D](../short-video-hybrid-3d/SKILL.md) |
+| Build or revise real 3D, hybrid 2D/3D, GLB/glTF or Blender-pass scenes; correct static-looking 3D pacing | [Hybrid 3D](../short-video-hybrid-3d/SKILL.md), including its shot timeline and animatic review |
 | Change Remotion code | [Remotion practices](../remotion-best-practices/SKILL.md), then only relevant API/rule reference |
 
 Do not load voice setup, visual design, the blueprint or all Remotion packages for
@@ -69,7 +69,9 @@ List guidance actually used in the work report.
 5. Render `--preview`. Inspect the contact sheet (opening, every scene, ending)
    for focal point, readable mobile text, safe areas, asset quality and coherent
    visual style. Inspect playback/consecutive frames through every main motion
-   beat. A static frame cannot establish meaningful animation.
+   beat. For 3D motion revisions, apply the hybrid skill's animatic and
+   normal-speed pacing review before full-render polish. A static frame cannot
+   establish meaningful animation; adjacent frames cannot establish pacing.
 6. Check at least three successive word highlights and a later scene/chunk;
    record frame times and timing source. Check missing/repeated/mispronounced
    words, speech intelligibility, music arc, fades, loops and phone/mono playback.

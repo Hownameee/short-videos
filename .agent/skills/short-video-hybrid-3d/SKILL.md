@@ -5,9 +5,11 @@ description: >-
   renderer using Three.js, React Three Fiber, GLB/glTF, Blender passes, or a
   combination. Use whenever a selected direction, script, or production request
   mentions 3D, hybrid 2D+3D, spatial camera travel, @remotion/three, R3F, GLB,
-  glTF, or Blender. Preserve workflow gates; exclude topic research,
+  glTF, or Blender, or an existing 3D video needs stronger visual concepts,
+  references, or purposeful motion instead of static, repetitive staging.
+  Preserve workflow gates; exclude topic research,
   narration-only, soundtrack-only, generic 2D layout, and geographic flyovers.
-compatibility: Repository-local Remotion 4 workflow; 3D dependencies are optional and require approval before installation.
+compatibility: Repository-local Remotion 4 workflow; inspect pinned 3D dependencies and reuse existing authorization before requesting additions.
 ---
 
 # Hybrid 2D/3D short-video production
@@ -42,6 +44,10 @@ planning and the
 Do not bypass the direction or script gate because a user asks for an impressive
 3D result. Do not install new production dependencies until the user explicitly
 approves that dependency change.
+An authorized correction to an existing video covers scoped camera, blocking,
+and timing changes that preserve the approved claims and narration; do not ask
+again for the same authority. Follow production's revision rules when script or
+design configuration changes invalidate approval.
 
 ## Choose the rendering path
 
@@ -58,6 +64,47 @@ Default to stable `<ThreeCanvas>`. Use `<ThreeWebGPUCanvas>` only for a proven
 TSL/WebGPU need and record its experimental status and fallback behavior.
 
 ## Establish the spatial story
+
+### Explore visual ideas before selecting geometry
+
+Translate the explanation into relationships and verbs first: uncertainty,
+containment, competition, accumulation, branching, loss, recovery, or scale.
+Explore a few materially different visual directions before committing to the
+first available primitive: a literal mechanism, a familiar physical analogy,
+and an unexpected but explainable association. For each, state the mapping,
+strongest reveal, what depth adds, and where the analogy breaks. Choose for
+comprehension, surprise, silhouette, and portrait-frame feasibility; these are
+editorial judgments, not invented numeric quality scores.
+
+Associations are starting points, not a stock-object dictionary. Probability
+might suggest a coin, branching paths, a bag of unequal tokens, or a growing
+distribution. A fair coin illustrates two equally likely outcomes; a biased
+event needs unequal probabilities, and 50/50 does not promise exactly half of
+every finite run. Show those assumptions when relevant. A queue might suggest
+a checkout line, while congestion needs a bottleneck rather than unrelated
+glowing cubes. Check both the mechanism and the limits of each metaphor.
+
+When references would improve the direction, search the web using the concept,
+physical analogy, motion technique, material, and composition, not just the topic
+name. Prefer original studio work, scientific demonstrations, real objects, and
+primary technical sources. Inspect actual images or clips where available.
+Record source links and the specific lesson: silhouette, scale, lighting,
+staging, transition, or reveal. Distinguish watching a clip from seeing its
+thumbnail or reading its description. If browsing fails, label the reference
+gap and proceed with explicit original hypotheses rather than claiming research.
+Do not copy a reference's complete composition or use its assets without rights.
+
+Turn the selected direction into visible choices: recognizable hero silhouette,
+intentional material contrast, light separating subject from background,
+controlled palette, depth/occlusion, negative space, and a deliberate scale or
+inside/outside reveal. Spend detail on the focal object; simplify support. Test
+the silhouette and focal point at phone size. Attractive lighting cannot rescue
+an interchangeable metaphor; extra bloom cannot rescue weak staging.
+
+Create contrasting style-frame candidates when the direction is unclear. When
+the user already likes the look, preserve it and explore staging or motion
+variants instead. Select the concept before polishing assets, then validate it
+in the timed animatic below. Use 2D where it explains the relationship better.
 
 Before JSX, state:
 
@@ -96,13 +143,72 @@ map in the preview fingerprint, and pass it to the composition before relying
 on it as a production contract.
 
 Reject a scene when its visual claim could fit unrelated narration, when its
-objects cannot be named in domain language, or when its motion is only camera
+objects have no clear domain role or explicit metaphor-to-domain mapping, or when its motion is only camera
 travel, glow, orbit, or particles. Decorative 3D may support atmosphere, but it
 cannot be the primary evidence for a narrated claim.
 
 Before implementing the full timeline, make representative hook, hardest
-explanation, and payoff frames or a low-material animatic. Review them against
-the map. A technical frame is not approved merely because it is attractive.
+explanation, and payoff style frames, then a low-material animatic with the
+intended narration timing. Review both against the map or shot notes when the
+map is not implemented. Attractive stills cannot establish pacing.
+
+## Design motion across time
+
+A persistent world does not require a persistent wide shot. One brief event per
+scene can satisfy a motion checklist while leaving most of the video inert.
+Before polishing materials, record a compact shot timeline in production notes:
+
+| Decision | Record |
+| --- | --- |
+| Interval and cue | Start/end seconds or frames, narrated cue, information gained |
+| Framing | Wide/medium/detail, subject size, focal point, start/end view |
+| Subject action | Visible causal change, anticipation, transformation, settled result |
+| Camera | Motivated reveal or tracking path, easing and stop; a locked camera is valid |
+| Hold | Reading or comprehension purpose and duration |
+| Connection | Cut, match action, or continuous movement; preserve identity and orientation |
+
+Keep this as planning data unless the renderer actually consumes and validates
+it; do not invent a supported schema. Derive cue times from the existing voice
+manifest. For a plan without voice timing, mark durations as estimates.
+
+Choose framing to expose new information: establish the system, move closer to
+the mechanism, then reveal the consequence. Let the subject lead and the camera
+support it. Use shot-size variation, progressive disclosure, assembly, transfer,
+or state changes where the story benefits. Preserve useful holds, spatial
+continuity and stable DOM captions; essential labels must survive camera moves.
+Avoid perpetual orbit, idle bobbing, particles, arbitrary zooms, or fixed cut
+quotas as a substitute for development. Not every shot needs a moving camera.
+
+For an existing static-looking video, inspect its actual timeline and locate
+intervals where neither the subject nor the information develops. Record their
+timestamps and decide whether to shorten, reframe, add a causal action, or keep
+the hold for an explicit reading purpose. Preserve the visual style that already
+works. A hold around three seconds is a useful review flag, not an automatic
+failure or a requirement to cut; dense explanations may need longer.
+
+For example, reveal containment by moving from the complete object into its
+interior, opening the shell on the cue, then holding the exposed mechanism.
+For transfer, show origin, follow the same object to its destination, and settle
+on the changed system. These patterns apply across topics; do not reuse a
+Kubernetes miniature for unrelated content.
+
+## Review the animatic before polish
+
+Render the hook plus the hardest action and its neighboring transition at the
+intended timing/FPS with narration, using simple geometry if needed. Review at
+normal playback speed and phone size before scaling the approach to the full
+timeline. Compare old/new versions over the same interval when revising one.
+This is a production check within existing authorization, not a new user-approval
+gate. Keep the existing script and final-export gates.
+
+Evaluate separately: semantic accuracy, pacing, readability, and temporal
+integrity. Reject unexplained idle intervals, repetitive framing that hides new
+information, movements that obscure a claim, and results that never settle.
+Fix shot timing or staging before adding lighting polish or effects.
+Consecutive frames help find pops and synchronization errors; contact sheets
+show sampled composition. Neither proves normal-speed pacing. If playback or
+listening is unavailable, mark that check not performed, retain the clip and
+timecoded evidence, and do not report pacing or emotional fit as passed.
 
 ## Build deterministically
 
@@ -184,6 +290,8 @@ QC, inspect:
 - every camera turn and object/camera near-crossing;
 - model, texture, environment, and shadow readiness;
 - transformation peak and payoff hold;
+- normal-speed pacing, motivated framing changes, timecoded idle intervals,
+  justified holds, and continuity across neighboring shots;
 - consecutive frames for jerk, popping, z-fighting, focus pumping, stale video
   texture, or autonomous motion;
 - caption/evidence stability over moving depth;
@@ -194,8 +302,8 @@ QC, inspect:
 - hook, hardest explanation, and payoff without relying on captions alone;
 - any object or effect that looks important but carries no domain meaning.
 
-The contact sheet proves sampled appearance only. Retain consecutive-frame or
-playback evidence for motion. A technical render pass does not establish that
+The contact sheet proves sampled appearance only. Retain consecutive-frame
+evidence for temporal defects and playback evidence for pacing. A technical render pass does not establish that
 the 3D concept is impressive or improves retention; record subjective review
 and later platform metrics separately.
 
@@ -211,3 +319,5 @@ Report:
 5. final artifacts and any unperformed subjective or device review.
 6. content-alignment evidence and any scene that remains illustrative rather
    than explanatory.
+7. shot timeline, animatic path, old/new intervals compared, pacing defects
+   fixed, justified holds, and playback/listening checks not performed.

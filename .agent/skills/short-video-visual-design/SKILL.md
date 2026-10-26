@@ -23,7 +23,10 @@ media handling, Studio, and rendering.
 For real 3D or hybrid 2D/3D work, this skill continues to own phone-scale
 hierarchy, typography, palette, captions, and safe areas; route spatial
 cinematography, model/Blender flow, deterministic Three.js behavior, and
-3D-specific QC to `../short-video-hybrid-3d/SKILL.md`.
+3D-specific QC to `../short-video-hybrid-3d/SKILL.md`. That skill also owns shot
+timelines and animatic pacing corrections when an existing 3D video looks
+static; apply this skill's hierarchy and safe-area constraints without
+duplicating its cinematography workflow.
 
 ## Define the visual system before JSX
 

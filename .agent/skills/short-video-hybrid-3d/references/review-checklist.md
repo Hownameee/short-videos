@@ -26,6 +26,33 @@ or fail with no trace.
 - [ ] Every visually dominant object has domain meaning; decorative effects do
       not compete with explanatory objects.
 
+## Motion and pacing
+
+- [ ] Visual directions were explored at the level of mechanism/metaphor, not
+      just recoloring the same primitives; approved successful style is preserved.
+- [ ] The selected metaphor has an explicit factual mapping, assumptions and
+      limitations; visual spectacle does not introduce a false claim.
+- [ ] Any references have source links and specific observed lessons; thumbnail,
+      text-only, clip playback, and original inference are distinguished.
+- [ ] Silhouette, materials, light, depth and negative space support one focal
+      object at phone size; reference assets have rights before incorporation.
+
+- [ ] Shot notes identify intervals, voice cues, framing, subject action, camera
+      movement or lock, hold purpose, and the connection to the next shot.
+- [ ] Hook and hardest action plus a neighboring transition were reviewed as a
+      timed animatic before material/lighting polish or full-timeline expansion.
+- [ ] Normal-speed phone-size playback was checked separately from stills and
+      adjacent-frame inspection; unavailable playback is marked not performed.
+- [ ] Idle intervals and repeated framing were examined with timestamps; long
+      holds have a reading/comprehension purpose rather than a fixed cut quota.
+- [ ] Subject actions reveal new information; camera movement, glow and idle
+      loops do not stand in for the explanatory transformation.
+- [ ] Camera moves preserve object identity, orientation, labels and captions;
+      important outcomes settle long enough to understand.
+- [ ] Revisions compare the same old/new narration interval where available.
+- [ ] Pacing, semantic accuracy, readability and temporal defects have separate
+      outcomes; technical checks do not certify engagement or listening quality.
+
 ## Assets and lighting
 
 - [ ] Every model, texture, HDRI, footage pass, and decoder is local at render.
