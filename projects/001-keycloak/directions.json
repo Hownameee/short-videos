@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "researchVersion": "sha256:6120f7ebcb4e101ee412ced00d2cb89bbbe7830592ec20e548003d6184bd9712",
+  "directions": [
+    {
+      "id": "A",
+      "title": "Follow the login",
+      "tensionHook": "Why did your app send you somewhere else?",
+      "promise": "Trace login to API access",
+      "payoff": "Keycloak authenticates; the API enforces access",
+      "coreBeats": [
+        "Authenticate",
+        "Exchange",
+        "Access"
+      ],
+      "evidenceIds": [
+        "claim-1",
+        "claim-2",
+        "claim-3",
+        "claim-4",
+        "claim-5"
+      ],
+      "visualApproach": "Animated native diagrams",
+      "musicMood": "Restrained electronic curiosity",
+      "durationRangeSec": {
+        "min": 60,
+        "max": 75
+      }
+    },
+    {
+      "id": "B",
+      "title": "OAuth is not login",
+      "tensionHook": "Access and identity are different jobs",
+      "promise": "Distinguish OAuth and OIDC",
+      "payoff": "Choose the right token for each job",
+      "coreBeats": [
+        "Authenticate",
+        "Exchange",
+        "Access"
+      ],
+      "evidenceIds": [
+        "claim-1",
+        "claim-2",
+        "claim-3",
+        "claim-4",
+        "claim-5"
+      ],
+      "visualApproach": "Animated native diagrams",
+      "musicMood": "Restrained electronic curiosity",
+      "durationRangeSec": {
+        "min": 60,
+        "max": 75
+      }
+    },
+    {
+      "id": "C",
+      "title": "One login, two apps",
+      "tensionHook": "Why no password on the second app?",
+      "promise": "Explain a shared Keycloak session",
+      "payoff": "SSO reuses authentication",
+      "coreBeats": [
+        "Authenticate",
+        "Exchange",
+        "Access"
+      ],
+      "evidenceIds": [
+        "claim-1",
+        "claim-2",
+        "claim-3",
+        "claim-4",
+        "claim-5"
+      ],
+      "visualApproach": "Animated native diagrams",
+      "musicMood": "Restrained electronic curiosity",
+      "durationRangeSec": {
+        "min": 60,
+        "max": 75
+      }
+    }
+  ],
+  "recommendedDirectionId": "A"
+}
