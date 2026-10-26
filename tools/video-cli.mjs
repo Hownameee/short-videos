@@ -145,7 +145,7 @@ const runRender = async (options) => {
       workspaceRoot,
       projectDir: input.projectDir,
       kind,
-      composition: options.composition || "ShortVideo",
+      composition: options.composition,
       output: temporaryOutput,
       prepared: input,
     });

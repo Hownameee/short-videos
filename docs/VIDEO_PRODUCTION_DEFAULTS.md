@@ -59,7 +59,7 @@ meaningful transformation, process, comparison or movement within each scene.
 A progress bar, title fade or decorative pulse alone is insufficient. Use
 Remotion frame time, not CSS animation clocks. Inspect playback or consecutive
 frames through each main action. New topics need their own visuals; existing
-Kubernetes diagrams are topic-specific.
+Do not reuse another topic's diagrams as generic output.
 
 ## Background sound
 
@@ -85,5 +85,5 @@ and separate passed/failed/not-performed outcomes. Disclose unavailable listenin
 continue authorized export with measured checks without inventing a listening pass.
 
 Commands are in [renderer README](../renderer/README.md).
-[Historical validation](history/PRODUCTION_VALIDATION.md) is archival, not required
-task context. Current workflow evidence is in [the benchmark](WORKFLOW_BENCHMARK.md).
+Use current project evidence for validation; benchmark methodology is in
+[the benchmark notes](WORKFLOW_BENCHMARK.md).

@@ -15,9 +15,9 @@ here. Use a neutral run identifier rather than an SSH endpoint.
    If the fix patches downloaded upstream code, encode a revision-checked patch
    in local setup so a new clone reproduces it. Record the expected upstream
    revision and the reason for the patch.
-4. Record the narrow validation actually performed. The current user skips
-   pilot renders; do not add a three-second gate as part of fixing setup. Use
-   static/import/input checks, then the authorized full run when ready.
+4. Record the narrow validation actually performed. Use static/import/input checks first, then a project-appropriate pilot
+   and the authorized production run. Approval from a previous project does
+   not authorize a new remote run.
 5. Retrieve the relevant redacted logs and exit records while the rental exists.
    Update [CONTEXT.md](CONTEXT.md) or [README.md](README.md) if the change affects
    the next operator's commands or decisions.

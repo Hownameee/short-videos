@@ -63,3 +63,12 @@ outputs on failure. The CLI checks current preview fingerprints.
 Report the phase, concrete artifacts, validation and any remaining decision.
 `produced` certifies technical checks, not subjective emotional fit. Never claim
 a media file or listening check exists without evidence.
+
+## Shared infrastructure and project ownership
+
+Follow the [project renderer contract](../../../docs/PROJECT_RENDERER.md).
+Keep topic scenes, visual maps, reference research, prompts, assets, and custom
+scripts inside the selected project. Put only reusable components in shared
+`renderer/src/`; tools accept project paths and explicit inputs. Never embed a
+project ID, topic registry, character identity, or past approval in shared skills.
+Deleting a project must not require changing shared tools or skills.

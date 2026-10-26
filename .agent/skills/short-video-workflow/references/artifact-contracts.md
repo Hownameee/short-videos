@@ -39,8 +39,8 @@ projects/<nnn>-<slug>/
 
 Allocate `<nnn>` when a new workflow receives its prompt, starting at `001` and
 using the next existing number. Create `request.json` and `state.json` before
-research or brainstorming. Renderer source stays in `renderer/src/`; final
-renders record its checksum without copying the source into a project.
+research or brainstorming. Topic renderer source lives in project `renderer/`, with a project `render.json`
+manifest. Shared components stay in root `renderer/src/`. Final snapshots hash both.
 
 ## `state.json`
 
@@ -221,9 +221,9 @@ verify them with a UI overlay in the preview. When authoring at 1080×1920 logic
 coordinates, use half these margins and scale the entire layout by 2.
 For a later transparent-presenter composite, `design.presenterOverlay` is an
 optional `{ "x": 790, "y": 1210, "width": 260, "height": 456 }` rectangle in
-1080×1920 logical coordinates. Keep it within that canvas. The Kubernetes
-renderer narrows its lower caption, progress, and source region to the left of
-the rectangle; the EchoMimic compositor reads the same placement.
+1080×1920 logical coordinates. Keep it within that canvas. Each new renderer
+must reserve that rectangle for the presenter; the EchoMimic compositor reads
+the same placement.
 
 The music path/gain are placeholders, not a ready asset or universal mix level.
 Select or generate the real asset, save its provenance, and measure the actual
@@ -236,9 +236,9 @@ notes. Before delivery, record `output/docs/qc.json.backgroundSound` as specifie
 These are agent-owned review records; the current CLI does not validate their
 schema or infer audibility from them. Preserve an existing QC file's other fields.
 
-The example is an editorial plan, not an implemented Docker renderer. Current
-render routes currently support `meta.renderer: "kubernetes"`; omitted renderer
-retains legacy Kubernetes compatibility. Unsupported routes or scene IDs fail.
+The example is an editorial plan, not an implemented Docker renderer. Implement a project-owned composition and `render.json` as defined in the
+[renderer contract](../../../../docs/PROJECT_RENDERER.md). Missing manifests or
+unsupported scene IDs fail preflight.
 
 ## Production-only revisions
 
@@ -294,7 +294,7 @@ punctuation and retains actual Kokoro token timings with audio-chunk offsets;
 requires ordered, in-range words covering the approved spoken text and phrase
 boundaries that do not cut words. Explicit `captions.mode: "phrase" | "none"`
 opts out of word highlighting; phrase timing/coverage and scene identity/duration
-are still validated, and the Kubernetes renderer implements these modes.
+are still validated; each new renderer must implement these modes.
 See [production defaults](../../../../docs/VIDEO_PRODUCTION_DEFAULTS.md).
 
 - `direction.json` records the Phase 1 choice.

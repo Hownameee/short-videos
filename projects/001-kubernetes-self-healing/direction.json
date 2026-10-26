@@ -1,9 +1,0 @@
-{
-  "schemaVersion": 1,
-  "directionId": "missing-pod",
-  "researchVersion": "sha256:7613449e547e9eab590ccd049023585427a6c8a9f9e98d2ec648d7b7ded1999d",
-  "selectedAt": "2026-10-04T17:12:38.262Z",
-  "userNotes": "User explicitly delegated every decision and requested completion; agent selected recommended direction.",
-  "overrides": {},
-  "assumptions": []
-}

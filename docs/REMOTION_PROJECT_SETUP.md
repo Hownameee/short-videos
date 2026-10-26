@@ -40,8 +40,9 @@ npm run video -- render --project projects/NNN-topic --final
 
 Research, scriptwriting, asset preparation and new scene implementation remain
 agent/user tasks. Kokoro produces narration, not music or visuals. The renderer
-currently implements Kubernetes only; set `meta.renderer` explicitly
-for new data. An unknown renderer fails instead of silently selecting Kubernetes.
+has an empty shared Studio shell. Implement a project-owned composition and
+`render.json` using the [renderer contract](PROJECT_RENDERER.md). Preflight
+rejects missing manifests and unsupported scene IDs.
 
 New projects default to **2160×3840 at 60 fps**, from
 [`renderer/src/video-format.json`](../renderer/src/video-format.json).

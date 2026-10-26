@@ -15,11 +15,12 @@ The rental only needs this Python pipeline and its model runtime. Read
   The driver must support CUDA 12.4; an installed CUDA compiler is unnecessary.
 - LongCat-Video-Avatar 1.5 INT8, distilled eight steps, 480p, native 25 fps,
   `TALKER_LOWVRAM=1`, `TALKER_VRAM_RESERVE_GB=9.5`.
-- One image, one complete speech WAV, one prompt, one invocation. No preliminary
-  three-second render, externally sliced audio or independently generated clips.
+- Production uses one image, one complete speech WAV, one prompt and one
+  invocation to preserve continuity. Choose pilot validation per project; a
+  previous project’s decision to skip a pilot is not a shared default.
 - LongCat internally uses temporal windows with 13 frames of conditioning,
-  carried latent/KV state, and the original image reference. A 57.033-second WAV
-  needs 18 native windows. This is **not one 57-second diffusion window**.
+  carried latent/KV state, and the original image reference. Long audio is not
+  processed as one simultaneous diffusion window.
 
 The 480p offload settings completed a historical 31-second rental run. The
 720p alternative failed with OOM on the same memory class. The new scripts have
@@ -35,9 +36,10 @@ Run from the repository root with Python 3.10+ and FFmpeg/ffprobe available:
 
 ```bash
 python3 tools/mascot-longcat/prepare.py \
-  --project projects/001-kubernetes-self-healing
+  --presenter assets/presenters/presenter.png \
+  --project projects/NNN-topic
 python3 tools/mascot-longcat/run.py \
-  --job projects/001-kubernetes-self-healing/remote/longcat/job.json --dry-run
+  --job projects/NNN-topic/remote/longcat/job.json --dry-run
 ```
 
 `prepare.py` copies the complete `output/voice/full.wav` byte for byte, flattens
@@ -45,7 +47,7 @@ the presenter's alpha over a neutral background, writes a restrained speaking
 prompt, and hashes the prepared inputs. It writes the following small bundle:
 
 ```text
-projects/001-kubernetes-self-healing/remote/longcat/
+projects/NNN-topic/remote/longcat/
   job.json
   presenter.png
   full.wav
@@ -57,23 +59,21 @@ Use `--name longcat-vi` to keep a second job and its results separate:
 
 ```bash
 python3 tools/mascot-longcat/generate_vi_voice.py \
-  --text projects/001-kubernetes-self-healing/remote/longcat-vi/narration.vi.txt \
-  --output projects/001-kubernetes-self-healing/remote/longcat-vi/full.wav
+  --text projects/NNN-topic/remote/longcat-vi/narration.vi.txt \
+  --output projects/NNN-topic/remote/longcat-vi/full.wav
 python3 tools/mascot-longcat/prepare.py \
-  --project projects/001-kubernetes-self-healing \
+  --presenter assets/presenters/presenter.png \
+  --project projects/NNN-topic \
   --name longcat-vi \
-  --audio projects/001-kubernetes-self-healing/remote/longcat-vi/full.wav
+  --audio projects/NNN-topic/remote/longcat-vi/full.wav
 python3 tools/mascot-longcat/run.py \
-  --job projects/001-kubernetes-self-healing/remote/longcat-vi/job.json --dry-run
+  --job projects/NNN-topic/remote/longcat-vi/job.json --dry-run
 ```
 
-The Vietnamese text follows the seven beats of project 001's English narration:
-deleted Pod, desired replicas, ReplicaSet, replacement scheduling, Service,
-recovery limits and a test-cluster exercise. `generate_vi_voice.py` requires a
+Supply your own translated narration text. `generate_vi_voice.py` requires a
 local Python environment with VieNeu TTS 3.8.3 and `huggingface_hub`; it is not
-run on the rental. Set `HF_HOME` to an existing model cache to reuse downloaded
-weights. The supplied bundle already contains the generated 59.01-second WAV,
-close to the English bundle's 57.03 seconds.
+run on the rental. Set `HF_HOME` to an existing model cache to reuse weights.
+No prepared narration or job bundle is included.
 The visual prompt can remain in English; the WAV supplies the spoken language.
 For a rental, pass `remote/longcat-vi/job.json` to `launch.sh`, then pass the
 same path with `--job` to `fetch.py`. Its result is saved as
@@ -82,7 +82,7 @@ This profile accepts near-9:16 portraits (height/width between 1.70 and 1.865),
 which the pinned model maps to 480×832. Other aspect buckets need an explicit
 profile update before paying for generation.
 Reprepare after changing narration or portrait. The default prompt describes the
-included female presenter in a pink shirt; supply a matching prompt for other
+supplied reference presenter; supply a matching prompt for specific
 portraits. The original transparent portrait stays available locally as a mask
 reference. The prepared RGB image is intentionally opaque because LongCat emits
 RGB video.
@@ -98,7 +98,7 @@ on the GPU host; local compositing reads it after retrieval.
 Connect using the **current rental's** SSH details. If this repository is
 private, use normal SSH agent forwarding or a read-only deploy key for clone;
 never embed a token in the clone URL. Replace `PUBLISHED_BRANCH` with the branch
-actually pushed (the preparation work currently lives on `remote-gpu`):
+actually pushed (use your actual branch):
 
 ```bash
 git clone --single-branch --branch PUBLISHED_BRANCH \
@@ -106,7 +106,7 @@ git clone --single-branch --branch PUBLISHED_BRANCH \
 cd short-videos
 git rev-parse HEAD
 bash tools/mascot-longcat/launch.sh --install-system \
-  projects/001-kubernetes-self-healing/remote/longcat/job.json
+  projects/NNN-topic/remote/longcat/job.json
 ```
 
 On a bare Ubuntu template, `--install-system` installs the missing OS packages
@@ -143,7 +143,7 @@ For foreground generation after setup:
 ```bash
 tools/mascot-longcat/.runtime/talker/.venv/bin/python -u \
   tools/mascot-longcat/run.py \
-  --job projects/001-kubernetes-self-healing/remote/longcat/job.json
+  --job projects/NNN-topic/remote/longcat/job.json
 ```
 
 ## Monitor and return the result
@@ -151,7 +151,7 @@ tools/mascot-longcat/.runtime/talker/.venv/bin/python -u \
 The launcher prints the session log and exit-code path. It also writes the
 current session directory to `.runtime/latest-session.txt`. Inspect the setup
 logs while packages and weights download; generation progress is in
-`projects/001-kubernetes-self-healing/.cache/longcat/render.log`. GPU metrics are
+`projects/NNN-topic/.cache/longcat/render.log`. GPU metrics are
 sampled every 30 seconds into `gpu.csv`. Use about a three-second SSH connection
 timeout and 10–30 second status intervals during paid work, adapting to expected
 stage duration. Do useful independent work between checks.
@@ -165,7 +165,7 @@ python3 tools/mascot-longcat/fetch.py \
   --host root@GPU_HOST --port GPU_PORT \
   --identity ~/.ssh/YOUR_GPU_KEY \
   --remote-root /root/short-videos \
-  --project projects/001-kubernetes-self-healing
+  --project projects/NNN-topic
 ```
 
 SSH host verification remains enabled; establish the trusted connection once

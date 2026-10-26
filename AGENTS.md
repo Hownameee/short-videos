@@ -30,8 +30,10 @@ routine skill discovery and document scans unless investigating a benchmark.
 
 ## Source and verification
 
-- Keep project content under `projects/NNN-topic/`; use the shared `renderer/src/`.
-  Final renders record its checksum in each project's render snapshot.
+- Keep topic scenes, render.json, assets and outputs under `projects/NNN-topic/`.
+  `renderer/src/` contains reusable components only; `tools/` and skills must not
+  hardcode a project. See [renderer contract](docs/PROJECT_RENDERER.md).
+  Final snapshots fingerprint both shared and project renderer sources.
 - Use the [existing commands](renderer/README.md). Run `npm run test:video` for
   workflow changes and `npm --prefix renderer run lint` for renderer changes.
 - Record mix evidence and listening limitations as required by production

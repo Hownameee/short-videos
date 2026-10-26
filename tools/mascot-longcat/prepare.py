@@ -11,19 +11,16 @@ from pathlib import Path
 from job import ROOT, bundle_name, probe, sha256, validate_portrait, write_json
 
 PROMPT = (
-    "A female educational presenter speaks calmly and directly to the camera. "
-    "Preserve the reference face, hairstyle, pink shirt, body proportions, "
-    "framing and lighting throughout. Natural mouth movement synchronized with "
-    "the supplied speech, occasional blinking and very small head movements. "
-    "Keep the hands relaxed in their reference position. Fixed camera, one person, "
-    "plain static background, continuous shot."
+    "Animate the presenter from the supplied reference speaking naturally to camera. "
+    "Preserve the reference identity, clothing, proportions, framing and background. "
+    "Use restrained gestures and natural facial motion matching the narration."
 )
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, required=True)
-    parser.add_argument("--presenter", type=Path, default=ROOT / "tools/mascot-echomimic/assets/presenter.png")
+    parser.add_argument("--presenter", type=Path, required=True)
     parser.add_argument("--audio", type=Path, help="Defaults to the project's output/voice/full.wav")
     parser.add_argument("--prompt-file", type=Path)
     parser.add_argument("--name", default="longcat", help="Bundle name, e.g. longcat-vi")

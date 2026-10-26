@@ -13,7 +13,8 @@ are not automated. Read this file for code changes, not every production task.
 | Full decode and audio measurements | tools/media-qc.mjs |
 | Selective narration and transactional voice replacement | tools/kokoro/generate_audio.py |
 | Caption grouping | tools/kokoro/captions.py |
-| Topic dispatch, music and caption modes | renderer/src/ |
+| Topic composition and scenes | projects/NNN-topic/renderer/ + render.json |
+| Reusable music and caption components | renderer/src/ |
 | Shared new-video format (2160×3840, 60 fps) | renderer/src/video-format.json |
 
 ## Revision contract
@@ -41,7 +42,7 @@ voice-driven frame timeline; H.264/AAC, dimensions/FPS, full decode, final LUFS
 and true peak are checked. Contact sheets cover opening/every scene/ending.
 Reports and snapshots retain input checksums; automated QC never overwrites
 editorial listening evidence. A transaction replaces final, report, snapshot,
-automated QC, and state together; it records the shared renderer source checksum.
+automated QC, and state together; it records shared and project renderer source checksums.
 
 The voice cache validates per-scene content and configuration plus generator code,
 WAV integrity and timing coverage. Changed scenes regenerate; no-op runs preserve

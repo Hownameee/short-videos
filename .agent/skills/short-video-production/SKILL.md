@@ -29,7 +29,7 @@ the previous deliverable. Run `revise` after reapproval if an overlay exists.
 Never manually rewrite approval hashes. Consult
 [contracts](../short-video-workflow/references/artifact-contracts.md) when writing
 an overlay or changing structured fields. Storyboard overrides are not implemented
-by the current Kubernetes renderer and are rejected rather than silently ignored.
+by the current workflow and are rejected rather than silently ignored.
 
 ## Focused reading
 
@@ -50,9 +50,9 @@ List guidance actually used in the work report.
 
 1. Preserve the approved promise, claim evidence, payoff and contextual CTA.
    Record a visual thesis and action/cue/settle for new scenes. New topics need
-   their own renderer; never disguise Kubernetes diagrams as generic output.
+   their own renderer; never disguise another topic's diagrams as generic output.
    A new hybrid renderer needs a validated scene map and narration cues before
-   JSX; the current Kubernetes renderer does not consume `visual-map.json`.
+   JSX; no current renderer consumes `visual-map.json`.
    When a transparent presenter will be composited later, record its placement
    in `design.presenterOverlay` and reserve that rectangle in the Remotion
    layout before rendering. Check captions and scene content against the
@@ -82,7 +82,7 @@ List guidance actually used in the work report.
    peak. It writes `output/docs/automated-qc.json` separately from editorial QC.
 8. Deliver the actual final, report and snapshot. The CLI atomically replaces
    final/report/snapshot/state after checks; failures preserve the previous
-   final. The snapshot records the shared renderer checksum. Keep only
+   final. The snapshot records shared and project renderer checksums. Keep only
    `output/video/final.mp4` as the project's delivered video.
 
 No black/missing frames, obscured payoff, secrets or internal prompts in output.
@@ -93,3 +93,12 @@ fit. If listening is unavailable, complete authorized measured export, mark it
 
 Dry-run response: one preflight table, ordered plan, QC list and artifact list.
 Use `<measured>` placeholders for measurements not yet taken.
+
+## Shared infrastructure and project ownership
+
+Follow the [project renderer contract](../../../docs/PROJECT_RENDERER.md).
+Keep topic scenes, visual maps, reference research, prompts, assets, and custom
+scripts inside the selected project. Put only reusable components in shared
+`renderer/src/`; tools accept project paths and explicit inputs. Never embed a
+project ID, topic registry, character identity, or past approval in shared skills.
+Deleting a project must not require changing shared tools or skills.

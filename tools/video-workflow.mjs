@@ -16,6 +16,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import { validateVoiceCaptions } from "./caption-validation.mjs";
 import { assertLocalMediaPath, resolveProductionVideo, validateRenderConfig, expectedDuration, reviewTimes } from "./production-config.mjs";
+import { loadProjectRenderer, bundleProject } from "./project-renderer.mjs";
 import { measureAudio } from "./media-qc.mjs";
 
 const defaultVideoFormat = JSON.parse(await readFile(
@@ -600,20 +601,20 @@ export const reviseProduction = async (workspaceRoot, projectInput) => {
 
 export const renderFingerprint = async (workspaceRoot, projectDir) => {
   const entries = {};
-  for (const name of ["video.json", "script.md", "production.json", "storyboard.json", "output/docs/voice-manifest.json", "output/docs/audio-timeline.json"]) {
+  for (const name of ["render.json", "video.json", "script.md", "production.json", "storyboard.json", "output/docs/voice-manifest.json", "output/docs/audio-timeline.json"]) {
     const file = path.join(projectDir, name);
     if (await pathExists(file)) entries[name] = await fileChecksum(file);
   }
-  for (const name of ["output/voice", "assets"]) {
+  for (const name of ["renderer", "output/voice", "assets"]) {
     const directory = path.join(projectDir, name);
-    if (await pathExists(directory)) entries[name] = await directoryChecksum(directory);
+    if (await pathExists(directory)) entries[name === "renderer" ? "renderer/source" : name] = await directoryChecksum(directory);
   }
   entries.renderer = await directoryChecksum(path.join(workspaceRoot, "renderer/src"));
   entries.lockfile = await fileChecksum(path.join(workspaceRoot, "renderer/package-lock.json"));
   const runtimeFiles = [
     "renderer/package.json", "renderer/remotion.config.ts", "renderer/tsconfig.json",
     "tools/video-cli.mjs", "tools/video-workflow.mjs", "tools/production-config.mjs",
-    "tools/caption-validation.mjs", "tools/media-qc.mjs",
+    "tools/caption-validation.mjs", "tools/media-qc.mjs", "tools/project-renderer.mjs",
   ];
   const runtime = {};
   for (const name of runtimeFiles) runtime[name] = await fileChecksum(path.join(workspaceRoot, name));
@@ -633,7 +634,8 @@ const checkedMedia = async (projectDir, file, prefix) => {
 export const prepareRender = async (workspaceRoot, projectInput) => {
   const input = await validateProductionInput(workspaceRoot, projectInput);
   const { projectDir, video } = input;
-  validateRenderConfig(video);
+  const projectRenderer = await loadProjectRenderer(projectDir);
+  validateRenderConfig({ ...video, meta: { ...video.meta, renderer: "project" } }, { project: projectRenderer.sceneIds });
   const voiceManifest = await readJson(path.join(projectDir, "output/docs/voice-manifest.json"));
   if (voiceManifest.scriptVersion !== video.scriptVersion) throw new Error("Voice manifest is stale relative to the approved script version. Run the shared voice generator.");
   validateVoiceCaptions(video, voiceManifest);
@@ -648,7 +650,6 @@ export const prepareRender = async (workspaceRoot, projectInput) => {
   const audioTimelinePath = path.join(projectDir, "output/docs/audio-timeline.json");
   const audioTimeline = await pathExists(audioTimelinePath) ? await readJson(audioTimelinePath) : undefined;
   if (audioTimeline) {
-    if ((video.meta.renderer ?? "kubernetes") !== "kubernetes") throw new Error("Combined narration is currently supported only by the Kubernetes renderer.");
     if (audioTimeline.schemaVersion !== 1 || audioTimeline.audioFile !== "output/voice/full.wav" ||
         audioTimeline.fps !== video.meta.fps || audioTimeline.sampleRate !== voiceManifest.sampleRate ||
         audioTimeline.scriptVersion !== video.scriptVersion ||
@@ -696,9 +697,6 @@ export const prepareRender = async (workspaceRoot, projectInput) => {
     const probe = await probeMedia(file);
     if (Number(probe.format.duration) + 1 / video.meta.fps < expectedDuration(video, voiceManifest, audioTimeline)) throw new Error("Background track is shorter than the video; prepare its loop/fade before rendering.");
   }
-  if ((video.meta.renderer ?? "kubernetes") === "kubernetes" && video.audio !== null && video.audio?.sfx !== false && video.scenes.some((s) => s.id === "replace")) {
-    await checkedMedia(projectDir, "assets/sfx/success-chime.wav", "assets");
-  }
   const fingerprint = await renderFingerprint(workspaceRoot, projectDir);
   return { ...input, voiceManifest, audioTimeline, fingerprint, music, expectedDurationSec: expectedDuration(video, voiceManifest, audioTimeline), reviewTimes: reviewTimes(video, voiceManifest, audioTimeline) };
 };
@@ -741,42 +739,28 @@ export const renderWithRemotion = async ({
   workspaceRoot,
   projectDir,
   kind,
-  composition = "ShortVideo",
+  composition,
   output,
   prepared,
 }) => {
-  const rendererDir = path.join(workspaceRoot, "renderer");
-  const executable = path.join(
-    rendererDir,
-    "node_modules",
-    ".bin",
-    process.platform === "win32" ? "remotion.cmd" : "remotion",
-  );
-  if (!(await pathExists(executable))) {
-    throw new Error("Remotion is not installed. Run npm install inside renderer/.");
-  }
-
   const { video, voiceManifest, audioTimeline } = prepared ?? await prepareRender(workspaceRoot, projectDir);
-  const assetRoot = await stageProjectMedia(rendererDir, projectDir);
-
-  const props = JSON.stringify({
-    projectDir,
-    videoJson: path.join(projectDir, "video.json"),
-    renderMode: kind,
-    assetRoot,
-    video,
-    voiceManifest,
-    audioTimeline,
-  });
-  const args = ["render", composition, output, "--overwrite", "--props", props];
-  if (kind === "preview") args.push("--scale", "0.5", "--crf", "28");
-  else args.push("--crf", "18");
-
-  await runCommand(executable, args, { cwd: rendererDir, env: process.env });
+  const manifest = await loadProjectRenderer(projectDir);
+  if (composition && composition !== manifest.compositionId) throw new Error("Composition override must match render.json.");
+  const assetRoot = await stageProjectMedia(projectDir);
+  const {serveUrl, require} = await bundleProject(workspaceRoot, projectDir);
+  const {selectComposition, renderMedia} = require('@remotion/renderer');
+  const inputProps = {projectDir, videoJson: path.join(projectDir, 'video.json'), renderMode: kind,
+    assetRoot, video, voiceManifest, audioTimeline};
+  try {
+    const selected = await selectComposition({serveUrl, id: manifest.compositionId, inputProps});
+    await renderMedia({serveUrl, composition: selected, inputProps, outputLocation: output,
+      codec: 'h264', imageFormat: 'jpeg', scale: kind === 'preview' ? 0.5 : 1,
+      crf: kind === 'preview' ? 28 : 18});
+  } finally { await rm(serveUrl, {recursive: true, force: true}); }
 };
 
-const stageProjectMedia = async (rendererDir, projectDir) => {
-  const publicRoot = path.join(rendererDir, "public", "workflow");
+const stageProjectMedia = async (projectDir) => {
+  const publicRoot = path.join(projectDir, ".cache", "public", "workflow");
   const projectName = path.basename(projectDir);
   const target = path.join(publicRoot, projectName);
   const temporary = temporarySibling(target, "next");
@@ -1044,11 +1028,13 @@ export const finalizeFinalRender = async ({
     checksums = {
       videoJson: await fileChecksum(path.join(projectDir, "video.json")),
       rendererSrc: prepared.fingerprint.inputs.renderer,
+      projectRenderer: prepared.fingerprint.inputs["renderer/source"],
       dependencyLockfile: await fileChecksum(lockfilePath),
       finalMp4: await fileChecksum(temporaryOutput),
       renderInputs: prepared.fingerprint.checksum,
     };
     if (await directoryChecksum(path.join(workspaceRoot, "renderer/src")) !== checksums.rendererSrc) throw new Error("Renderer source changed during finalization; render a fresh preview.");
+    if ((await renderFingerprint(workspaceRoot, projectDir)).checksum !== prepared.fingerprint.checksum) throw new Error("Render inputs changed during finalization; render a fresh preview.");
     const storyboardPath = path.join(projectDir, "storyboard.json");
     if (await pathExists(storyboardPath)) {
       checksums.storyboard = await fileChecksum(storyboardPath);

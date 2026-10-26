@@ -33,7 +33,7 @@ const makeWorkspace = async () => {
   await writeFile(path.join(workspaceRoot, "renderer/src/video-format.json"),
     await readFile(new URL("../renderer/src/video-format.json", import.meta.url)));
   await mkdir(path.join(workspaceRoot, "tools"));
-  for (const file of ["video-cli.mjs","video-workflow.mjs","production-config.mjs","caption-validation.mjs","media-qc.mjs"]) {
+  for (const file of ["video-cli.mjs","video-workflow.mjs","production-config.mjs","caption-validation.mjs","media-qc.mjs","project-renderer.mjs"]) {
     await writeFile(path.join(workspaceRoot,"tools",file), await readFile(new URL(`./${file}`,import.meta.url)));
   }
   await writeFile(path.join(workspaceRoot,"renderer/remotion.config.ts"), "// fixture config\n");
@@ -51,6 +51,9 @@ const makeWorkspace = async () => {
 };
 
 const fillDiscovery = async (projectDir) => {
+  await mkdir(path.join(projectDir, "renderer"), {recursive: true});
+  await writeFile(path.join(projectDir, "renderer/index.tsx"), "// project fixture\n");
+  await writeFile(path.join(projectDir, "render.json"), JSON.stringify({schemaVersion: 1, entryPoint: "renderer/index.tsx", compositionId: "ShortVideo", sceneIds: ["hook"]}));
   await writeFile(
     path.join(projectDir, "research.md"),
     "# Research\n\nDocker packages an application with its runtime dependencies so environments are reproducible. This fixture is intentionally long enough for validation.\n",
@@ -89,7 +92,7 @@ const fillDiscovery = async (projectDir) => {
   );
 };
 
-const fillScript = async (projectDir, meta = { width: 1080, height: 1920, fps: 30 }) => {
+const fillScript = async (projectDir, meta = { renderer: "fixture", width: 1080, height: 1920, fps: 30 }) => {
   await writeFile(
     path.join(projectDir, "script.md"),
     "# Script\n\nYour app works on one machine because its runtime is already present. Docker packages that environment so the same image can run elsewhere. The takeaway is to reproduce the runtime, not to hide broken code.\n",
@@ -163,7 +166,7 @@ test("draft defaults respect explicit legacy formats and request overrides; inva
   const root = await makeWorkspace();
   const {project, projectDir} = await prepareApprovedProject(root);
   let video = await readJson(path.join(projectDir, "video.json"));
-  assert.deepEqual(video.meta, {width: 1080, height: 1920, fps: 30});
+  assert.deepEqual(video.meta, {renderer: "fixture", width: 1080, height: 1920, fps: 30});
   const request = await readJson(path.join(projectDir, "request.json"));
   request.productionDefaults.fps = 24;
   await writeFile(path.join(projectDir, "request.json"), JSON.stringify(request));
@@ -330,6 +333,16 @@ test("preview detects changed assets, source and contact sheet", async () => {
   await writeFile(path.join(root, "renderer/src/Composition.tsx"), "changed");
   await assert.rejects(requireCurrentPreview(root, projectDir, await renderFingerprint(root, projectDir)), /stale/);
   fingerprint = await registerPreview(root, projectDir);
+  await writeFile(path.join(projectDir, "renderer/index.tsx"), "// changed project scene");
+  await assert.rejects(requireCurrentPreview(root, projectDir, await renderFingerprint(root, projectDir)), /stale/);
+  fingerprint = await registerPreview(root, projectDir);
+  const renderManifest = await readJson(path.join(projectDir, "render.json"));
+  await writeFile(path.join(projectDir, "render.json"), JSON.stringify({...renderManifest, compositionId: "OtherVideo"}));
+  await assert.rejects(requireCurrentPreview(root, projectDir, await renderFingerprint(root, projectDir)), /stale/);
+  fingerprint = await registerPreview(root, projectDir);
+  await mkdir(path.join(root, "projects/999-unrelated/renderer"), {recursive:true});
+  await writeFile(path.join(root, "projects/999-unrelated/renderer/index.tsx"), "// unrelated scene");
+  assert.equal((await renderFingerprint(root,projectDir)).checksum, fingerprint.checksum);
   await writeFile(path.join(root,"tools/example.test.mjs"),"// Does not affect rendering\n");
   assert.equal((await renderFingerprint(root,projectDir)).checksum, fingerprint.checksum);
   await writeFile(path.join(root,"renderer/remotion.config.ts"),"// Changed render config\n");

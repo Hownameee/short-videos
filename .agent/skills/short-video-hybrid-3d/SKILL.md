@@ -190,7 +190,7 @@ For example, reveal containment by moving from the complete object into its
 interior, opening the shell on the cue, then holding the exposed mechanism.
 For transfer, show origin, follow the same object to its destination, and settle
 on the changed system. These patterns apply across topics; do not reuse a
-Kubernetes miniature for unrelated content.
+topic-specific miniature for unrelated content.
 
 ## Review the animatic before polish
 
@@ -321,3 +321,12 @@ Report:
    than explanatory.
 7. shot timeline, animatic path, old/new intervals compared, pacing defects
    fixed, justified holds, and playback/listening checks not performed.
+
+## Shared infrastructure and project ownership
+
+Follow the [project renderer contract](../../../docs/PROJECT_RENDERER.md).
+Keep topic scenes, visual maps, reference research, prompts, assets, and custom
+scripts inside the selected project. Put only reusable components in shared
+`renderer/src/`; tools accept project paths and explicit inputs. Never embed a
+project ID, topic registry, character identity, or past approval in shared skills.
+Deleting a project must not require changing shared tools or skills.
