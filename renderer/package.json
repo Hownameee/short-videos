@@ -6,14 +6,18 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@react-three/fiber": "9.2.0",
     "@remotion/cli": "4.0.532",
+    "@remotion/three": "4.0.532",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "remotion": "4.0.532"
+    "remotion": "4.0.532",
+    "three": "0.178.0"
   },
   "devDependencies": {
     "@remotion/eslint-config-flat": "4.0.532",
     "@types/react": "19.2.7",
+    "@types/three": "0.178.1",
     "@types/web": "0.0.166",
     "eslint": "9.39.5",
     "prettier": "3.8.1",

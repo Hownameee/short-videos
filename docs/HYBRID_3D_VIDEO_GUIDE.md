@@ -28,10 +28,12 @@ repeatable final export remain correctness requirements.
 
 ## Current repository status
 
-The shared renderer currently contains only the Kubernetes 2D route. It has no
-Three.js dependencies, 3D route, or `visual-map.json` consumer. The stack below
-is guidance for a future approved 3D project; install and pin dependencies only
-when that project needs them.
+The production CLI still contains only the Kubernetes 2D route and has no
+`visual-map.json` consumer. A separate `Kubernetes3DStudy` composition and
+`tools/render-3d-study.mjs` now provide an executable 3D experiment using pinned
+Three.js/R3F dependencies, existing preflight, and the approved project narration.
+It is a study, not a new production route. See the
+[current audit and reproduction notes](3D_WORKFLOW_AUDIT.md).
 
 ## Recommended production stack
 
@@ -55,8 +57,8 @@ For this checkout, npm registry metadata for `@remotion/three@4.0.532` pins its
 `remotion` dependency and peer to `4.0.532`, with peers `three >=0.137.0`,
 `@react-three/fiber >=8.0.0`, and React/React DOM `>=16.8.0`. The current official
 Three template uses React 19, R3F `9.2.0`, and Three `0.178.0`; those versions
-were previously checked against registry metadata. They are examples, not
-installed dependencies. Add helpers such as Drei or postprocessing only when a
+were previously checked against registry metadata and are now pinned for the
+Kubernetes visual study. Add helpers such as Drei or postprocessing only when a
 concrete shot needs them.
 
 ## Why Remotion can support the format

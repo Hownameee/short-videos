@@ -1,5 +1,13 @@
 # Shared Remotion renderer
 
+A separate `Kubernetes3DStudy` composition now provides an executable visual
+experiment using pinned Three.js/R3F dependencies. From workspace root, run
+`node tools/render-3d-study.mjs` for comparison frames or add `--video` for the
+57-second study. It uses existing production preflight and approved narration,
+and saves outputs/input fingerprints under project 001 `output/3d-study/`.
+It does not replace the canonical final or add a production renderer route.
+See the [audit and reproduction notes](../docs/3D_WORKFLOW_AUDIT.md).
+
 This is the workspace's single Remotion application. Video-specific research,
 scripts, assets, narration, outputs, and render snapshots belong under
 `../projects/<nnn>-<slug>/`.
