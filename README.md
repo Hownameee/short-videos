@@ -16,8 +16,8 @@ publish videos.
 ## What is included
 
 - A three-phase workflow: discover → script → produce.
-- One example project about Kubernetes self-healing.
-- A shared React/Remotion renderer with a Kubernetes composition.
+- An empty project workspace ready for new topics.
+- A shared React/Remotion shell and reusable caption/audio components.
 - Local narration generation that reuses verified, unchanged scene audio.
 - Production-only revisions for music, SFX, and captions without reapproving an
   unchanged script.
@@ -25,10 +25,12 @@ publish videos.
   duration, loudness, and true peak. Emotional fit and visual quality still need
   human review.
 
-Generated audio, videos, render logs, local environments, and raw benchmark
-workspaces are excluded from Git. The example scripts, asset provenance,
-manifests, and renderer checksums remain available; their historical state
-does not mean the corresponding media exists in a fresh clone.
+Generated output folders, render logs, local environments, and raw benchmark
+workspaces are excluded from Git. Prepared remote job inputs under each project's
+`remote/longcat/` and `remote/longcat-vi/` folders can be versioned for
+clone-and-run GPU jobs.
+No example project or generated media is bundled. New projects own their scripts,
+asset provenance, manifests, and renderer checksums.
 
 ## Quick start
 
@@ -50,7 +52,7 @@ ffmpeg -version
 ffprobe -version
 npm --prefix renderer ci
 npm run video -- help
-npm run video -- status --project projects/001-kubernetes-self-healing
+npm run video -- discover --prompt "Explain a technical topic"
 ```
 
 For narration, follow the [Kokoro environment setup](.agent/skills/kokoro-tts/references/setup.md).
@@ -63,8 +65,13 @@ It uses `.venv-mascot` on Apple Silicon macOS (MLX) or Linux/WSL2 with NVIDIA
 CUDA (official PyTorch backend), plus a 384×672 presenter image. The full-WAV flow
 generates talking video in chunks, mattes it with MatAnyone2, and uses FFmpeg
 to overlay it on an existing render while keeping that render's audio. The
-current presenter image is in `tools/mascot-echomimic/assets/`. This optional
+current presenter image is in `assets/presenters/`. This optional
 path is separate from the default narration and Remotion workflow.
+
+For a rented RTX 3090 Ti, use the [remote LongCat setup](tools/mascot-longcat/README.md).
+It prepares a small Git-trackable full-WAV job locally, overlaps remote package
+and model downloads, generates the mascot in one full-audio invocation, and
+returns the MP4 plus diagnostics for local background removal and compositing.
 
 Start a new project:
 
@@ -76,8 +83,9 @@ The CLI allocates a `projects/NNN-topic/` directory. Fill its research and
 direction artifacts, select a direction, then draft and approve its script.
 Follow the [workflow skill](.agent/skills/short-video-workflow/SKILL.md) and
 [phase commands](docs/REMOTION_PROJECT_SETUP.md) for those steps. New topics also
-need a composition in `renderer/src/` and a matching `video.meta.renderer` route;
-the only current route is `kubernetes`.
+own their composition in `projects/NNN-topic/renderer/` and declare its entry,
+composition ID and supported scene IDs in project `render.json`. See the
+[renderer contract](docs/PROJECT_RENDERER.md); no shared registry needs editing.
 
 New requests record the shared format from `renderer/src/video-format.json`.
 `script --draft` fills missing `video.meta.width`, `height` and `fps` from those
@@ -161,8 +169,7 @@ npm --prefix renderer run lint
 .venv-kokoro/bin/python -m unittest discover -s tools/kokoro -p 'test_*.py' -v
 ```
 
-Edit shared implementation in `tools/` and `renderer/src/`. Projects do not
-contain renderer source copies. Follow [AGENTS.md](AGENTS.md), keep changes
+Edit shared implementation in `tools/` and `renderer/src/`. Project-specific scenes and entry points belong in each project’s `renderer/`. Follow [AGENTS.md](AGENTS.md), keep changes
 scoped, and run the relevant checks above. A technical QC pass does not certify
 the video's factual accuracy, rights clearance, or emotional impact.
 

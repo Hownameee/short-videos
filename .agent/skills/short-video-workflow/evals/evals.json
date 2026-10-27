@@ -3,7 +3,7 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Mình có idea video: startup chỉ có 4 developer thì có thật sự cần Kubernetes không? Bắt đầu workflow giúp mình.",
+      "prompt": "Mình có idea video: startup chỉ có 4 developer thì có thật sự cần microservices không? Bắt đầu workflow giúp mình.",
       "expected_output": "Recognizes an initial prompt, performs only current sourced discovery, presents concise distinct directions, and waits for the user's choice instead of writing the script.",
       "files": [],
       "expectations": [
@@ -60,7 +60,7 @@
         "Shows one currently spoken word with a high-contrast highlight",
         "Plans visible actions inside each main explanatory scene rather than static slides with only a progress bar",
         "Reviews consecutive word and motion frames, including a later scene or audio chunk",
-        "Does not copy Kubernetes terminology or its fixed scene structure into DNS",
+        "Does not copy another topic's terminology or its fixed scene structure into DNS",
         "Includes purposeful background music without another user reminder and records the sound plan and audio review evidence"
       ]
     },
@@ -173,7 +173,7 @@
     },
     {
       "id": 14,
-      "prompt": "The already-produced Kubernetes video needs one corrected sentence in the limits scene. I approve this narration replacement: \"Kubernetes replaces failed Pods, but it does not repair broken application code.\" Keep the other narration and visual style and export the corrected video. Give a dry-run only with exact versioning, regeneration and preview/final steps. Do not modify project artifacts or render.",
+      "prompt": "The already-produced queue video needs one corrected sentence in the limits scene. I approve this replacement: \"Retries can recover transient failures, but cannot fix broken application code.\" Keep the other narration and style and export the corrected video. Give a dry-run only with exact versioning, regeneration and preview/final steps. Do not modify project artifacts or render.",
       "expected_output": "Executable scoped revision plan with preserved approval boundaries and explicit QC limits.",
       "files": [],
       "expectations": [

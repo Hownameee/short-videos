@@ -29,7 +29,7 @@ the previous deliverable. Run `revise` after reapproval if an overlay exists.
 Never manually rewrite approval hashes. Consult
 [contracts](../short-video-workflow/references/artifact-contracts.md) when writing
 an overlay or changing structured fields. Storyboard overrides are not implemented
-by the current Kubernetes renderer and are rejected rather than silently ignored.
+by the current workflow and are rejected rather than silently ignored.
 
 ## Focused reading
 
@@ -38,7 +38,7 @@ by the current Kubernetes renderer and are rejected rather than silently ignored
 | Sound selection, mood or mix | [Sound QC](../../../docs/VIDEO_SOUND_QC.md); relevant background-guide section |
 | Generate/change narration | [Kokoro](../kokoro-tts/SKILL.md) |
 | Change art direction, layout, scene motion or caption UI | [Visual design](../short-video-visual-design/SKILL.md) |
-| Build or revise real 3D, hybrid 2D/3D, GLB/glTF or Blender-pass scenes | [Hybrid 3D](../short-video-hybrid-3d/SKILL.md) |
+| Build or revise real 3D, hybrid 2D/3D, GLB/glTF or Blender-pass scenes; correct static-looking 3D pacing | [Hybrid 3D](../short-video-hybrid-3d/SKILL.md), including its shot timeline and animatic review |
 | Change Remotion code | [Remotion practices](../remotion-best-practices/SKILL.md), then only relevant API/rule reference |
 
 Do not load voice setup, visual design, the blueprint or all Remotion packages for
@@ -50,9 +50,9 @@ List guidance actually used in the work report.
 
 1. Preserve the approved promise, claim evidence, payoff and contextual CTA.
    Record a visual thesis and action/cue/settle for new scenes. New topics need
-   their own renderer; never disguise Kubernetes diagrams as generic output.
+   their own renderer; never disguise another topic's diagrams as generic output.
    A new hybrid renderer needs a validated scene map and narration cues before
-   JSX; the current Kubernetes renderer does not consume `visual-map.json`.
+   JSX; no current renderer consumes `visual-map.json`.
    When a transparent presenter will be composited later, record its placement
    in `design.presenterOverlay` and reserve that rectangle in the Remotion
    layout before rendering. Check captions and scene content against the
@@ -69,7 +69,9 @@ List guidance actually used in the work report.
 5. Render `--preview`. Inspect the contact sheet (opening, every scene, ending)
    for focal point, readable mobile text, safe areas, asset quality and coherent
    visual style. Inspect playback/consecutive frames through every main motion
-   beat. A static frame cannot establish meaningful animation.
+   beat. For 3D motion revisions, apply the hybrid skill's animatic and
+   normal-speed pacing review before full-render polish. A static frame cannot
+   establish meaningful animation; adjacent frames cannot establish pacing.
 6. Check at least three successive word highlights and a later scene/chunk;
    record frame times and timing source. Check missing/repeated/mispronounced
    words, speech intelligibility, music arc, fades, loops and phone/mono playback.
@@ -80,7 +82,7 @@ List guidance actually used in the work report.
    peak. It writes `output/docs/automated-qc.json` separately from editorial QC.
 8. Deliver the actual final, report and snapshot. The CLI atomically replaces
    final/report/snapshot/state after checks; failures preserve the previous
-   final. The snapshot records the shared renderer checksum. Keep only
+   final. The snapshot records shared and project renderer checksums. Keep only
    `output/video/final.mp4` as the project's delivered video.
 
 No black/missing frames, obscured payoff, secrets or internal prompts in output.
@@ -91,3 +93,12 @@ fit. If listening is unavailable, complete authorized measured export, mark it
 
 Dry-run response: one preflight table, ordered plan, QC list and artifact list.
 Use `<measured>` placeholders for measurements not yet taken.
+
+## Shared infrastructure and project ownership
+
+Follow the [project renderer contract](../../../docs/PROJECT_RENDERER.md).
+Keep topic scenes, visual maps, reference research, prompts, assets, and custom
+scripts inside the selected project. Put only reusable components in shared
+`renderer/src/`; tools accept project paths and explicit inputs. Never embed a
+project ID, topic registry, character identity, or past approval in shared skills.
+Deleting a project must not require changing shared tools or skills.

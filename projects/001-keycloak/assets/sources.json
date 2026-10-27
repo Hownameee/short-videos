@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "assets": [
+    {
+      "id": "native-diagrams",
+      "type": "original-vector-art",
+      "license": "project-original",
+      "notes": "Created for this project; no third-party visual assets"
+    },
+    {
+      "id": "score",
+      "type": "original-procedural-music",
+      "file": "assets/music/login-journey.wav",
+      "license": "project-generated",
+      "generator": "tools/score.py"
+    }
+  ]
+}

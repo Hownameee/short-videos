@@ -1,7 +1,4 @@
 const captionModes = ["word-highlight", "phrase", "none"];
-const sceneIds = {
-  kubernetes: ["hook", "declare", "observe", "replace", "service", "limits", "takeaway"],
-};
 
 export const assertLocalMediaPath = (file, prefix) => {
   if (typeof file !== "string" || !file.startsWith(`${prefix}/`) ||
@@ -37,9 +34,11 @@ export const resolveProductionVideo = (approved, production) => {
   return video;
 };
 
-export const validateRenderConfig = (video) => {
-  const renderer = video.meta.renderer ?? "kubernetes";
-  if (!sceneIds[renderer]) throw new Error(`Unsupported renderer: ${renderer}. Add a composition before rendering this topic.`);
+export const validateRenderConfig = (video, sceneIds = {}) => {
+  const renderer = video.meta.renderer;
+  if (typeof renderer !== "string" || !Object.hasOwn(sceneIds, renderer) || !Array.isArray(sceneIds[renderer])) {
+    throw new Error(`Unsupported renderer: ${renderer ?? "not configured"}. Implement the project composition and declare its scene IDs in project render.json before rendering.`);
+  }
   for (const field of ["width", "height", "fps"]) {
     if (!Number.isInteger(video.meta[field]) || video.meta[field] <= 0) throw new Error(`Invalid meta.${field}.`);
   }

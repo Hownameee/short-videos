@@ -65,3 +65,6 @@ research/
 /tools/mascot-echomimic/source-mlx/
 /tools/mascot-echomimic/source-cuda/
 /tools/mascot-echomimic/matanyone2-source/
+
+# Remote LongCat runtime, model weights, package caches and paid-session logs
+/tools/mascot-longcat/.runtime/

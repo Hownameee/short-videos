@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "slug": "keycloak",
+    "title": "What happens when you log in with Keycloak?",
+    "platform": "youtube_shorts",
+    "language": "en",
+    "width": 2160,
+    "height": 3840,
+    "fps": 60
+  },
+  "hook": {
+    "type": "curiosity",
+    "text": "You clicked Log in. Why did your app send you somewhere else? Follow one login through Keycloak.",
+    "promise": "Follow one login to protected API data",
+    "durationRangeSec": {
+      "min": 3,
+      "max": 8
+    }
+  },
+  "captions": {
+    "mode": "word-highlight"
+  },
+  "audio": {
+    "voice": {
+      "provider": "kokoro",
+      "voice": "af_heart",
+      "langCode": "a",
+      "sampleRate": 24000,
+      "speed": 1.02
+    },
+    "music": {
+      "file": "assets/music/login-journey.wav",
+      "volume": 1,
+      "fadeInSec": 0,
+      "fadeOutSec": 0
+    },
+    "sfx": false
+  },
+  "design": {
+    "visualThesis": "A single moving request reveals the boundaries between identity, token exchange and API access.",
+    "mood": [
+      "precise",
+      "curious",
+      "confident"
+    ],
+    "palette": {
+      "background": "#091A25",
+      "surface": "#112D3B",
+      "text": "#F5F1E8",
+      "muted": "#9BB2BD",
+      "accent": "#64D9ED",
+      "success": "#CBF08D",
+      "code": "#FFBB70"
+    },
+    "typography": {
+      "display": "Arial",
+      "body": "Arial",
+      "code": "monospace"
+    },
+    "safeArea": {
+      "top": 260,
+      "right": 240,
+      "bottom": 620,
+      "left": 150
+    },
+    "motionGrammar": "Stable endpoints, traveling packets, progressive evidence, calm settled results",
+    "assetLanguage": "Original vector diagrams; conceptual interface, no stock footage"
+  },
+  "scenes": [
+    {
+      "id": "hook",
+      "purpose": "Why the detour?",
+      "durationRangeSec": {
+        "min": 5,
+        "max": 19
+      },
+      "narration": "You clicked Log in. Why did your app send you somewhere else? Follow one login through Keycloak.",
+      "onScreenText": [
+        "Why the detour?",
+        "A login is a journey."
+      ],
+      "visualType": "animated-protocol-diagram",
+      "visual": "Login button becomes a route from app to Keycloak",
+      "motion": {
+        "action": "Login button becomes a route from app to Keycloak",
+        "cue": "Log in",
+        "settle": "Route remains visible"
+      },
+      "assets": [],
+      "sourceIds": [
+        "claim-2"
+      ],
+      "sfx": [],
+      "transition": "match-cut",
+      "pronunciation": [
+        {
+          "written": "Keycloak",
+          "spoken": "Key cloak"
+        },
+        {
+          "written": "PKCE",
+          "spoken": "pixie"
+        },
+        {
+          "written": "API",
+          "spoken": "A P I"
+        },
+        {
+          "written": "ID token",
+          "spoken": "I D token"
+        }
+      ]
+    },
+    {
+      "id": "redirect",
+      "purpose": "01 / Authenticate",
+      "durationRangeSec": {
+        "min": 5,
+        "max": 19
+      },
+      "narration": "In this browser app, Keycloak handles sign-in. Your app redirects you there, with a challenge for a security check called PKCE. You enter your password on Keycloak.",
+      "onScreenText": [
+        "01 / Authenticate",
+        "Your password stays here."
+      ],
+      "visualType": "animated-protocol-diagram",
+      "visual": "Browser address changes; challenge travels to Keycloak; password is entered only there",
+      "motion": {
+        "action": "Browser address changes; challenge travels to Keycloak; password is entered only there",
+        "cue": "redirects",
+        "settle": "Keycloak shows authenticated state"
+      },
+      "assets": [],
+      "sourceIds": [
+        "claim-2",
+        "claim-3"
+      ],
+      "sfx": [],
+      "transition": "match-cut",
+      "pronunciation": [
+        {
+          "written": "Keycloak",
+          "spoken": "Key cloak"
+        },
+        {
+          "written": "PKCE",
+          "spoken": "pixie"
+        },
+        {
+          "written": "API",
+          "spoken": "A P I"
+        },
+        {
+          "written": "ID token",
+          "spoken": "I D token"
+        }
+      ]
+    },
+    {
+      "id": "exchange",
+      "purpose": "02 / Exchange",
+      "durationRangeSec": {
+        "min": 5,
+        "max": 19
+      },
+      "narration": "After sign-in, Keycloak sends your browser back with a short-lived authorization code. Your app exchanges that code, plus its original secret verifier, for tokens. PKCE checks that they match.",
+      "onScreenText": [
+        "02 / Exchange",
+        "A code is not a token."
+      ],
+      "visualType": "animated-protocol-diagram",
+      "visual": "Code returns to browser; code plus verifier travel to token endpoint; match reveals tokens",
+      "motion": {
+        "action": "Code returns to browser; code plus verifier travel to token endpoint; match reveals tokens",
+        "cue": "authorization code",
+        "settle": "Tokens arrive at app"
+      },
+      "assets": [],
+      "sourceIds": [
+        "claim-3",
+        "claim-4"
+      ],
+      "sfx": [],
+      "transition": "match-cut",
+      "pronunciation": [
+        {
+          "written": "Keycloak",
+          "spoken": "Key cloak"
+        },
+        {
+          "written": "PKCE",
+          "spoken": "pixie"
+        },
+        {
+          "written": "API",
+          "spoken": "A P I"
+        },
+        {
+          "written": "ID token",
+          "spoken": "I D token"
+        }
+      ]
+    },
+    {
+      "id": "tokens",
+      "purpose": "Two tokens. Two jobs.",
+      "durationRangeSec": {
+        "min": 5,
+        "max": 19
+      },
+      "narration": "The ID token tells the app about your sign-in. The access token goes with requests to your API. Different tokens. Different jobs.",
+      "onScreenText": [
+        "Two tokens. Two jobs.",
+        "Identity / access"
+      ],
+      "visualType": "animated-protocol-diagram",
+      "visual": "Token response separates into ID token staying in app and access token traveling to API",
+      "motion": {
+        "action": "Token response separates into ID token staying in app and access token traveling to API",
+        "cue": "ID token",
+        "settle": "Distinct destinations hold"
+      },
+      "assets": [],
+      "sourceIds": [
+        "claim-1",
+        "claim-4"
+      ],
+      "sfx": [],
+      "transition": "match-cut",
+      "pronunciation": [
+        {
+          "written": "Keycloak",
+          "spoken": "Key cloak"
+        },
+        {
+          "written": "PKCE",
+          "spoken": "pixie"
+        },
+        {
+          "written": "API",
+          "spoken": "A P I"
+        },
+        {
+          "written": "ID token",
+          "spoken": "I D token"
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "purpose": "03 / Access",
+      "durationRangeSec": {
+        "min": 5,
+        "max": 19
+      },
+      "narration": "The API validates the access token, including its signature, issuer, audience, and expiry, then checks permission. Only then does it return the protected data.",
+      "onScreenText": [
+        "03 / Access",
+        "Validate. Then authorize."
+      ],
+      "visualType": "animated-protocol-diagram",
+      "visual": "Request passes token validation and permission gates, then response returns",
+      "motion": {
+        "action": "Request passes token validation and permission gates, then response returns",
+        "cue": "validates",
+        "settle": "Protected data returned"
+      },
+      "assets": [],
+      "sourceIds": [
+        "claim-5"
+      ],
+      "sfx": [],
+      "transition": "match-cut",
+      "pronunciation": [
+        {
+          "written": "Keycloak",
+          "spoken": "Key cloak"
+        },
+        {
+          "written": "PKCE",
+          "spoken": "pixie"
+        },
+        {
+          "written": "API",
+          "spoken": "A P I"
+        },
+        {
+          "written": "ID token",
+          "spoken": "I D token"
+        }
+      ]
+    },
+    {
+      "id": "payoff",
+      "purpose": "Now the detour makes sense.",
+      "durationRangeSec": {
+        "min": 5,
+        "max": 19
+      },
+      "narration": "Keycloak handles sign-in and issues tokens. Your API still enforces access. Trace those steps in your own app.",
+      "onScreenText": [
+        "Now the detour makes sense.",
+        "Sign in → exchange → access"
+      ],
+      "visualType": "animated-protocol-diagram",
+      "visual": "Three completed steps connect in final route",
+      "motion": {
+        "action": "Three completed steps connect in final route",
+        "cue": "Keycloak",
+        "settle": "Full journey resolves"
+      },
+      "assets": [],
+      "sourceIds": [
+        "claim-1",
+        "claim-5"
+      ],
+      "sfx": [],
+      "transition": "match-cut",
+      "pronunciation": [
+        {
+          "written": "Keycloak",
+          "spoken": "Key cloak"
+        },
+        {
+          "written": "PKCE",
+          "spoken": "pixie"
+        },
+        {
+          "written": "API",
+          "spoken": "A P I"
+        },
+        {
+          "written": "ID token",
+          "spoken": "I D token"
+        }
+      ]
+    }
+  ],
+  "outro": {
+    "takeaway": "Keycloak handles sign-in and token issuance; APIs enforce access.",
+    "cta": "Trace these steps in your own app."
+  },
+  "scriptVersion": "sha256:c6386f7e61f17cc508550718b24bf351c3d3233c82b2a4a92eaf4b00eb691a44",
+  "approval": {
+    "status": "approved",
+    "approvedAt": "2026-10-26T16:18:12.258Z",
+    "approvedScriptVersion": "sha256:c6386f7e61f17cc508550718b24bf351c3d3233c82b2a4a92eaf4b00eb691a44"
+  }
+}

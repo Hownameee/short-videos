@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "state": "produced",
+  "updatedAt": "2026-10-26T16:54:02.879Z",
+  "versions": {
+    "request": "sha256:7090e22ed0cc6d0d94634423a0671522778f19d66dca98332a87e839284fd798",
+    "research": "sha256:6120f7ebcb4e101ee412ced00d2cb89bbbe7830592ec20e548003d6184bd9712",
+    "directions": "sha256:dc7f401b9eda265a70046c0b67a2def96fd09546ad1926d25e2f6ae352dfda83",
+    "direction": "sha256:5febad267b81245025b04b4b46d46f6689b5952615669fbf6f66e3d79defd4ed",
+    "script": "sha256:c6386f7e61f17cc508550718b24bf351c3d3233c82b2a4a92eaf4b00eb691a44",
+    "render": "sha256:9a5b517bd551621959e7ae03d59d23c90071a0b7c0f57c33fb7ea7e6e2b952f7"
+  },
+  "productionRequest": {
+    "kind": "final",
+    "requestedAt": "2026-10-26T16:51:30.666Z"
+  },
+  "outputs": {
+    "final": {
+      "path": "projects/001-keycloak/output/video/final.mp4",
+      "checksum": "sha256:9a5b517bd551621959e7ae03d59d23c90071a0b7c0f57c33fb7ea7e6e2b952f7",
+      "createdAt": "2026-10-26T16:54:02.875Z"
+    },
+    "report": {
+      "path": "projects/001-keycloak/output/docs/report.json"
+    }
+  },
+  "lastError": null
+}

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "entryPoint": "renderer/index.tsx",
+  "compositionId": "SaturnRings",
+  "sceneIds": [
+    "illusion",
+    "ice",
+    "scale",
+    "payoff"
+  ],
+  "renderOptions": {
+    "gl": "angle",
+    "concurrency": 1
+  }
+}

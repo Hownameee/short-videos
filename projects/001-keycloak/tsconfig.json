@@ -1,0 +1,1 @@
+{"extends":"../../renderer/tsconfig.json","compilerOptions":{"baseUrl":".","paths":{"react":["../../renderer/node_modules/@types/react"],"react/jsx-runtime":["../../renderer/node_modules/@types/react/jsx-runtime"],"remotion":["../../renderer/node_modules/remotion"]}},"include":["renderer/**/*.tsx"]}

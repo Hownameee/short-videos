@@ -19,10 +19,9 @@ MATTING_SOURCE = TOOLS / "matanyone2-source"
 CHECKPOINT = TOOLS / "models/matanyone2.pth"
 FPS = 25
 PROMPT = (
-    "A friendly female educational presenter speaks directly to the camera. "
-    "Preserve her face, hairstyle, pink shirt, framing, and plain background. "
-    "Natural restrained mouth movement, occasional blinks and small head movements; "
-    "steady camera, no cuts or other people."
+    "Animate the presenter from the supplied reference speaking naturally to camera. "
+    "Preserve the reference identity, clothing, proportions, framing and background. "
+    "Use restrained gestures and natural facial motion matching the narration."
 )
 
 
@@ -363,7 +362,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, required=True)
     parser.add_argument(
-        "--presenter", type=Path, default=TOOLS / "assets/presenter.png"
+        "--presenter", type=Path, required=True
     )
     parser.add_argument(
         "--base", type=Path, help="Existing video; defaults to project/output/video/final.mp4"

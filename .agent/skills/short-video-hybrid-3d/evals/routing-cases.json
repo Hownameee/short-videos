@@ -13,9 +13,9 @@
   },
   {
     "id": "implicit-positive",
-    "prompt": "For the approved Kubernetes video, make a navigable cluster where the controller notices a missing Pod and the replacement moves into place; keep the status labels readable on top.",
+    "prompt": "For the approved queue video, show a job arriving, waiting behind other jobs, then moving to a free worker; keep the status labels readable on top.",
     "expectedOwner": "short-video-hybrid-3d",
-    "reason": "The requested navigable world, causal replacement, and overlay need the hybrid spatial workflow."
+    "reason": "A spatial queue, causal transfer, and overlay need the hybrid workflow."
   },
   {
     "id": "semantic-correction-positive",
@@ -25,7 +25,7 @@
   },
   {
     "id": "visual-design-negative",
-    "prompt": "Review the 2D typography, caption safe area, palette, and spacing in the current Kubernetes contact sheet.",
+    "prompt": "Review the 2D typography, caption safe area, palette, and spacing in the current queue-video contact sheet.",
     "expectedOwner": "short-video-visual-design",
     "reason": "This is a 2D hierarchy review with no 3D production outcome."
   },
@@ -46,5 +46,23 @@
     "prompt": "Create a 3D Cesium flyover of Ho Chi Minh City in Remotion.",
     "expectedOwner": "remotion-maps",
     "reason": "Geographic 3D flyovers are explicitly owned by the map specialization."
+  },
+  {
+    "id": "static-3d-positive",
+    "prompt": "The miniature 3D video looks good but sits in the same wide view forever. Keep the style and improve its pacing.",
+    "expectedOwner": "short-video-hybrid-3d",
+    "reason": "Existing spatial production needs shot choreography and an animatic pacing review."
+  },
+  {
+    "id": "static-2d-negative",
+    "prompt": "My 2D Remotion chart stays still too long. Improve the reveal timing without adding depth or a camera.",
+    "expectedOwner": "short-video-visual-design",
+    "reason": "Temporal design alone does not imply 3D."
+  },
+  {
+    "id": "sound-only-negative",
+    "prompt": "Keep the 3D animation as is; only make the music less repetitive.",
+    "expectedOwner": "short-video-production",
+    "reason": "Sound-only correction excludes 3D choreography."
   }
 ]

@@ -33,9 +33,9 @@ checks. CPU-only generation is not supported.
   the PyTorch CUDA wheel index. The first install downloads large weights.
 - On Linux or WSL2, an NVIDIA driver visible through `nvidia-smi`. WSL2 also
   needs the Windows host NVIDIA driver with CUDA support.
-- A presenter image and speech WAV. Project 001 has an example at
-  `tools/mascot-echomimic/assets/presenter.png` and
-  `projects/001-kubernetes-self-healing/output/voice/full.wav` when generated.
+- A presenter image and speech WAV. A reusable presenter is available at
+  `assets/presenters/presenter.png` and
+  `projects/NNN-topic/output/voice/full.wav` when generated.
   The project integration requires a **384×672 RGBA presenter PNG**.
 
 ## Install EchoMimic
@@ -89,15 +89,15 @@ dimensions; the MLX port does its own center crop. Neither writes alpha.
 
 ```bash
 .venv-mascot/bin/python tools/mascot-echomimic/generate.py \
-  --image tools/mascot-echomimic/assets/presenter.png \
-  --audio projects/001-kubernetes-self-healing/output/voice/full.wav \
-  --output projects/001-kubernetes-self-healing/.cache/mascot/smoke.mp4 \
+  --image assets/presenters/presenter.png \
+  --audio projects/NNN-topic/output/voice/full.wav \
+  --output projects/NNN-topic/.cache/mascot/smoke.mp4 \
   --frames 17
 
 ffprobe -v error -select_streams v:0 \
   -show_entries stream=width,height,r_frame_rate,nb_frames \
   -of default=noprint_wrappers=1 \
-  projects/001-kubernetes-self-healing/.cache/mascot/smoke.mp4
+  projects/NNN-topic/.cache/mascot/smoke.mp4
 ```
 
 The CUDA adapter invokes the pinned official `infer_flash.py` with its Wan
@@ -125,7 +125,8 @@ For the included project, generate a short check first:
 
 ```bash
 .venv-mascot/bin/python tools/mascot-echomimic/full_audio.py \
-  --project projects/001-kubernetes-self-healing --seconds 3
+  --presenter assets/presenters/presenter.png \
+  --project projects/NNN-topic --seconds 3
 ```
 
 The script reads the project's `output/voice/full.wav`, its
@@ -141,17 +142,12 @@ video's audio. The demo and full run write the same three paths:
 The manifest is `output/docs/mascot-integration.json`. The base video remains
 `output/video/final.mp4`. Check full decode, audio, lip sync, alpha edges and
 caption visibility in the combined video. The current `full_audio.py` starts
-each chunk from the **original presenter image**. The separate six-second
-experiment documented in [project 001's production notes](../../projects/001-kubernetes-self-healing/PRODUCTION.md)
-instead used the previous chunk's last frame; that continuation method is
-**not automated by the full runner**.
-
-To extend an existing **last-frame continuation** demo such as project 001's
-six-second clip, run:
+each chunk from the **original presenter image**. To extend an existing
+last-frame continuation run, use the separate continuation runner:
 
 ```bash
 .venv-mascot/bin/python -u tools/mascot-echomimic/continue_full.py \
-  --project projects/001-kubernetes-self-healing
+  --project projects/NNN-topic
 ```
 
 This keeps the existing mascot as a prefix. Each next chunk uses the prior
@@ -169,7 +165,8 @@ For a fresh run that starts every chunk from the original presenter, omit
 
 ```bash
 .venv-mascot/bin/python tools/mascot-echomimic/full_audio.py \
-  --project projects/001-kubernetes-self-healing
+  --presenter assets/presenters/presenter.png \
+  --project projects/NNN-topic
 ```
 
 Intermediate files are cached under the project's `.cache/mascot/full-wav/`.
@@ -182,7 +179,8 @@ The older scene-WAV runner remains available:
 
 ```bash
 .venv-mascot/bin/python tools/mascot-echomimic/integrate.py \
-  --project projects/001-kubernetes-self-healing
+  --presenter assets/presenters/presenter.png \
+  --project projects/NNN-topic
 ```
 
 ## Troubleshooting

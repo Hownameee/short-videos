@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "projectId": "001-keycloak",
+  "slug": "keycloak",
+  "prompt": "Explain what happens when you log in with Keycloak. Direction A selected; user delegates research, script approval, production and final export.",
+  "audience": "Developers familiar with frontend and API basics",
+  "platform": "youtube_shorts",
+  "language": "en",
+  "productionDefaults": {
+    "width": 2160,
+    "height": 3840,
+    "fps": 60,
+    "captions": "word-highlight",
+    "motion": "explanatory",
+    "backgroundSound": "intentional-music"
+  },
+  "durationRangeSec": {
+    "min": 60,
+    "max": 75
+  },
+  "tone": "Curious, clear, precise",
+  "goal": "Follow browser login through Keycloak to protected API access",
+  "ctaGoal": "Trace the flow in your own application",
+  "constraints": [],
+  "assumptions": [
+    "English vertical short; browser public client; authorization code with S256 PKCE",
+    "User selected A and delegated all remaining editorial decisions and final production on 2026-10-26"
+  ],
+  "createdAt": "2026-10-26T16:15:54.029Z"
+}

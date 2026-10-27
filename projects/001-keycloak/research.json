@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "id": "keycloak-js",
+      "url": "https://www.keycloak.org/securing-apps/javascript-adapter",
+      "publisher": "Keycloak",
+      "title": "JavaScript adapter",
+      "accessedAt": "2026-10-26",
+      "notes": "Public browser client; standard code flow; bearer API calls; S256 PKCE"
+    },
+    {
+      "id": "keycloak-oidc",
+      "url": "https://www.keycloak.org/securing-apps/oidc-layers",
+      "publisher": "Keycloak",
+      "title": "Securing applications with OpenID Connect",
+      "accessedAt": "2026-10-26",
+      "notes": "Authorization/token endpoints and local token validation"
+    },
+    {
+      "id": "oidc",
+      "url": "https://openid.net/specs/openid-connect-core-1_0.html",
+      "publisher": "OpenID Foundation",
+      "title": "OpenID Connect Core 1.0, errata 2",
+      "accessedAt": "2026-10-26",
+      "notes": "Identity layer and code flow"
+    },
+    {
+      "id": "pkce",
+      "url": "https://www.rfc-editor.org/rfc/rfc7636",
+      "publisher": "IETF",
+      "title": "RFC 7636",
+      "accessedAt": "2026-10-26",
+      "notes": "Sections 1.1 and 4: challenge, verifier and token exchange"
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim-1",
+      "statement": "Keycloak is an OpenID Connect provider; OIDC adds identity to OAuth 2.0.",
+      "sourceIds": [
+        "oidc",
+        "keycloak-oidc"
+      ],
+      "confidence": "high",
+      "classification": "verified-fact"
+    },
+    {
+      "id": "claim-2",
+      "statement": "The illustrated public browser app redirects to Keycloak for authentication, then receives an authorization code.",
+      "sourceIds": [
+        "keycloak-js",
+        "keycloak-oidc"
+      ],
+      "confidence": "high",
+      "classification": "verified-fact"
+    },
+    {
+      "id": "claim-3",
+      "statement": "PKCE binds the code exchange to a verifier generated before the authorization request.",
+      "sourceIds": [
+        "pkce",
+        "keycloak-js"
+      ],
+      "confidence": "high",
+      "classification": "verified-fact"
+    },
+    {
+      "id": "claim-4",
+      "statement": "The token response includes an ID token for the client and an access token used for protected resources.",
+      "sourceIds": [
+        "oidc",
+        "keycloak-js"
+      ],
+      "confidence": "high",
+      "classification": "verified-fact"
+    },
+    {
+      "id": "claim-5",
+      "statement": "A resource server validates access tokens and enforces permissions; signed tokens can be checked locally using public keys.",
+      "sourceIds": [
+        "keycloak-oidc"
+      ],
+      "confidence": "high",
+      "classification": "verified-fact"
+    }
+  ]
+}

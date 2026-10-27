@@ -27,7 +27,7 @@ def main() -> None:
         "--image",
         type=Path,
         required=True,
-        help="Presenter portrait, usually in tools/mascot-echomimic/assets/",
+        help="Presenter portrait, from project assets or the shared assets/presenters/ library",
     )
     parser.add_argument("--audio", type=Path, required=True, help="Speech audio file")
     parser.add_argument("--output", type=Path, required=True, help="Output MP4 path")

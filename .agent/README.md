@@ -40,3 +40,10 @@ Update or replace them from upstream as a unit; do not mix local workflow rules
 into those imported directories. Public redistribution terms still need
 clarification before publishing these files. Neither local Git inclusion nor
 the provenance lockfile grants a redistribution license.
+
+## Ownership
+
+These skills describe reusable workflows, not the state or approvals of a video.
+Topic code, references, visual plans, prompts, assets and results belong in the
+selected project. Follow the [project renderer contract](../docs/PROJECT_RENDERER.md).
+Evaluation workspaces are historical evidence, not current production guidance.

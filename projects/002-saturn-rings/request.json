@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "projectId": "002-saturn-rings",
+  "slug": "saturn-rings",
+  "prompt": "Create an impressive real 3D video. User delegates topic, script and recommended production decisions and requests the final video. Selected topic: Saturn rings are separate icy particles.",
+  "audience": null,
+  "platform": "youtube_shorts",
+  "language": "en",
+  "productionDefaults": {
+    "width": 2160,
+    "height": 3840,
+    "fps": 60,
+    "captions": "word-highlight",
+    "motion": "explanatory",
+    "backgroundSound": "intentional-music"
+  },
+  "durationRangeSec": {
+    "min": 45,
+    "max": 75
+  },
+  "tone": null,
+  "goal": null,
+  "ctaGoal": null,
+  "constraints": [],
+  "assumptions": [],
+  "createdAt": "2026-10-27T01:57:17.569Z"
+}

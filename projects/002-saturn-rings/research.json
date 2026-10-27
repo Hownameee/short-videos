@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "claims": [
+    {
+      "id": "claim-1",
+      "statement": "Saturn\u2019s rings contain billions of small chunks of ice and rock, with dust and other material.",
+      "sourceIds": [
+        "nasa"
+      ],
+      "confidence": "high",
+      "safeUse": "Saturn\u2019s rings contain billions of small chunks of ice and rock, with dust and other material."
+    },
+    {
+      "id": "claim-2",
+      "statement": "Most ring particles range from dust-sized icy grains to house-sized chunks.",
+      "sourceIds": [
+        "nasa"
+      ],
+      "confidence": "high",
+      "safeUse": "Most ring particles range from dust-sized icy grains to house-sized chunks."
+    },
+    {
+      "id": "claim-3",
+      "statement": "Different rings orbit Saturn at different speeds.",
+      "sourceIds": [
+        "nasa"
+      ],
+      "confidence": "high",
+      "safeUse": "Different rings orbit Saturn at different speeds."
+    }
+  ],
+  "sources": [
+    {
+      "id": "nasa",
+      "url": "https://science.nasa.gov/saturn/facts/",
+      "title": "Saturn Facts",
+      "publisher": "NASA",
+      "accessedAt": "2026-10-27",
+      "supports": [
+        "claim-1",
+        "claim-2",
+        "claim-3"
+      ],
+      "notes": "Fetched and read Rings section; no NASA imagery used."
+    }
+  ]
+}

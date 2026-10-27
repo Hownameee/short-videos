@@ -15,10 +15,9 @@ from integrate import FPS, matte, prepare_presenter, probe, run, video_stream
 ROOT = Path(__file__).resolve().parents[2]
 TOOLS = Path(__file__).resolve().parent
 PROMPT = (
-    "A friendly female teacher presents directly to camera while speaking. "
-    "Keep the reference face, ponytail, pink shirt, body framing, and fixed camera. "
-    "Natural speech mouth movements, occasional blinks, subtle head and hand motion. "
-    "One person, no cuts, no camera movement."
+    "Animate the presenter from the supplied reference speaking naturally to camera. "
+    "Preserve the reference identity, clothing, proportions, framing and background. "
+    "Use restrained gestures and natural facial motion matching the narration."
 )
 
 
@@ -245,7 +244,7 @@ def create_outputs(
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", type=Path, required=True)
-    parser.add_argument("--presenter", type=Path, default=TOOLS / "assets/presenter.png")
+    parser.add_argument("--presenter", type=Path, required=True)
     parser.add_argument("--prompt", default=PROMPT)
     parser.add_argument("--seconds", type=float, help="Demo length; omit for the full WAV")
     parser.add_argument("--chunk-seconds", type=float, default=3.0)

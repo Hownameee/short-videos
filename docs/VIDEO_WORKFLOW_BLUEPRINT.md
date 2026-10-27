@@ -158,13 +158,13 @@ H.264/AAC, full decode và loudness/true peak thực tế. CLI stage project
 media, truyền video/voice manifest vào renderer và chuẩn hóa audio trước khi tạo:
 
 - `output/video/final.mp4` và `output/docs/report.json`;
-- `output/docs/render.snapshot.json` chứa runtime và checksum của `video.json`, `renderer/src/`,
+- `output/docs/render.snapshot.json` chứa runtime và checksum của `video.json`, project `render.json` và `renderer/`, shared `renderer/src/`,
   lockfile và MP4;
 - state `produced` chỉ sau khi các artifact trên được thay thành công.
 
 Renderer nhận video config đã resolve với production override và voice manifest.
-Storyboard override chưa được hỗ trợ và bị chặn. Renderer hiện chỉ có
-Kubernetes với animation và component karaoke dùng chung.
+Storyboard override chưa được hỗ trợ và bị chặn. Renderer hiện là khung Studio trống, giữ component karaoke dùng chung.
+Mỗi project sở hữu `renderer/` và `render.json` (entry point, composition ID, scene IDs); không đăng ký topic trong renderer dùng chung.
 `tools/kokoro/generate_audio.py` tạo WAV, word timestamps và phrase captions theo
 scene nhưng chưa được `npm run video` gọi tự động. Render preflight chặn karaoke
 thiếu timestamp hoặc caption sai nội dung. Với chủ đề mới, agent vẫn cần triển

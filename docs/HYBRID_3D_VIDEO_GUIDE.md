@@ -28,10 +28,10 @@ repeatable final export remain correctness requirements.
 
 ## Current repository status
 
-The shared renderer currently contains only the Kubernetes 2D route. It has no
-Three.js dependencies, 3D route, or `visual-map.json` consumer. The stack below
-is guidance for a future approved 3D project; install and pin dependencies only
-when that project needs them.
+The shared renderer has an empty Studio shell and no production routes or
+`visual-map.json` consumer. Three.js/R3F dependencies remain pinned for future
+projects. Implement topic compositions under each project’s `renderer/` and
+declare scene IDs in project `render.json`; see [renderer contract](PROJECT_RENDERER.md).
 
 ## Recommended production stack
 
@@ -55,8 +55,8 @@ For this checkout, npm registry metadata for `@remotion/three@4.0.532` pins its
 `remotion` dependency and peer to `4.0.532`, with peers `three >=0.137.0`,
 `@react-three/fiber >=8.0.0`, and React/React DOM `>=16.8.0`. The current official
 Three template uses React 19, R3F `9.2.0`, and Three `0.178.0`; those versions
-were previously checked against registry metadata. They are examples, not
-installed dependencies. Add helpers such as Drei or postprocessing only when a
+were previously checked against registry metadata and are now pinned for the
+shared 3D toolchain. Add helpers such as Drei or postprocessing only when a
 concrete shot needs them.
 
 ## Why Remotion can support the format
@@ -91,8 +91,8 @@ a concern.
 
 Give the 3D world one explanatory job. Examples:
 
-- a deleted Pod falls out of a cluster, while the camera reveals the controller
-  chain that reconstructs it.
+- a queued job moves from its waiting position to an available worker, while
+  the camera reveals how that changes the queue.
 
 If removing depth, camera, or transformation would not weaken the explanation,
 the shot probably does not need 3D.

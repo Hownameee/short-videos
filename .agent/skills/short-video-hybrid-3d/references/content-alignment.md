@@ -16,6 +16,13 @@ For every scene, answer in domain language:
 5. Which narrated words trigger action, reveal, and settle?
 6. Which labels or evidence must stay in the stable DOM layer?
 
+A physical metaphor is valid when each important object/action has an explicit
+mapping to the claim and its assumptions and limitations are clear. Domain
+specificity does not require literal servers or a stock diagram: a fair coin
+can explain equal outcome probability, but cannot promise a fixed split in a
+small sample. Reject misleading mappings, not imagination itself. Use the owning
+skill's visual exploration and timed animatic checks before polishing the idea.
+
 Store the result in `projects/NNN-topic/visual-map.json` only after a renderer
 and preflight consume that artifact. The following is a proposed schema:
 
