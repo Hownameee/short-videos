@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "slug": "saturn-rings",
+    "title": "Saturn: The Rings Aren’t Solid",
+    "platform": "youtube_shorts",
+    "language": "en",
+    "width": 2160,
+    "height": 3840,
+    "fps": 60
+  },
+  "hook": {
+    "type": "reveal",
+    "text": "These rings look solid. But fly closer, and Saturn’s perfect circles become something stranger.",
+    "promise": "Reveal individual particles behind Saturn’s ring silhouette",
+    "durationRangeSec": {
+      "min": 4,
+      "max": 8
+    }
+  },
+  "captions": {
+    "mode": "word-highlight"
+  },
+  "audio": {
+    "voice": {
+      "provider": "kokoro",
+      "voice": "af_heart",
+      "langCode": "a",
+      "sampleRate": 24000,
+      "speed": 1
+    },
+    "music": {
+      "file": "assets/music/orbital-wonder.wav",
+      "volume": 0.19,
+      "fadeInSec": 0.3,
+      "fadeOutSec": 2
+    },
+    "sfx": false
+  },
+  "design": {
+    "visualThesis": "Distance turns a swarm of separate ice fragments into apparently solid rings.",
+    "mood": [
+      "vast",
+      "curious",
+      "luminous"
+    ],
+    "palette": {
+      "background": "#050912",
+      "surface": "#152537",
+      "text": "#f5f3ed",
+      "muted": "#9aaab9",
+      "accent": "#83e1ef"
+    },
+    "typography": {
+      "display": "Arial",
+      "body": "Arial"
+    },
+    "safeArea": {
+      "top": 280,
+      "right": 260,
+      "bottom": 600,
+      "left": 160
+    },
+    "motionGrammar": "Motivated push-in, match cut to particle scale, size reveal, pullback",
+    "assetLanguage": "Original procedural geometry; physically illustrative scale"
+  },
+  "scenes": [
+    {
+      "id": "illusion",
+      "purpose": "The rings aren’t solid.",
+      "durationRangeSec": {
+        "min": 5,
+        "max": 12
+      },
+      "narration": "These rings look solid. But fly closer, and Saturn’s perfect circles become something stranger.",
+      "onScreenText": [
+        "SATURN",
+        "The rings aren’t solid."
+      ],
+      "visualType": "hybrid-3d",
+      "visual": "Approach the ring plane",
+      "motion": {
+        "action": "Approach the ring plane",
+        "cue": "closer",
+        "settle": "A cut reveals separated fragments"
+      },
+      "assets": [],
+      "sourceIds": [
+        "claim-1",
+        "claim-2",
+        "claim-3"
+      ],
+      "sfx": [],
+      "transition": "match-cut",
+      "pronunciation": []
+    },
+    {
+      "id": "ice",
+      "purpose": "A swarm of ice.",
+      "durationRangeSec": {
+        "min": 5,
+        "max": 12
+      },
+      "narration": "Billions of separate pieces. Mostly ice, mixed with rock and dust. Each one follows its own path around Saturn.",
+      "onScreenText": [
+        "NOT A SOLID SURFACE",
+        "A swarm of ice."
+      ],
+      "visualType": "hybrid-3d",
+      "visual": "Track moving faceted ice in a flat field",
+      "motion": {
+        "action": "Track moving faceted ice in a flat field",
+        "cue": "pieces",
+        "settle": "Individual fragments remain visibly separate"
+      },
+      "assets": [],
+      "sourceIds": [
+        "claim-1",
+        "claim-2",
+        "claim-3"
+      ],
+      "sfx": [],
+      "transition": "match-cut",
+      "pronunciation": []
+    },
+    {
+      "id": "scale",
+      "purpose": "Distance hides the pieces.",
+      "durationRangeSec": {
+        "min": 5,
+        "max": 12
+      },
+      "narration": "Some are tiny grains. Others are as big as a house. From far away, all those pieces blend into bands.",
+      "onScreenText": [
+        "GRAINS → HOUSE-SIZED",
+        "Distance hides the pieces."
+      ],
+      "visualType": "hybrid-3d",
+      "visual": "Reveal small and large fragments then compress the field in perspective",
+      "motion": {
+        "action": "Reveal small and large fragments then compress the field in perspective",
+        "cue": "house",
+        "settle": "Different sizes share a ring plane"
+      },
+      "assets": [],
+      "sourceIds": [
+        "claim-1",
+        "claim-2",
+        "claim-3"
+      ],
+      "sfx": [],
+      "transition": "match-cut",
+      "pronunciation": []
+    },
+    {
+      "id": "payoff",
+      "purpose": "Countless moving pieces.",
+      "durationRangeSec": {
+        "min": 5,
+        "max": 12
+      },
+      "narration": "The rings even orbit at different speeds. So the next time you see Saturn, imagine countless icy worlds in motion.",
+      "onScreenText": [
+        "ONE PLANET.",
+        "Countless moving pieces."
+      ],
+      "visualType": "hybrid-3d",
+      "visual": "Show two highlighted orbital lanes and pull back to full Saturn",
+      "motion": {
+        "action": "Show two highlighted orbital lanes and pull back to full Saturn",
+        "cue": "speeds",
+        "settle": "Recognizable planet with distinct ring bands"
+      },
+      "assets": [],
+      "sourceIds": [
+        "claim-1",
+        "claim-2",
+        "claim-3"
+      ],
+      "sfx": [],
+      "transition": "match-cut",
+      "pronunciation": []
+    }
+  ],
+  "outro": {
+    "takeaway": "Saturn’s rings are separate orbiting particles.",
+    "cta": "Next time you see Saturn, imagine the individual pieces."
+  },
+  "scriptVersion": "sha256:effdc7a8e9877bce2027f4048b2bbcfff1beeffca8ccb1a14cfedb18be914869",
+  "approval": {
+    "status": "approved",
+    "approvedAt": "2026-10-27T01:59:32.277Z",
+    "approvedScriptVersion": "sha256:effdc7a8e9877bce2027f4048b2bbcfff1beeffca8ccb1a14cfedb18be914869"
+  }
+}

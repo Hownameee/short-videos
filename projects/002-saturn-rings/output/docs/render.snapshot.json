@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-27T02:10:12.710Z",
+  "runtime": {
+    "node": "v24.21.0",
+    "remotion": "4.0.532"
+  },
+  "checksums": {
+    "videoJson": "sha256:3db69ff75aba77550d28d5d40c41a830e3d0985669be88d7cdfa29f7439d4d61",
+    "rendererSrc": "sha256:2d10e8bf3334a58ed89e058bb57ea9a15ac9e41ff10665ab544e02e8bf7ca935",
+    "projectRenderer": "sha256:ef50e9d1e1998d2374c79977608ac1f9553592dd0174c0f33bc79af2458b1bdf",
+    "dependencyLockfile": "sha256:44be54ec73ad30e460d8622ad94e2f7103aef0e9db3e8bcc9f0ce7b82de42599",
+    "finalMp4": "sha256:84a018d6ec305f1ccb9a53e4788de3f6b298238bd80a38a9f68b87aeb8143157",
+    "renderInputs": "sha256:0c32a92d12f81f2bc7011b10f95b6d962c39c52b04a00c9101d64bc9e26408ab"
+  },
+  "inputs": {
+    "render.json": "sha256:7fcd2a4417bb116728fdffb28a82b4bcddd418e0c368514d262075be804d46f1",
+    "video.json": "sha256:3db69ff75aba77550d28d5d40c41a830e3d0985669be88d7cdfa29f7439d4d61",
+    "script.md": "sha256:75210e4a9c7d0669385d4ef4875cb7ffa232183a845f313f78f1d8b8d492fc9b",
+    "output/docs/voice-manifest.json": "sha256:34fd9635f9bce3534cd075cb97f81588836c9a98bdc56e68102c7aacdb982a06",
+    "output/docs/audio-timeline.json": "sha256:9e1c7e95842f0873a9b43122546b15025629491389965a239e83a8106af38b3c",
+    "renderer/source": "sha256:ef50e9d1e1998d2374c79977608ac1f9553592dd0174c0f33bc79af2458b1bdf",
+    "output/voice": "sha256:0f7609c20b1055cab8faedb41eadfed74a4f3f98d85439fa618fa97542eabbc8",
+    "assets": "sha256:9e2427d9260ff7952c0f358c5f7a1594b4425c9e22ce00107b73c89df1dc3585",
+    "renderer": "sha256:2d10e8bf3334a58ed89e058bb57ea9a15ac9e41ff10665ab544e02e8bf7ca935",
+    "lockfile": "sha256:44be54ec73ad30e460d8622ad94e2f7103aef0e9db3e8bcc9f0ce7b82de42599",
+    "workflow": "sha256:426e5a45d6efe9374bba8867e049f09b71f70f9aeb8bb44413db20ca0f699f66",
+    "runtimeFiles": {
+      "renderer/package.json": "sha256:e4bbc600d03c8f02c8f06ea82d4be079330da38c8f7f72b944c2422055ae83b7",
+      "renderer/remotion.config.ts": "sha256:cc4a98eac259354871dc7fbe2ae9f63d686e8a2f4fe5abbd5c309cb3a4860a94",
+      "renderer/tsconfig.json": "sha256:4ee0602e2d375d5742c007a47f41df0e640b5c3dea1a92e265f3e30d1473771c",
+      "tools/video-cli.mjs": "sha256:0b7e384fa847989a32f008a1495a838301529410dc0a70d290ca7493f8205584",
+      "tools/video-workflow.mjs": "sha256:097e1435f54587166cee4d810ac353109f2a4b89e876b5e783ca2d73d1c6f1de",
+      "tools/production-config.mjs": "sha256:668d16d88c55eaabdfb12a982a4ccd49b327cea199eaa98150d69cca7fe2762b",
+      "tools/caption-validation.mjs": "sha256:7bf339a2f14be20d0c0fbe4b880629c7da82822008ea2a5fa855eeb058eb86c8",
+      "tools/media-qc.mjs": "sha256:37b6120bb8a5fa31ed05ccbc029dc0f519a3228db8a2ee99d5475b4d5eb5be5c",
+      "tools/project-renderer.mjs": "sha256:30e42d4ea004f56cd8a0ab683bbc79f83836654a65534c635d38007370abbe66"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "state": "produced",
+  "updatedAt": "2026-10-27T02:10:12.714Z",
+  "versions": {
+    "request": "sha256:0cc4f8a35db90824c4009bca855efb9041eadda5abc42d43ffbf688eba7d1947",
+    "research": "sha256:64be72cdc553b15dad4ad8f22a571a635c91fa8afa2dffaeacdcbb7859c759c9",
+    "directions": "sha256:ef2ee7d6c95b50904db0c2cb20a9a0382b2286e34b8af90252c99dc7ad312388",
+    "direction": "sha256:085694ce72b8a99b52e1cf9846b0ab97c32cfb589d7725db60f2ed63d8fd3902",
+    "script": "sha256:effdc7a8e9877bce2027f4048b2bbcfff1beeffca8ccb1a14cfedb18be914869",
+    "render": "sha256:84a018d6ec305f1ccb9a53e4788de3f6b298238bd80a38a9f68b87aeb8143157"
+  },
+  "productionRequest": {
+    "kind": "final",
+    "requestedAt": "2026-10-27T02:07:32.559Z"
+  },
+  "outputs": {
+    "final": {
+      "path": "projects/002-saturn-rings/output/video/final.mp4",
+      "checksum": "sha256:84a018d6ec305f1ccb9a53e4788de3f6b298238bd80a38a9f68b87aeb8143157",
+      "createdAt": "2026-10-27T02:10:12.710Z"
+    },
+    "report": {
+      "path": "projects/002-saturn-rings/output/docs/report.json"
+    }
+  },
+  "lastError": null
+}

@@ -17,6 +17,10 @@ Before production, create `render.json` in the selected project:
 ```
 
 The entry must be a real file inside that project's `renderer/` directory.
+For native 3D, optionally add `"renderOptions": {"gl": "angle", "concurrency": 1}`
+to the manifest. `gl` accepts `angle` or `swangle`; concurrency accepts integers
+from 1 to 16. Omitted values retain Remotion defaults. These settings apply to
+the shared preview/final rendering API and are fingerprinted with the manifest.
 Register a Remotion root there using `registerRoot`, with a `Composition` whose
 ID matches the manifest. Implement topic scenes beside this entry. Import shared
 components via `../../../renderer/src/` from the entry directory; import React,

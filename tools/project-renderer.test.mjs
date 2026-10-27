@@ -18,6 +18,12 @@ test('project renderer manifest validates ownership and survives removal of anot
       await writeFile(path.join(dir, 'render.json'), JSON.stringify(manifest));
       assert.equal((await loadProjectRenderer(dir)).compositionId, 'ShortVideo');
     }
+    await writeFile(path.join(a, 'render.json'), JSON.stringify({...manifest, renderOptions:{gl:'angle', concurrency:1}}));
+    assert.deepEqual((await loadProjectRenderer(a)).renderOptions, {gl:'angle', concurrency:1});
+    for (const renderOptions of [null, [], {gl:'invalid'}, {concurrency:0}, {concurrency:1.5}, {concurrency:17}, {unknown:true}]) {
+      await writeFile(path.join(a, 'render.json'), JSON.stringify({...manifest, renderOptions}));
+      await assert.rejects(loadProjectRenderer(a), /Invalid renderOptions/);
+    }
     await writeFile(path.join(a, 'render.json'), JSON.stringify({...manifest, sceneIds:['hook','hook']}));
     await assert.rejects(loadProjectRenderer(a), /Invalid render.json/);
     await writeFile(path.join(a, 'render.json'), JSON.stringify({...manifest, entryPoint:'renderer/../../002-b/renderer/index.tsx'}));

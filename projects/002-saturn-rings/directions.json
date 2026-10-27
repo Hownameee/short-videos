@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "researchVersion": "sha256:64be72cdc553b15dad4ad8f22a571a635c91fa8afa2dffaeacdcbb7859c759c9",
+  "directions": [
+    {
+      "id": "inside",
+      "title": "The rings aren’t solid",
+      "tensionHook": "That smooth ring is an illusion of distance.",
+      "promise": "Travel from planet scale to separate particles.",
+      "payoff": "Pull back: separate ice fragments become a familiar ring.",
+      "audienceProblem": "Familiar silhouette hides the underlying structure",
+      "coreBeats": [
+        "Distant appearance",
+        "Close-up mechanism",
+        "Resolved reveal"
+      ],
+      "evidenceIds": [
+        "claim-1",
+        "claim-2",
+        "claim-3"
+      ],
+      "visualApproach": "Native procedural Three.js planet, annuli and faceted ice",
+      "musicMood": "Curiosity to wonder",
+      "durationRangeSec": {
+        "min": 30,
+        "max": 45
+      },
+      "risks": [
+        "Illustrative scale must be labeled"
+      ],
+      "hookScores": {
+        "clarity": 2,
+        "truth": 2,
+        "relevance": 2,
+        "payoff": 2
+      }
+    },
+    {
+      "id": "race",
+      "title": "An orbital racetrack",
+      "tensionHook": "Saturn’s rings do not move as one solid object.",
+      "promise": "Compare two orbital tracks.",
+      "payoff": "Separate moving lanes explain the ring system.",
+      "audienceProblem": "Familiar silhouette hides the underlying structure",
+      "coreBeats": [
+        "Distant appearance",
+        "Close-up mechanism",
+        "Resolved reveal"
+      ],
+      "evidenceIds": [
+        "claim-1",
+        "claim-2",
+        "claim-3"
+      ],
+      "visualApproach": "Native procedural Three.js planet, annuli and faceted ice",
+      "musicMood": "Curiosity to wonder",
+      "durationRangeSec": {
+        "min": 30,
+        "max": 45
+      },
+      "risks": [
+        "Illustrative scale must be labeled"
+      ],
+      "hookScores": {
+        "clarity": 2,
+        "truth": 2,
+        "relevance": 1,
+        "payoff": 2
+      }
+    }
+  ],
+  "recommendedDirectionId": "inside"
+}

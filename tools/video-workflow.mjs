@@ -752,10 +752,12 @@ export const renderWithRemotion = async ({
   const inputProps = {projectDir, videoJson: path.join(projectDir, 'video.json'), renderMode: kind,
     assetRoot, video, voiceManifest, audioTimeline};
   try {
-    const selected = await selectComposition({serveUrl, id: manifest.compositionId, inputProps});
+    const chromiumOptions = manifest.renderOptions?.gl ? {gl: manifest.renderOptions.gl} : undefined;
+    const selected = await selectComposition({serveUrl, id: manifest.compositionId, inputProps, chromiumOptions});
     await renderMedia({serveUrl, composition: selected, inputProps, outputLocation: output,
       codec: 'h264', imageFormat: 'jpeg', scale: kind === 'preview' ? 0.5 : 1,
-      crf: kind === 'preview' ? 28 : 18});
+      crf: kind === 'preview' ? 28 : 18,
+      chromiumOptions, concurrency: manifest.renderOptions?.concurrency});
   } finally { await rm(serveUrl, {recursive: true, force: true}); }
 };
 

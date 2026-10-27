@@ -16,6 +16,15 @@ export async function loadProjectRenderer(projectDir) {
       typeof manifest.entryPoint !== 'string' || !/^renderer\/.+\.[cm]?[jt]sx?$/.test(manifest.entryPoint)) {
     throw new Error('Invalid render.json: require schemaVersion 1, compositionId, unique sceneIds and renderer/ entryPoint.');
   }
+  if (manifest.renderOptions !== undefined) {
+    const options = manifest.renderOptions;
+    if (!options || typeof options !== 'object' || Array.isArray(options) ||
+        Object.keys(options).some(key => !['gl', 'concurrency'].includes(key)) ||
+        (options.gl !== undefined && !['angle', 'swangle'].includes(options.gl)) ||
+        (options.concurrency !== undefined && (!Number.isInteger(options.concurrency) || options.concurrency < 1 || options.concurrency > 16))) {
+      throw new Error('Invalid renderOptions: use gl angle/swangle and integer concurrency 1–16.');
+    }
+  }
   const root = await realpath(projectDir);
   const sourceRoot = await realpath(path.join(projectDir, 'renderer'));
   const entryPoint = await realpath(path.resolve(projectDir, manifest.entryPoint));
