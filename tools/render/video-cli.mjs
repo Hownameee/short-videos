@@ -26,7 +26,7 @@ import { checkRenderedAudio } from "./media-qc.mjs";
 
 const defaultWorkspaceRoot = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
-  "..",
+  "../..",
 );
 const workspaceRoot = path.resolve(
   process.env.SHORT_VIDEO_WORKSPACE_ROOT || defaultWorkspaceRoot,

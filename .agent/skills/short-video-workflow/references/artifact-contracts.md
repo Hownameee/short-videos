@@ -222,8 +222,8 @@ coordinates, use half these margins and scale the entire layout by 2.
 For a later transparent-presenter composite, `design.presenterOverlay` is an
 optional `{ "x": 790, "y": 1210, "width": 260, "height": 456 }` rectangle in
 1080×1920 logical coordinates. Keep it within that canvas. Each new renderer
-must reserve that rectangle for the presenter; the EchoMimic compositor reads
-the same placement.
+must reserve that rectangle for the presenter. Any future compositor must use
+the same placement; no mascot generation/compositing backend is currently bundled.
 
 The music path/gain are placeholders, not a ready asset or universal mix level.
 Select or generate the real asset, save its provenance, and measure the actual

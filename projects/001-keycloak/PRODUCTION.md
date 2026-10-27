@@ -27,8 +27,8 @@ The short omits state, nonce, refresh, discovery, error flows and full validatio
 Use Node 24.21.0, as selected by the repository documentation.
 
 ```sh
-.venv-kokoro/bin/python tools/kokoro/generate_audio.py --project projects/001-keycloak
-.venv-kokoro/bin/python tools/audio/assemble_voice.py --project projects/001-keycloak --pause 0.8
+.venv-kokoro/bin/python tools/audio-kokoro/generate_audio.py --project projects/001-keycloak
+.venv-kokoro/bin/python tools/audio-kokoro/assemble_voice.py --project projects/001-keycloak --pause 0.8
 .venv-kokoro/bin/python projects/001-keycloak/tools/score.py
 renderer/node_modules/.bin/tsc -p projects/001-keycloak/tsconfig.json
 npm run video -- preflight --project projects/001-keycloak

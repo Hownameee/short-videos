@@ -30,10 +30,10 @@ Catalog khởi đầu có **6 lựa chọn nhạc và 8 voice ID**. Trạng thá
 Chạy từ root, dùng Python 3 và `ffprobe` hiện có:
 
 ```console
-python3 tools/audio/library.py list
-python3 tools/audio/library.py list --tag tech
-python3 tools/audio/library.py fetch cipher deliberate-thought chill-wave
-python3 tools/audio/library.py fetch carefree monkeys-spinning-monkeys investigations
+python3 tools/audio-kokoro/library.py list
+python3 tools/audio-kokoro/library.py list --tag tech
+python3 tools/audio-kokoro/library.py fetch cipher deliberate-thought chill-wave
+python3 tools/audio-kokoro/library.py fetch carefree monkeys-spinning-monkeys investigations
 ```
 
 `fetch` chỉ hỗ trợ các URL Incompetech đã curate. File có checksum đúng sẽ được dùng lại, không tải lại. File bị thay đổi hoặc chưa được xác minh sẽ báo lỗi để tránh ghi đè. Mỗi file mới được `ffprobe` kiểm tra và ghi duration/checksum. Chạy một tiến trình cập nhật catalog mỗi lần.
@@ -41,9 +41,9 @@ python3 tools/audio/library.py fetch carefree monkeys-spinning-monkeys investiga
 Tạo hoặc dùng lại sample bằng môi trường Kokoro đã cài:
 
 ```console
-.venv-kokoro/bin/python tools/kokoro/voice_samples.py
-.venv-kokoro/bin/python tools/kokoro/voice_samples.py --voices am_michael af_bella
-python3 tools/audio/library.py index
+.venv-kokoro/bin/python tools/audio-kokoro/voice_samples.py
+.venv-kokoro/bin/python tools/audio-kokoro/voice_samples.py --voices am_michael af_bella
+python3 tools/audio-kokoro/library.py index
 ```
 
 Lần đầu một voice có thể cần tải weights. Sample dùng `speed=1.0`, 24 kHz, cùng text; không tự kéo dài/normalize timing vì cần so sánh delivery thực. Tốc độ thấp/cao hơn nên thử sau khi đã chọn giọng.

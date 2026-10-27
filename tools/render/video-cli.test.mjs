@@ -31,10 +31,10 @@ const makeWorkspace = async () => {
   const workspaceRoot = await mkdtemp(path.join(os.tmpdir(), "short-video-workflow-"));
   await mkdir(path.join(workspaceRoot, "renderer/src"), { recursive: true });
   await writeFile(path.join(workspaceRoot, "renderer/src/video-format.json"),
-    await readFile(new URL("../renderer/src/video-format.json", import.meta.url)));
-  await mkdir(path.join(workspaceRoot, "tools"));
+    await readFile(new URL("../../renderer/src/video-format.json", import.meta.url)));
+  await mkdir(path.join(workspaceRoot, "tools/render"), {recursive: true});
   for (const file of ["video-cli.mjs","video-workflow.mjs","production-config.mjs","caption-validation.mjs","media-qc.mjs","project-renderer.mjs"]) {
-    await writeFile(path.join(workspaceRoot,"tools",file), await readFile(new URL(`./${file}`,import.meta.url)));
+    await writeFile(path.join(workspaceRoot,"tools/render",file), await readFile(new URL(`./${file}`,import.meta.url)));
   }
   await writeFile(path.join(workspaceRoot,"renderer/remotion.config.ts"), "// fixture config\n");
   await writeFile(path.join(workspaceRoot,"renderer/tsconfig.json"), "{}\n");
@@ -343,7 +343,7 @@ test("preview detects changed assets, source and contact sheet", async () => {
   await mkdir(path.join(root, "projects/999-unrelated/renderer"), {recursive:true});
   await writeFile(path.join(root, "projects/999-unrelated/renderer/index.tsx"), "// unrelated scene");
   assert.equal((await renderFingerprint(root,projectDir)).checksum, fingerprint.checksum);
-  await writeFile(path.join(root,"tools/example.test.mjs"),"// Does not affect rendering\n");
+  await writeFile(path.join(root,"tools/render/example.test.mjs"),"// Does not affect rendering\n");
   assert.equal((await renderFingerprint(root,projectDir)).checksum, fingerprint.checksum);
   await writeFile(path.join(root,"renderer/remotion.config.ts"),"// Changed render config\n");
   await assert.rejects(requireCurrentPreview(root,projectDir,await renderFingerprint(root,projectDir)), /stale/);

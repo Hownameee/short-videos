@@ -7,7 +7,7 @@ import os
 from datetime import datetime, timezone
 from pathlib import Path
 
-from generate_audio import KPipeline, sha256_bytes, synthesize_scene
+from generate_audio import sha256_bytes, synthesize_scene
 
 ROOT = Path(__file__).resolve().parents[2]
 LIBRARY = ROOT / "audio-library"
@@ -35,8 +35,10 @@ def main():
             raise RuntimeError(f"Modified sample/text: {voice}; inspect before replacing")
         code = entry["langCode"]
         if code not in pipelines:
+            from kokoro import KPipeline
+
             pipelines[code] = KPipeline(lang_code=code, repo_id="hexgrad/Kokoro-82M")
-        duration = synthesize_scene(pipelines[code], text, output, voice=voice, speed=1.0, sample_rate=24000)
+        duration, _, _ = synthesize_scene(pipelines[code], text, output, voice=voice, speed=1.0, sample_rate=24000)
         entry.update(durationSec=duration, checksum=sha256_bytes(output.read_bytes()),
                      textChecksum=text_checksum, text=text, speed=1.0, sampleRate=24000,
                      generatedAt=datetime.now(timezone.utc).isoformat())

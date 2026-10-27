@@ -165,7 +165,7 @@ media, truyền video/voice manifest vào renderer và chuẩn hóa audio trư�
 Renderer nhận video config đã resolve với production override và voice manifest.
 Storyboard override chưa được hỗ trợ và bị chặn. Renderer hiện là khung Studio trống, giữ component karaoke dùng chung.
 Mỗi project sở hữu `renderer/` và `render.json` (entry point, composition ID, scene IDs); không đăng ký topic trong renderer dùng chung.
-`tools/kokoro/generate_audio.py` tạo WAV, word timestamps và phrase captions theo
+`tools/audio-kokoro/generate_audio.py` tạo WAV, word timestamps và phrase captions theo
 scene nhưng chưa được `npm run video` gọi tự động. Render preflight chặn karaoke
 thiếu timestamp hoặc caption sai nội dung. Với chủ đề mới, agent vẫn cần triển
 khai visual component/scene mapping và chuyển động phù hợp.

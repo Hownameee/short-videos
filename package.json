@@ -7,7 +7,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "video": "node tools/video-cli.mjs",
-    "test:video": "node --test tools/*.test.mjs"
+    "video": "node tools/render/video-cli.mjs",
+    "test:video": "node --test tools/render/*.test.mjs"
   }
 }

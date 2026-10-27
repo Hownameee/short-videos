@@ -78,7 +78,7 @@ def main() -> None:
 
     manifest = {
         "schemaVersion": 1,
-        "generator": "tools/audio/generate_soundtrack.py",
+        "generator": "tools/audio-kokoro/generate_soundtrack.py",
         "license": "project-generated",
         "music": {"file": str(music.relative_to(project)), "checksum": sha256(music)},
         "sfx": [

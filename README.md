@@ -26,9 +26,7 @@ publish videos.
   human review.
 
 Generated output folders, render logs, local environments, and raw benchmark
-workspaces are excluded from Git. Prepared remote job inputs under each project's
-`remote/longcat/` and `remote/longcat-vi/` folders can be versioned for
-clone-and-run GPU jobs.
+workspaces are excluded from Git.
 No example project or generated media is bundled. New projects own their scripts,
 asset provenance, manifests, and renderer checksums.
 
@@ -60,18 +58,9 @@ The shared generator expects `.venv-kokoro/bin/python` in the commands below.
 Initial model downloads require network access; subsequent generation can reuse
 the local model cache.
 
-For a reusable talking presenter, follow the [EchoMimic setup](tools/mascot-echomimic/README.md).
-It uses `.venv-mascot` on Apple Silicon macOS (MLX) or Linux/WSL2 with NVIDIA
-CUDA (official PyTorch backend), plus a 384×672 presenter image. The full-WAV flow
-generates talking video in chunks, mattes it with MatAnyone2, and uses FFmpeg
-to overlay it on an existing render while keeping that render's audio. The
-current presenter image is in `assets/presenters/`. This optional
-path is separate from the default narration and Remotion workflow.
-
-For a rented RTX 3090 Ti, use the [remote LongCat setup](tools/mascot-longcat/README.md).
-It prepares a small Git-trackable full-WAV job locally, overlaps remote package
-and model downloads, generates the mascot in one full-audio invocation, and
-returns the MP4 plus diagnostics for local background removal and compositing.
+Mascot tooling belongs in [tools/mascot/](tools/mascot/README.md). No mascot
+generation backend is currently included. Reference portraits remain in
+`assets/presenters/`; narration and rendering work independently of mascot tools.
 
 Start a new project:
 
@@ -96,7 +85,7 @@ Once a project's script is approved, its composition is implemented, and its
 music/SFX assets are prepared, replace `projects/NNN-topic` below with its path:
 
 ```bash
-.venv-kokoro/bin/python tools/kokoro/generate_audio.py --project projects/NNN-topic
+.venv-kokoro/bin/python tools/audio-kokoro/generate_audio.py --project projects/NNN-topic
 npm run video -- preflight --project projects/NNN-topic
 npm run video -- render --project projects/NNN-topic --preview
 # Review the preview, including listening and visual checks, before final export.
@@ -147,7 +136,9 @@ implemented; change the relevant composition for visual revisions.
 | `.agent/skills/` | First-party workflow, visual-design, and narration skills |
 | `projects/` | Per-video research, scripts, configuration, provenance, and outputs |
 | `renderer/` | Shared Remotion application and npm lockfile |
-| `tools/` | Workflow CLI, QC, configuration validation, tests, and audio generators |
+| `tools/audio-kokoro/` | Narration, caption timing, voice assembly, music, audio library, and Python tests |
+| `tools/render/` | Workflow CLI, renderer integration, QC, validation, and JavaScript tests |
+| `tools/mascot/` | Reserved home for mascot tools; no active backend |
 | `audio-library/` | Curated catalog, attribution records, and audition guides; audio files are local |
 | `docs/` | Setup, production defaults, workflow design, and benchmark summary |
 
@@ -166,7 +157,7 @@ snapshot. Review version changes before replacing the bundled packages.
 ```bash
 npm run test:video
 npm --prefix renderer run lint
-.venv-kokoro/bin/python -m unittest discover -s tools/kokoro -p 'test_*.py' -v
+.venv-kokoro/bin/python -m unittest discover -s tools/audio-kokoro -p 'test_*.py' -v
 ```
 
 Edit shared implementation in `tools/` and `renderer/src/`. Project-specific scenes and entry points belong in each project’s `renderer/`. Follow [AGENTS.md](AGENTS.md), keep changes

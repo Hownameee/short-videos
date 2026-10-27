@@ -57,14 +57,3 @@ Thumbs.db
 /audio-library/.catalog.lock
 
 research/
-
-# Shared EchoMimic weights and generated previews
-/tools/mascot-echomimic/models/
-/tools/mascot-echomimic/output/
-/tools/mascot-echomimic/source/
-/tools/mascot-echomimic/source-mlx/
-/tools/mascot-echomimic/source-cuda/
-/tools/mascot-echomimic/matanyone2-source/
-
-# Remote LongCat runtime, model weights, package caches and paid-session logs
-/tools/mascot-longcat/.runtime/

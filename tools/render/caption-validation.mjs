@@ -12,7 +12,7 @@ export const validateVoiceCaptions = (video, manifest) => {
     const voice = manifest.scenes[index];
     const fail = (reason) => {
       throw new Error(
-        `${scene.id}: ${reason} Regenerate word timestamps with tools/kokoro/generate_audio.py.`,
+        `${scene.id}: ${reason} Regenerate word timestamps with tools/audio-kokoro/generate_audio.py.`,
       );
     };
     if (voice.id !== scene.id)

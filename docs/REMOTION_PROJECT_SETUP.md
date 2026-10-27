@@ -32,7 +32,7 @@ npm run video -- script --project projects/NNN-topic --direction 1
 npm run video -- script --project projects/NNN-topic --draft
 npm run video -- script --project projects/NNN-topic --approve
 # On a production request:
-.venv-kokoro/bin/python tools/kokoro/generate_audio.py --project projects/NNN-topic
+.venv-kokoro/bin/python tools/audio-kokoro/generate_audio.py --project projects/NNN-topic
 npm run video -- preflight --project projects/NNN-topic
 npm run video -- render --project projects/NNN-topic --preview
 npm run video -- render --project projects/NNN-topic --final

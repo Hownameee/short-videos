@@ -10,7 +10,7 @@ Use approved text and the shared generator; do not copy a project-specific TTS
 script or replace predicted timestamps with estimated sentence timing.
 
 ```bash
-.venv-kokoro/bin/python tools/kokoro/generate_audio.py --project projects/NNN-topic
+.venv-kokoro/bin/python tools/audio-kokoro/generate_audio.py --project projects/NNN-topic
 ```
 
 The helper supports matching American/British English voices at 24 kHz. Read

@@ -6,13 +6,13 @@ are not automated. Read this file for code changes, not every production task.
 
 | Responsibility | Source |
 | --- | --- |
-| Commands and render orchestration | tools/video-cli.mjs |
-| State, approval, media staging, fingerprints and atomic finalization | tools/video-workflow.mjs |
-| Production overlay, supported config and timeline | tools/production-config.mjs |
-| Caption order, coverage and timing validation | tools/caption-validation.mjs |
-| Full decode and audio measurements | tools/media-qc.mjs |
-| Selective narration and transactional voice replacement | tools/kokoro/generate_audio.py |
-| Caption grouping | tools/kokoro/captions.py |
+| Commands and render orchestration | tools/render/video-cli.mjs |
+| State, approval, media staging, fingerprints and atomic finalization | tools/render/video-workflow.mjs |
+| Production overlay, supported config and timeline | tools/render/production-config.mjs |
+| Caption order, coverage and timing validation | tools/render/caption-validation.mjs |
+| Full decode and audio measurements | tools/render/media-qc.mjs |
+| Selective narration and transactional voice replacement | tools/audio-kokoro/generate_audio.py |
+| Caption grouping | tools/audio-kokoro/captions.py |
 | Topic composition and scenes | projects/NNN-topic/renderer/ + render.json |
 | Reusable music and caption components | renderer/src/ |
 | Shared new-video format (2160×3840, 60 fps) | renderer/src/video-format.json |
@@ -65,6 +65,6 @@ own artifact shapes; [defaults](VIDEO_PRODUCTION_DEFAULTS.md) own editorial poli
 
 ```bash
 npm run test:video
-.venv-kokoro/bin/python -m unittest discover -s tools/kokoro -p 'test_*.py' -v
+.venv-kokoro/bin/python -m unittest discover -s tools/audio-kokoro -p 'test_*.py' -v
 npm --prefix renderer run lint
 ```

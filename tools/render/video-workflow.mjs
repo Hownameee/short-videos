@@ -20,7 +20,7 @@ import { loadProjectRenderer, bundleProject } from "./project-renderer.mjs";
 import { measureAudio } from "./media-qc.mjs";
 
 const defaultVideoFormat = JSON.parse(await readFile(
-  new URL("../renderer/src/video-format.json", import.meta.url), "utf8",
+  new URL("../../renderer/src/video-format.json", import.meta.url), "utf8",
 ));
 
 export const STATES = Object.freeze({
@@ -613,8 +613,8 @@ export const renderFingerprint = async (workspaceRoot, projectDir) => {
   entries.lockfile = await fileChecksum(path.join(workspaceRoot, "renderer/package-lock.json"));
   const runtimeFiles = [
     "renderer/package.json", "renderer/remotion.config.ts", "renderer/tsconfig.json",
-    "tools/video-cli.mjs", "tools/video-workflow.mjs", "tools/production-config.mjs",
-    "tools/caption-validation.mjs", "tools/media-qc.mjs", "tools/project-renderer.mjs",
+    "tools/render/video-cli.mjs", "tools/render/video-workflow.mjs", "tools/render/production-config.mjs",
+    "tools/render/caption-validation.mjs", "tools/render/media-qc.mjs", "tools/render/project-renderer.mjs",
   ];
   const runtime = {};
   for (const name of runtimeFiles) runtime[name] = await fileChecksum(path.join(workspaceRoot, name));

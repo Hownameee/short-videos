@@ -1,4 +1,4 @@
-import {bundleProject} from '../../tools/project-renderer.mjs';
+import {bundleProject} from '../../tools/render/project-renderer.mjs';
 import {readFile,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 const root=process.cwd();const projectDir=path.join(root,'projects/002-saturn-rings');
