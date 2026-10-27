@@ -1,0 +1,22 @@
+{
+  "audioSource": "ice.wav",
+  "audioSourceSha256": "1104cf747b129c29aee45ad5eccf2a7bd7a33af4efd501ceaaa3b830387f0131",
+  "sourceDurationSec": 7.975,
+  "operation": "resample mono PCM16 16kHz; pad silence to exactly 10 seconds",
+  "presenter": {
+    "path": "assets/presenters/presenter.png",
+    "sha256": "92aa2cdb2494c9a68f4841f0c3151be88213525600d9030a4d1867825ada732a"
+  },
+  "audio": {
+    "path": "projects/002-saturn-rings/remote/wan-s2v/audio.wav",
+    "sha256": "9df7762213e900cf3856aab1fa5b04d8650f70dff13e554055db396e89ca572c"
+  },
+  "sourceScene": "ice",
+  "text": "Billions of separate pieces. Mostly ice, mixed with rock and dust. Each one follows its own path around Saturn.",
+  "sourceRangeSec": [
+    0,
+    7.975
+  ],
+  "timingEvidence": "Complete existing Kokoro scene; no speech cut. Padded trailing silence.",
+  "listeningReview": "Not performed during remote preparation"
+}

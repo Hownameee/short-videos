@@ -58,8 +58,10 @@ The shared generator expects `.venv-kokoro/bin/python` in the commands below.
 Initial model downloads require network access; subsequent generation can reuse
 the local model cache.
 
-Mascot tooling belongs in [tools/mascot/](tools/mascot/README.md). No mascot
-generation backend is currently included. Reference portraits remain in
+Mascot tooling belongs in [tools/mascot/](tools/mascot/README.md). The
+[Wan2.2-S2V rental workflow](tools/mascot/wan-s2v/README.md) prepares a portable
+10-second job with SSH key reuse, parallel setup and result-only retrieval.
+Actual RTX 3090 inference remains to be verified. Reference portraits stay in
 `assets/presenters/`; narration and rendering work independently of mascot tools.
 
 Start a new project:
@@ -138,7 +140,7 @@ implemented; change the relevant composition for visual revisions.
 | `renderer/` | Shared Remotion application and npm lockfile |
 | `tools/audio-kokoro/` | Narration, caption timing, voice assembly, music, audio library, and Python tests |
 | `tools/render/` | Workflow CLI, renderer integration, QC, validation, and JavaScript tests |
-| `tools/mascot/` | Reserved home for mascot tools; no active backend |
+| `tools/mascot/` | Wan S2V remote generation and shared SSH/result transport |
 | `audio-library/` | Curated catalog, attribution records, and audition guides; audio files are local |
 | `docs/` | Setup, production defaults, workflow design, and benchmark summary |
 

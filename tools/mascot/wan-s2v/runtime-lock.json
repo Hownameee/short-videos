@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "backend": {
+    "repository": "https://github.com/Comfy-Org/ComfyUI.git",
+    "revision": "b8730510db30c8858e1e5d8e126ef19eac395560",
+    "tag": "v0.3.60",
+    "license": "GPL-3.0"
+  },
+  "python": "3.11.14",
+  "torch": "2.6.0+cu124",
+  "modelLicense": "Apache-2.0",
+  "models": [
+    {
+      "path": "diffusion_models/wan2.2_s2v_14B_fp8_scaled.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/ee6f4a40737a995bf5818954cfce6d59443b0f04/split_files/diffusion_models/wan2.2_s2v_14B_fp8_scaled.safetensors",
+      "bytes": 16394832474,
+      "sha256": "140e75af5534ac3d91e710d9df756f7032addd64b341ba2c1c70e3e6da9aa216"
+    },
+    {
+      "path": "text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/ee6f4a40737a995bf5818954cfce6d59443b0f04/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "bytes": 6735906897,
+      "sha256": "c3355d30191f1f066b26d93fba017ae9809dce6c627dda5f6a66eaa651204f68"
+    },
+    {
+      "path": "audio_encoders/wav2vec2_large_english_fp16.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/ee6f4a40737a995bf5818954cfce6d59443b0f04/split_files/audio_encoders/wav2vec2_large_english_fp16.safetensors",
+      "bytes": 630997322,
+      "sha256": "f0017a43ea57ef6b3d4866be607844bbd8cada6d30966f7d70044ed0d63d3f9e"
+    },
+    {
+      "path": "vae/wan_2.1_vae.safetensors",
+      "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/ee6f4a40737a995bf5818954cfce6d59443b0f04/split_files/vae/wan_2.1_vae.safetensors",
+      "bytes": 253815318,
+      "sha256": "2fc39d31359a4b0a64f55876d8ff7fa8d780956ae2cb13463b0223e15148976b"
+    }
+  ],
+  "totalModelBytes": 24015552011,
+  "minFreeDiskGiB": 60,
+  "minHostRamGiB": 58,
+  "minVramMiB": 23000,
+  "validation": "Prepared locally; CUDA inference on RTX 3090 not yet performed."
+}

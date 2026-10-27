@@ -57,3 +57,7 @@ Thumbs.db
 /audio-library/.catalog.lock
 
 research/
+
+# Mascot model environments, downloads, SSH host records and control sockets
+/tools/mascot/.runtime/
+/tools/mascot/wan-s2v/.runtime/

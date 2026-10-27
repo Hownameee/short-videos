@@ -1,11 +1,16 @@
 # Mascot tools
 
-This directory is reserved for shared mascot generation and compositing tools.
-The previous LongCat and EchoMimic implementations, setup scripts, vendor
-checkouts, models, and local caches under their tool directories were removed.
-No replacement backend is currently included.
+Shared mascot tools live here. Project-specific input jobs and audio belong in
+`projects/NNN-topic/remote/`; results belong in that project's `output/mascot/`.
+Reusable portraits stay in `assets/presenters/`.
 
-Keep future shared tools here, with explicit project and presenter inputs.
-Reusable portraits belong in `assets/presenters/`; project-specific assets and
-outputs belong in `projects/NNN-topic/`. The audio and render workflows do not
-depend on this directory.
+- [wan-s2v](wan-s2v/README.md): prepared Wan2.2-S2V FP8/CPU-offload workflow for
+  a rented RTX 3090, including pinned dependencies/models, parallel setup and
+  result validation. Actual 3090 inference is pending.
+- `remote/ssh.py`: install/reuse the existing ckey public key, then run commands
+  over verified, multiplexed SSH without forwarding the private key.
+- `remote/fetch.py`: resume a result-only transfer and verify it locally.
+
+See the [Wan S2V runbook](wan-s2v/README.md) for SSH bootstrap, launch, progress,
+fetch and recovery. Narration and renderer workflows remain independent.
+The former LongCat and EchoMimic tools are not included.

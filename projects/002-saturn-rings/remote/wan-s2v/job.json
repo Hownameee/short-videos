@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "model": "wan2.2-s2v-14b",
+  "width": 480,
+  "height": 832,
+  "fps": 16,
+  "durationSec": 10,
+  "chunkFrames": 81,
+  "steps": 20,
+  "cfg": 6.0,
+  "shift": 8.0,
+  "seed": 270022,
+  "prompt": "The reference presenter speaks directly to the camera with natural lip movements, subtle facial expressions and gentle head movements. Preserve the face, hairstyle, clothing and background. Static camera, stable framing, calm educational narration.",
+  "negativePrompt": "subtitles, text, watermark, camera movement, flicker, distorted face, distorted mouth, extra limbs, rapid hand movement, blurry, low quality",
+  "audio": {
+    "path": "projects/002-saturn-rings/remote/wan-s2v/audio.wav",
+    "sha256": "9df7762213e900cf3856aab1fa5b04d8650f70dff13e554055db396e89ca572c"
+  },
+  "presenter": {
+    "path": "assets/presenters/presenter.png",
+    "sha256": "92aa2cdb2494c9a68f4841f0c3151be88213525600d9030a4d1867825ada732a"
+  }
+}
