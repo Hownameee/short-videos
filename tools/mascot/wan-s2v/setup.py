@@ -27,8 +27,9 @@ def preflight(job):
     if memory < lock['minHostRamGiB'] * 1024**3:
         raise RuntimeError('Host RAM below 58 GiB')
     if shutil.disk_usage(TOOLS).free < lock['minFreeDiskGiB'] * 1024**3:
-        # Cached weights reduce the additional space needed on resumed jobs.
-        cached = sum(p.stat().st_size for p in (RUNTIME / 'ComfyUI/models').rglob('*.safetensors'))
+        # Existing runtime files (including partial downloads and dependencies)
+        # already consume part of the initial 60 GiB budget.
+        cached = sum(p.stat().st_size for p in RUNTIME.rglob('*') if p.is_file() and not p.is_symlink())
         if shutil.disk_usage(TOOLS).free + cached < lock['minFreeDiskGiB'] * 1024**3:
             raise RuntimeError('Need 60 GiB free including already cached weights')
     gpu = subprocess.check_output(['nvidia-smi', '--query-gpu=name,memory.total,driver_version', '--format=csv,noheader,nounits'], text=True)

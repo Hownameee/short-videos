@@ -27,7 +27,7 @@ to target 24 GB. It does not guarantee fit or a particular render time.
   Python 3.11.14 and PyTorch 2.6.0+cu124. No custom nodes or LoRA downloads.
 - Four model files: **24,015,552,011 bytes / 22.37 GiB**. Allow at least 60 GiB
   free disk for weights, wheels, environment and intermediates. Preflight counts
-  cached complete weights toward this budget on a resumed setup.
+  existing runtime files, including partial downloads and dependencies, toward this budget on a resumed setup.
 
 The committed [Saturn job](../../../projects/002-saturn-rings/remote/wan-s2v/job.json)
 uses the complete existing `ice` narration scene (7.975 seconds), padded with
@@ -90,7 +90,7 @@ python3 tools/mascot/remote/ssh.py exec --host GPU_HOST --port GPU_PORT -- bash 
   'cd /root/short-videos && mkdir -p tools/mascot/wan-s2v/.runtime && nohup bash tools/mascot/wan-s2v/launch.sh projects/002-saturn-rings/remote/wan-s2v/job.json > tools/mascot/wan-s2v/.runtime/launch.log 2>&1 < /dev/null &'
 ```
 
-The launcher requires host `python3` and an operational NVIDIA driver. As root
+The launcher requires host `python3`, `flock` (util-linux), and an operational NVIDIA driver. As root
 on Ubuntu it installs missing git/curl/FFmpeg/rsync/util-linux packages through
 apt. A non-root account must have those packages provisioned beforehand.
 It then bootstraps checksum-pinned uv 0.9.5 and managed Python 3.11.14 inside the
@@ -119,13 +119,29 @@ python3 tools/mascot/remote/ssh.py exec --host GPU_HOST --port GPU_PORT -- \
   cat /root/short-videos/tools/mascot/wan-s2v/.runtime/exit-code
 ```
 
-`running` means active; `0` means success; any other numeric exit code means
+`starting` means prerequisite setup; `running` means runtime setup or inference; `0` means success; any other numeric exit code means
 failure. Setup logs are `.runtime/dependencies.log` and `download.log`.
 Inference diagnostics are `.runtime/runs/TIMESTAMP/{comfy.log,gpu.csv,...}`.
 Successful output is `projects/002-saturn-rings/output/mascot/wan-s2v/` with
 `mascot.mp4`, `run.json`, workflow and logs. It is published only after checking
 frame count, dimensions, FPS, audio/video duration and a full FFmpeg decode.
 Existing successful output is never silently overwritten.
+
+## Track elapsed time and ETA from the local machine
+
+```bash
+python3 tools/mascot/remote/status.py --host GPU_HOST --port GPU_PORT --watch
+```
+
+Refreshes every 15 seconds; Ctrl+C stops monitoring without stopping generation.
+Shows elapsed worker time, setup/model verification progress, download speed and
+ETA after two snapshots, GPU memory/utilization, inference elapsed time and
+sampling chunk/step. Sampling ETA extrapolates logged seconds per step across
+the two 20-step chunks; it excludes model loading, transitions, VAE decoding,
+encoding and transfer. Until sampling starts, inference ETA is unknown.
+Add `--hourly-rate NUMBER` to estimate cost since worker start in the currency
+of your supplied rate. This excludes rental time before worker launch.
+The monitor reads logs over SSH and does not queue or restart GPU work.
 
 ## 4. Fetch only the result
 
